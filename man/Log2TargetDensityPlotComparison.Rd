@@ -9,7 +9,7 @@ Log2TargetDensityPlotComparison(inputted.data, col.name.to.log)
 \arguments{
 \item{inputted.data}{A dataframe.}
 
-\item{col.name.to.log}{Name of column to do log transformation on. Column should be continuous.}
+\item{col.name.to.log}{Name of column to do log transformation on. Column should be numerical continuous.}
 }
 \value{
 No object is returned. A plot will be made.

@@ -540,14 +540,14 @@ AddColBinnedToBinary <- function(inputted.data, col.name.to.bin, name.of.new.col
 #'
 LookAtPCFeatureLoadings <- function(pca.results, pc.to.look.at) {
 
-  dev.new()
+  grDevices::dev.new()
   pc.to.grab.and.look <- pc.to.look.at
   loadings <- pca.results[[2]]
   lookie <- loadings[,pc.to.grab.and.look]
-  par(cex.axis=0.8, mar=c(15, 5, 5, 2))
-  barplot(rev(sort(lookie)),las=2,ylab="Loading",main=paste(c("Feature loadings for PC ",pc.to.grab.and.look),collapse="",sep=""))
-  abline(h=0)
-  box()
+  graphics::par(cex.axis=0.8, mar=c(15, 5, 5, 2))
+  graphics::barplot(rev(sort(lookie)),las=2,ylab="Loading",main=paste(c("Feature loadings for PC ",pc.to.grab.and.look),collapse="",sep=""))
+  graphics::abline(h=0)
+  graphics::box()
 
 }
 
@@ -628,17 +628,17 @@ RemoveRowsBasedOnCol <- function(inputted.data, columns.to.look.at, val.to.remov
 #'
 generate.descriptive.plots <- function(inputted.data, overall.plot.layout, plot.type, plot.features, plot.name){
 
-  dev.new()
-  par(mfrow = overall.plot.layout)
+  grDevices::dev.new()
+  graphics::par(mfrow = overall.plot.layout)
   for(index in 1:length(plot.type))
   {
 
     if(plot.type[[index]] == "boxplot")
     {
-      boxplot(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
+      graphics::boxplot(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
     }else if(plot.type[[index]] == "histogram")
     {
-      hist(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
+      graphics::hist(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
     }
     else
     {
@@ -671,17 +671,17 @@ generate.descriptive.plots <- function(inputted.data, overall.plot.layout, plot.
 generate.descriptive.plots.save.pdf <- function(inputted.data, overall.plot.layout, plot.type,
                                                 plot.features, plot.name, width = 5, height = 8){
 
-  dev.new()
-  par(mfrow = overall.plot.layout)
+  grDevices::dev.new()
+  graphics::par(mfrow = overall.plot.layout)
   for(index in 1:length(plot.type))
   {
 
     if(plot.type[[index]] == "boxplot")
     {
-      boxplot(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
+      graphics::boxplot(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
     }else if(plot.type[[index]] == "histogram")
     {
-      hist(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
+      graphics::hist(inputted.data[,plot.features[[index]]], main=c(plot.features[[index]],plot.name))
     }
     else
     {
@@ -690,7 +690,7 @@ generate.descriptive.plots.save.pdf <- function(inputted.data, overall.plot.layo
   }
 
   plot.name <- paste(plot.name, ".pdf")
-  dev.copy2pdf(file=plot.name, width = width, height = height)
+  grDevices::dev.copy2pdf(file=plot.name, width = width, height = height)
 
 }
 
@@ -725,7 +725,7 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
   {
     #Do Pearson
     test.type <- "Pearson"
-    temp2 <- cor.test(temp0,temp1,method="pearson",na.rm=T)
+    temp2 <- stats::cor.test(temp0,temp1,method="pearson",na.rm=T)
     temp3 <- temp2$estimate
     p.value.captured <- temp2$p.value
 
@@ -733,7 +733,7 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
   {
     #Do Spearman
     test.type <- "Spearman"
-    temp2 <- cor.test(temp0,temp1,method="spearman",na.rm=T)
+    temp2 <- stats::cor.test(temp0,temp1,method="spearman",na.rm=T)
     temp3 <- temp2$estimate #Rho is the test statistic for Spearman method.
     p.value.captured <- temp2$p.value
 
@@ -742,15 +742,15 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
     #Do ANOVA
     test.type <- "ANOVA"
     temp2 <- data.frame(temp0=temp0,temp1=factor(temp1))
-    temp3 <- aov(temp0 ~ temp1, data=temp2,na.rm=T)
-    temp4 <- Anova(temp3)
+    temp3 <- stats::aov(temp0 ~ temp1, data=temp2,na.rm=T)
+    temp4 <- car::Anova(temp3)
     p.value.captured <- temp4$P[1]
 
   }else if((data1.type == "ordinal") && (data2.type == "continuous"))
   {
     #Do Spearman. #1.21.21 update: Polyserial could be better.
     test.type <- "Spearman"
-    temp2 <- cor.test(temp0,temp1,method="spearman",na.rm=T)
+    temp2 <- stats::cor.test(temp0,temp1,method="spearman",na.rm=T)
     temp3 <- temp2$estimate #Rho is the test statistic for Spearman method.
     p.value.captured <- temp2$p.value
 
@@ -758,7 +758,7 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
   {
     #Do Spearman.
     test.type <- "Spearman"
-    temp2 <- cor.test(temp0,temp1,method="spearman",na.rm=T)
+    temp2 <- stats::cor.test(temp0,temp1,method="spearman",na.rm=T)
     temp3 <- temp2$estimate #Rho is the test statistic for Spearman method.
     p.value.captured <- temp2$p.value
 
@@ -772,8 +772,8 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
     #Do ANOVA
     test.type <- "ANOVA"
     temp2 <- data.frame(temp0=factor(temp0),temp1=temp1)
-    temp3 <- aov(temp1 ~ temp0, data=temp2,na.rm=T)
-    temp4 <- Anova(temp3)
+    temp3 <- stats::aov(temp1 ~ temp0, data=temp2,na.rm=T)
+    temp4 <- car::Anova(temp3)
     p.value.captured <- temp4$P[1]
 
   }else if((data1.type == "categorical") && (data2.type == "ordinal"))
@@ -785,7 +785,7 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
   {
     test.type <- "Chi-Square"
     tbl <- table(data1, data2)
-    chi <- chisq.test(tbl)
+    chi <- stats::chisq.test(tbl)
     p.value.captured <- chi$p.value
 
   }
@@ -869,7 +869,7 @@ CorAssoTestMultipleWithErrorHandling <- function(data.vectors1, variable.types1,
 
   }
 
-  write.table(table.to.output, table.name, sep="\t")
+  utils::write.table(table.to.output, table.name, sep="\t")
 
 
 }
@@ -946,7 +946,7 @@ RecodeIdentifier <- function(input.data, name.of.identifier, file.name){
   names(recoded_data)[names(recoded_data) == 'vector_recoded123'] <- name.of.identifier
 
   #Write the new dataframe to a new file
-  write.table(recoded_data, file.name, append = FALSE, sep = "\t", dec = ".",
+  utils::write.table(recoded_data, file.name, append = FALSE, sep = "\t", dec = ".",
               row.names = FALSE, col.names = TRUE)
 
   return(recoded_data)
@@ -966,7 +966,7 @@ RecodeIdentifier <- function(input.data, name.of.identifier, file.name){
 captureSessionInfo <- function(){
 
   sink("my_session_info.txt")
-  print(sessionInfo())
+  print(utils::sessionInfo())
   sink()
   #closeAllConnections()
 
@@ -1008,12 +1008,12 @@ describeNumericalColumns <- function(input.data, column.names.to.use, file.name 
     #}
 
     #Use shapiro test for normality. Note that small sample sizes don't work well for this test.
-    shapiro.result.for.col <- shapiro.test(column.to.look.at)
+    shapiro.result.for.col <- stats::shapiro.test(column.to.look.at)
 
     captured.output.for.column <- c(column.names.to.use[i],
                                     mean(column.to.look.at),
-                                    sd(column.to.look.at),
-                                    median(column.to.look.at),
+                                    stats::sd(column.to.look.at),
+                                    stats::median(column.to.look.at),
                                     min(column.to.look.at),
                                     max(column.to.look.at),
                                     moments::skewness(column.to.look.at),
@@ -1028,7 +1028,7 @@ describeNumericalColumns <- function(input.data, column.names.to.use, file.name 
   if(!is.null(file.name)){
 
     #Write the new dataframe to a new file
-    write.table(captured.output, file.name, append = FALSE, sep = "\t", dec = ".",
+    utils::write.table(captured.output, file.name, append = FALSE, sep = "\t", dec = ".",
                 row.names = FALSE, col.names = TRUE)
   }
 
@@ -1089,7 +1089,7 @@ describeNumericalColumnsWithLevels <- function(input.data, column.names.to.use,
   if(!is.null(file.name)){
 
     #Write the new dataframe to a new file
-    write.table(captured.output, file.name, append = FALSE, sep = "\t", dec = ".",
+    utils::write.table(captured.output, file.name, append = FALSE, sep = "\t", dec = ".",
                 row.names = FALSE, col.names = FALSE)
   }
 
@@ -1120,7 +1120,7 @@ describeNumericalColumnsWithLevels <- function(input.data, column.names.to.use,
 NormalCheckThenBoxCoxTransform <- function(input.data, alpha.for.shapiro){
 
   #Check if vector is already normally distributed
-  shapiro.result <- shapiro.test(input.data)
+  shapiro.result <- stats::shapiro.test(input.data)
   shapiro.result$p.value
 
   is.transform.true <- shapiro.result$p.value < alpha.for.shapiro
@@ -1250,7 +1250,7 @@ MultipleColumnsNormalCheckThenBoxCox <- function(input.data,
 ConvertDataToPercentiles <- function(input.data, upper_lower_bound_threshold){
 
   #1.apply ecdf()() to each column.
-  input.data.ranked <- apply(input.data, 2, function(c) ecdf(c)(c))
+  input.data.ranked <- apply(input.data, 2, function(c) stats::ecdf(c)(c))
 
   #2.for each observation, go through all the columns and tally up
   #how many features pass the threshold.
@@ -1332,7 +1332,7 @@ TwoSampleTTest <- function(input.data, column.names.to.use, name.of.class.column
 
 
     #For each column, do two sample t-test
-    res <- t.test(feature.values.for.class.one, feature.values.for.class.two)
+    res <- stats::t.test(feature.values.for.class.one, feature.values.for.class.two)
 
     captured.output.for.column <- c(column.names.to.use[i],
                                     res$statistic,
@@ -1347,7 +1347,7 @@ TwoSampleTTest <- function(input.data, column.names.to.use, name.of.class.column
   if(!is.null(file.name)){
 
     #Write the new dataframe to a new file
-    write.table(captured.output, file.name, append = FALSE, sep = "\t", dec = ".",
+    utils::write.table(captured.output, file.name, append = FALSE, sep = "\t", dec = ".",
                 row.names = FALSE, col.names = TRUE)
   }
 

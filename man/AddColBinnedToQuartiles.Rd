@@ -2,7 +2,7 @@
 % Please edit documentation in R/preprocessing.R
 \name{AddColBinnedToQuartiles}
 \alias{AddColBinnedToQuartiles}
-\title{Bin the values of a selected continuous column into 4 bins and add the bin assignments as a new column}
+\title{Bin the values of a selected continuous column into 4 bins (quartiles) and add the bin assignments as a new column}
 \usage{
 AddColBinnedToQuartiles(inputted.data, col.name.to.bin, name.of.new.col)
 }
@@ -17,5 +17,5 @@ AddColBinnedToQuartiles(inputted.data, col.name.to.bin, name.of.new.col)
 A dataframe with bin assignment added as a factor column.
 }
 \description{
-Bin the values of a selected continuous column into 4 bins and add the bin assignments as a new column
+Bin the values of a selected continuous column into 4 bins (quartiles) and add the bin assignments as a new column
 }
