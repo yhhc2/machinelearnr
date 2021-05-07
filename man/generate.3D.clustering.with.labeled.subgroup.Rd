@@ -16,7 +16,7 @@ generate.3D.clustering.with.labeled.subgroup(
 
 \item{cluster.labels.input}{A vector of integers that specify which cluster each observation belongs to}
 
-\item{subgroup.labels.input}{A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled.}
+\item{subgroup.labels.input}{A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled. If it's 2 then it'll be triangled.}
 
 \item{name}{A string used for the title of the plot.}
 }
@@ -55,6 +55,7 @@ pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 
 actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
 
-generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label, "Cluster results with actual group label")
+generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+                                             "Cluster results with actual group label")
 
 }

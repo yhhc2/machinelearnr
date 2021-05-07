@@ -55,6 +55,7 @@ pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 
 actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
 
-generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label, "Cluster results with actual group label")
+generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+                                             "Cluster results with actual group label")
 
 }

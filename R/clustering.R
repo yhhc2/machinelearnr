@@ -256,7 +256,8 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 #'
 #' actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
 #'
-#' generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label, "Cluster results with actual group label")
+#' generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+#'                                              "Cluster results with actual group label")
 #'
 generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name){
 
@@ -333,7 +334,8 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'
 #' actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
 #'
-#' generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label, "Cluster results with actual group label")
+#' generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+#'                                              "Cluster results with actual group label")
 #'
 generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name){
 
@@ -357,6 +359,177 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 
 }
 
+#' Automated hierarchical clustering with labeling of observations and groups
+#'
+#' Hierarchcical clustering ADD MORE HERE
+#'
+#' @param working.data A dataframe of data
+#' @param clustering.columns A vector of strings that indicate the names of columns to be used for clustering. The columns should be numerical.
+#' @param label.column.name A string that indicates the name of column to be used for labeling the terminal branches of the dendrogram.
+#' @param grouping.column.name A string that indicates the name of column to be used for coloring terminal branches. The column should contain numerical values. A value of 0 will result in a black terminal branch. A value of 1 will result in a red terminal branch.
+#' @param number.of.clusters.to.use A numerical value indicating how many clusters (main branches) to be colored.
+#' @param distance_method A string that specifies the distance method for clustering. Default option is "euclidean". See documentation for stats::dist() for all available options. This is only used if Use.correlation.for.hclust is FALSE.
+#' @param correlation_method A string that specifies the correlation method to be used for clustering. Default option is "spearman". See documentation for stats::cor() for all available options. This is only used if Use.correlation.for.hclust is TRUE.
+#' @param linkage_method_type A string that specifies the linkage method to be used for clustering. See documentation for stats::hclust() for all available options.
+#' @param Use.correlation.for.hclust A boolean specifying if correlation between observations should be used to cluster. If correlation is not used, then distance between observations is used instead.
+#' @param title.to.use A string that indicates the title of the plot.
+#'
+#' @return A list with three objects:
+#' 1.hclust.res: The object outputted from stats::hclust().
+#' 2.dend1: The object outtputed from converting hclust.res into a dendrogram.
+#' 3.kcboot: The results from fpc::clusterboot() which evaluates the stability of the clusters.
+#'
+#' Additionally, the dendrogram will be displayed and a table summarizing
+#' stability of clusters will also be displayed.
+#'
+#' @export
+#'
+#' @import dendextend
+#'
+#' @examples
+#'
+#' id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+#'        "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
+#'
+#' x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30)
+#'
+#' y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45)
+#'
+#' color = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1)
+#'
+#' example.data <- data.frame(id, x, y, color)
+#'
+#' dev.new()
+#' plot(example.data$x, example.data$y)
+#'
+#' HierarchicalClustering(working.data = example.data,
+#'                        clustering.columns = c("x", "y"),
+#'                        label.column.name = "id",
+#'                        grouping.column.name = "color",
+#'                        number.of.clusters.to.use = 3,
+#'                        distance_method = "euclidean",
+#'                        correlation_method = NULL,
+#'                        linkage_method_type = "ward.D",
+#'                        Use.correlation.for.hclust = FALSE,
+#'                        title.to.use = "Clustering based on x and y data")
+#'
+HierarchicalClustering <- function(working.data, clustering.columns, label.column.name,
+                                   grouping.column.name, number.of.clusters.to.use,
+                                   distance_method = "euclidean", correlation_method,
+                                   linkage_method_type, Use.correlation.for.hclust,
+                                   title.to.use){
 
-#Own separate file
-#HierarchicalClustering()
+  #Assumes that data is already normalized.
+
+  #------------------------------------------------------------------------------
+  # Clustering with Hierarchical clustering
+  #------------------------------------------------------------------------------
+  #Resources:
+  #https://www.datacamp.com/community/tutorials/hierarchical-clustering-R
+  #https://cran.r-project.org/web/packages/dendextend/vignettes/FAQ.html. How to color some labels
+  #How to use correlation matrix: https://www.datanovia.com/en/blog/clustering-using-correlation-as-distance-measures-in-r/
+
+
+  # #Testing conditions
+  # working.data <- working.data.scaled.columns
+  # distance_method <- c("euclidean")
+  # correlation_method <- c("spearman")
+  # linkage_methods <- c("ward.D", "ward.D2")
+  # clustering.columns <- names.of.dependent.variables
+  # label.column.name <- "ID"
+  # grouping.column.name <- "HIV"
+  # Use.correlation.for.hclust <- FALSE
+  # number.of.clusters.to.use <- 2
+  # title.to.use <- "HIV clustering based on volumetric data"
+  # #linkage_methods <- c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median", "centroid")
+
+
+  if(Use.correlation.for.hclust == TRUE)
+  {
+    data.dist = stats::as.dist(1 - stats::cor(t(working.data[,clustering.columns]), method = correlation_method))
+  }else{
+    data.dist = stats::dist(working.data[,clustering.columns], method = distance_method)
+  }
+
+
+  #Label the observations
+  set.seed(1)
+  hclust.res <- stats::hclust(data.dist, method = linkage_method_type)
+  #hclust.res.list[[list.index]] <- hclust.res
+  dend <- stats::as.dendrogram(hclust.res)
+
+  #Get the order that should occur on the dendrogram: https://stackoverflow.com/questions/33611111/how-to-change-dendrogram-labels-in-r
+  #and add labels.
+  #labels() is from the dendextend package.
+  labels(dend) <- working.data[,label.column.name][hclust.res$order]
+
+  #Color by an additional group label
+  #labels_colors is from dendextend package.
+  labels_colors(dend) <- as.integer(as.character(working.data[,grouping.column.name][hclust.res$order])) + 1 #col = 1 is black. col = 2 is red.
+  dend <- dendextend::set(dend, "labels_cex", value = 0.5)
+  dend1 <- dendextend::color_branches(dend, k = number.of.clusters.to.use)
+
+  #Calculate the quality of clusters using Dunn's index
+  #Dunn's index is the ratio between the minimum inter-cluster distances to the maximum intra-cluster diameter.
+  #The diameter of a cluster is the distance between its two furthermost points. In order to have well separated
+  #and compact clusters you should aim for a higher Dunn's index.
+  set.seed(1)
+  tree <- stats::hclust(data.dist, method = linkage_method_type)
+  cluster <- stats::cutree(tree, k = number.of.clusters.to.use) #LEFT OFF HERE. CLUSTER LABEL AND COLORING ON DEND DO NOT MATCH
+  dunn.index <- clValid::dunn(data.dist, cluster) #From 0 to inf. Should be maximized.
+
+  grDevices::dev.new()
+  title <- paste(title.to.use, linkage_method_type, " linkage. ", distance_method, " distance. ", correlation_method, " correlation.\n", "Correlation Used", Use.correlation.for.hclust, ". Dunn's index= ", dunn.index)
+  plot(dend1, main = title)
+
+  #Add legend to dendrogram
+  legend.labels.to.use <- levels(working.data[,grouping.column.name])
+  col.to.use <- as.integer(levels(working.data[,grouping.column.name])) + 1
+  pch.to.use <- rep(20, times = length(legend.labels.to.use))
+  graphics::legend("topright",
+         legend = legend.labels.to.use,
+         col = col.to.use,
+         pch = pch.to.use, bty = "n",  pt.cex = 1.5, cex = 0.8 ,
+         text.col = "black", horiz = FALSE, inset = c(0, 0.1),
+         title = grouping.column.name)
+
+  #Get the cluster assignment for each leaf
+  ##The name labels of the leaves on the outputted dendrogram reflects the cluster assignment
+  cluster.labels.renamed <- cluster
+  names(cluster.labels.renamed) <- working.data[,label.column.name]
+  cluster.labels.renamed.reordered <- cluster.labels.renamed[hclust.res$order]
+  print(title)
+  print("Cluster assignment")
+  print(cluster.labels.renamed.reordered)
+
+  ##Evaluate stability of clusters
+  #https://win-vector.com/2015/09/04/bootstrap-evaluation-of-clusters/
+  #disthclustCBI needs to be used because the input matrix is already a distance (dissimilarity)
+  #matrix. https://rdrr.io/cran/fpc/src/R/clusterboot.R
+  set.seed(1)
+  kcboot <- fpc::clusterboot(data.dist, distances = TRUE, B=100, clustermethod = disthclustCBI ,method=linkage_method_type, k=number.of.clusters.to.use, seed=1)
+  kcboot$bootmean
+  kcboot$bootbrd
+  ##Display stability
+  stability.table <- rbind(kcboot$bootmean, kcboot$bootbrd)
+  rownames(stability.table) <- c("bootmean", "bootbrd")
+  colnames(stability.table) <- c(1:number.of.clusters.to.use)
+  grDevices::dev.new()
+  d <- stability.table
+  gridExtra::grid.table(d)
+
+  #From the stability output, how do you tell which cluster on the dendrogram
+  #is stable?
+  groups <- kcboot$result$partition
+  groups_relabeled <- groups
+  names(groups_relabeled) <- working.data[,label.column.name]
+  groups_relabeled_reordered <- groups_relabeled[hclust.res$order]
+
+  #Checked that group assignment from hclust and cluster boot match by
+  #comparing cluster.labels.renamed.reordered and groups_relabeled_reordered
+
+  output <- list(hclust.res, dend1, kcboot)
+
+  return(output)
+
+}
