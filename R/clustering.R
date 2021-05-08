@@ -57,7 +57,7 @@ CalcOptimalNumClustersForKMeans <- function(inputted.data, clustering.columns){
   working.data <- inputted.data
 
 
-  elbow.plot <- factoextra::fviz_nbclust(working.data[,clustering.columns], kmeans, method = "wss") + ggplot2::labs(subtitle = "Elbow method")
+  elbow.plot <- factoextra::fviz_nbclust(working.data[,clustering.columns], stats::kmeans, method = "wss") + ggplot2::labs(subtitle = "Elbow method")
 
   #grDevices::dev.new()
   #elbow.plot
@@ -361,17 +361,26 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 
 #' Automated hierarchical clustering with labeling of observations and groups
 #'
-#' Hierarchcical clustering ADD MORE HERE
+#' Versatile hierarchical clustering function that can use correlation or distance
+#' clustering. The linkage can also be specified.
+#'
+#' Correlation type, distance type, linkage type, and coloring of groups can
+#' all be specified. The result is a dendrogram of the hierarchical clustering with
+#' coloring scheme that shows which observations belong to which cluster. Additionally,
+#' coloring of the terminal branches can be done with meta data so that the
+#' meta data can be compared to the cluster assignment. Links to resources
+#' used to make this function are provided in the code.
 #'
 #' @param working.data A dataframe of data
 #' @param clustering.columns A vector of strings that indicate the names of columns to be used for clustering. The columns should be numerical.
 #' @param label.column.name A string that indicates the name of column to be used for labeling the terminal branches of the dendrogram.
-#' @param grouping.column.name A string that indicates the name of column to be used for coloring terminal branches. The column should contain numerical values. A value of 0 will result in a black terminal branch. A value of 1 will result in a red terminal branch.
+#' @param grouping.column.name A string that indicates the name of column to be used for coloring terminal branches. The column should contain numerical values and should be a factor. A value of 0 will result in a black terminal branch. A value of 1 will result in a red terminal branch.
 #' @param number.of.clusters.to.use A numerical value indicating how many clusters (main branches) to be colored.
 #' @param distance_method A string that specifies the distance method for clustering. Default option is "euclidean". See documentation for stats::dist() for all available options. This is only used if Use.correlation.for.hclust is FALSE.
 #' @param correlation_method A string that specifies the correlation method to be used for clustering. Default option is "spearman". See documentation for stats::cor() for all available options. This is only used if Use.correlation.for.hclust is TRUE.
-#' @param linkage_method_type A string that specifies the linkage method to be used for clustering. See documentation for stats::hclust() for all available options.
+#' @param linkage_method_type A string that specifies the linkage method to be used for clustering. See documentation for stats::hclust() for all available options. Examples are "ward.D", "complete".
 #' @param Use.correlation.for.hclust A boolean specifying if correlation between observations should be used to cluster. If correlation is not used, then distance between observations is used instead.
+#' @param terminal.branch.font.size A numeric value specifying font size of the labels for the terminal branches as specified by label.column.name. Default value is 1.
 #' @param title.to.use A string that indicates the title of the plot.
 #'
 #' @return A list with three objects:
@@ -388,19 +397,20 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'
 #' @examples
 #'
-#' id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
-#'        "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
+#' id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "3h", "3i", "3a",
+#'        "3b", "3c", "3d", "3e", "3f", "3g", "2g", "2h")
 #'
 #' x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30)
 #'
 #' y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45)
 #'
-#' color = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1)
+#' color = as.factor(c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1))
 #'
 #' example.data <- data.frame(id, x, y, color)
 #'
 #' dev.new()
 #' plot(example.data$x, example.data$y)
+#' text(example.data$x, example.data$y, labels = id, cex=0.9, font=2)
 #'
 #' HierarchicalClustering(working.data = example.data,
 #'                        clustering.columns = c("x", "y"),
@@ -411,13 +421,14 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'                        correlation_method = NULL,
 #'                        linkage_method_type = "ward.D",
 #'                        Use.correlation.for.hclust = FALSE,
+#'                        terminal.branch.font.size = 1,
 #'                        title.to.use = "Clustering based on x and y data")
 #'
 HierarchicalClustering <- function(working.data, clustering.columns, label.column.name,
                                    grouping.column.name, number.of.clusters.to.use,
                                    distance_method = "euclidean", correlation_method,
                                    linkage_method_type, Use.correlation.for.hclust,
-                                   title.to.use){
+                                   terminal.branch.font.size, title.to.use){
 
   #Assumes that data is already normalized.
 
@@ -466,7 +477,7 @@ HierarchicalClustering <- function(working.data, clustering.columns, label.colum
   #Color by an additional group label
   #labels_colors is from dendextend package.
   labels_colors(dend) <- as.integer(as.character(working.data[,grouping.column.name][hclust.res$order])) + 1 #col = 1 is black. col = 2 is red.
-  dend <- dendextend::set(dend, "labels_cex", value = 0.5)
+  dend <- dendextend::set(dend, "labels_cex", value = terminal.branch.font.size)
   dend1 <- dendextend::color_branches(dend, k = number.of.clusters.to.use)
 
   #Calculate the quality of clusters using Dunn's index
@@ -507,7 +518,7 @@ HierarchicalClustering <- function(working.data, clustering.columns, label.colum
   #disthclustCBI needs to be used because the input matrix is already a distance (dissimilarity)
   #matrix. https://rdrr.io/cran/fpc/src/R/clusterboot.R
   set.seed(1)
-  kcboot <- fpc::clusterboot(data.dist, distances = TRUE, B=100, clustermethod = disthclustCBI ,method=linkage_method_type, k=number.of.clusters.to.use, seed=1)
+  kcboot <- fpc::clusterboot(data.dist, distances = TRUE, B=100, clustermethod = fpc::disthclustCBI ,method=linkage_method_type, k=number.of.clusters.to.use, seed=1)
   kcboot$bootmean
   kcboot$bootbrd
   ##Display stability
