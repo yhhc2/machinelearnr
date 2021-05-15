@@ -19,25 +19,31 @@
 #'
 #' @examples
 #'
-#' id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+#' id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e",
+#'        "2f", "3a",
 #'        "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
 #'
-#' x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54)
+#' x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46,
+#' 47, 48, 49, 54)
 #'
-#' y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24)
+#' y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21,
+#' 30, 31, 23, 24)
 #'
 #' a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 #'
 #' b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 #'
 #'
-#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
+#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2",
+#' "2", "2", "3", "3", "3",
 #'        "3", "3", "3", "3", "3", "3"))
 #'
 #' example.data <- data.frame(id, x, y, a, b, actual)
 #'
 #' set.seed(1)
-#' rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")], y=example.data[,"actual"], proximity=TRUE, ntree=50)
+#' rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")],
+#' y=example.data[,"actual"], proximity=TRUE, ntree=50)
+#'
 #' error.oob <- rf.result[[4]][,1]
 #'
 #' best.tree <- find.best.number.of.trees(error.oob)
@@ -68,7 +74,7 @@ find.best.number.of.trees <- function(error.oob) {
       window.vals.temp = error.oob[index.vals.temp]
       window.vals = rbind(window.vals, window.vals.temp)
 
-      window.vals.sd.temp = sd(window.vals.temp)
+      window.vals.sd.temp = stats::sd(window.vals.temp)
       window.vals.sd = rbind(window.vals.sd, window.vals.sd.temp)
 
       window.vals.mean.temp = mean(window.vals.temp)
@@ -142,7 +148,9 @@ find.best.number.of.trees <- function(error.oob) {
 #' example.data <- data.frame(id, x, y, a, b, actual)
 #'
 #' set.seed(2)
-#' rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")], y=example.data[,"actual"], proximity=TRUE)
+#' rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")],
+#' y=example.data[,"actual"], proximity=TRUE)
+#'
 #' predicted <- rf.result$predicted
 #' actual <- example.data[,"actual"]
 #'
@@ -173,9 +181,9 @@ eval.classification.results <- function(actual_input, predicted_input, name) {
   cx  <- cbind(actual,predicted)
   ccc <- c(actual)
   plot(cx[,2],type='p',col=ccc*2,pch=19,cex=2, main=name, ylab="Predicted") ##red=1, blue=2
-  points(cx[,2],type='p',col=1,pch=21,cex=2)
+  graphics::points(cx[,2],type='p',col=1,pch=21,cex=2)
 
-  legend("right", legend = unique(actual),
+  graphics::legend("right", legend = unique(actual),
          col=unique(ccc*2), pch=(rep(19,length(unique(actual)))), cex=0.8, title="Actual")
 
   print("Color represents the actual class. Y-value represents predicted class")
@@ -222,12 +230,14 @@ eval.classification.results <- function(actual_input, predicted_input, name) {
 #' b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 #'
 #'
-#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
+#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2",
+#'        "2", "3", "3", "3",
 #'        "3", "3", "3", "3", "3", "3"))
 #'
 #' example.data <- data.frame(id, x, y, a, b, actual)
 #'
-#' rf.result <- RandomForestAutomaticMtryAndNtree(example.data, c("x", "y", "a", "b"), "actual", seed=2)
+#' rf.result <- RandomForestAutomaticMtryAndNtree(example.data, c("x", "y", "a", "b"),
+#' "actual", seed=2)
 #'
 #' predicted <- rf.result$predicted
 #' actual <- example.data[,"actual"]
@@ -241,7 +251,7 @@ RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.
   working.data <- inputted.data
 
   set.seed(seed)
-  invisible(capture.output(explore.4.best.mtry <- randomForest::tuneRF(working.data[,name.of.predictors.to.use],
+  invisible(utils::capture.output(explore.4.best.mtry <- randomForest::tuneRF(working.data[,name.of.predictors.to.use],
                                                                        working.data[,target.column.name], ntreeTry=500, trace = FALSE, plot = FALSE)))
   explore.4.best.mtry <- explore.4.best.mtry[order(explore.4.best.mtry[,2], decreasing=FALSE), ][1,1]
 
@@ -317,7 +327,8 @@ RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.
 #' b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 #'
 #'
-#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
+#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2",
+#'        "3", "3", "3",
 #'        "3", "3", "3", "3", "3", "3"))
 #'
 #' example.data <- data.frame(id, x, y, a, b, actual)
@@ -403,17 +414,17 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
     #We now want to predict the sample we left out.
     #If PCA is used as predictors, then we need to first calculate the PC values for left out sample
     if(should.PCA.be.used == FALSE){
-      predictions_loo <- predict(final.model, newdata = train[,name.of.predictors.to.use])
+      predictions_loo <- stats::predict(final.model, newdata = train[,name.of.predictors.to.use])
     } else{
       #Calculate PC values for left out sample
       non.PC.values <- train[,predictors.that.should.not.PCA]
-      predicted.PC.values <- predict(pca.results, newdata=train)
+      predicted.PC.values <- stats::predict(pca.results, newdata=train)
 
       temp3 <- cbind(non.PC.values, predicted.PC.values)
       #I did not do feature selection, but if I did, then I would need to use this commented out code
       #temp3 <- temp3[,predictor.features.2.keep,drop=FALSE]
 
-      predictions_loo <- predict(final.model, newdata = temp3)
+      predictions_loo <- stats::predict(final.model, newdata = temp3)
     }
 
     running.pred <- c(running.pred, predictions_loo[c(l)])
@@ -426,7 +437,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
     importance.of.variables.sorted <- importance.of.variables[order(importance.of.variables[,1], decreasing=TRUE), ]
 
     #calculate percentile
-    features.2.keep <- ecdf(importance.of.variables.sorted)(importance.of.variables.sorted)
+    features.2.keep <- stats::ecdf(importance.of.variables.sorted)(importance.of.variables.sorted)
 
     #add names back to the features
     names(features.2.keep) <- names(importance.of.variables.sorted)
@@ -543,7 +554,8 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' "4/5", "4/5", "4/5")
 #'
 #' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
-#'        "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5", "5", "5"))
+#'        "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5",
+#'        "5", "5"))
 #'
 #' example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
 #'
@@ -574,7 +586,8 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' #Remove MCC row from matrix
 #' matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
 #'
-#' pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap.MCC.row.removed, fontsize_col = 12, fontsize_row=12)
+#' pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap.MCC.row.removed, fontsize_col = 12,
+#' fontsize_row=12)
 #'
 #'
 #' #The pheatmap shows that the points in groups 1, 2, and 3 can be predicted
@@ -731,8 +744,10 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5",
 #' "4/5", "4/5", "4/5")
 #'
-#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
-#'        "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5", "5", "5"))
+#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2",
+#'        "3", "3", "3",
+#'        "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5",
+#'        "5", "5", "5", "5"))
 #'
 #' example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
 #'
@@ -744,7 +759,8 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
-#' matrix.for.pheatmap <- RandomForestClassificationPercentileMatrixForPheatmap(input.data = example.data,
+#' matrix.for.pheatmap <- RandomForestClassificationPercentileMatrixForPheatmap(
+#'                                        input.data = example.data,
 #'                                        factor.name.for.subsetting = "sep.xy.ab",
 #'                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
 #'                                        target.column.name = "actual",
@@ -862,8 +878,10 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #' "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5",
 #' "4/5", "4/5", "4/5")
 #'
-#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
-#'        "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5", "5", "5"))
+#' actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2",
+#'        "2", "2", "3", "3", "3",
+#'        "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5",
+#'        "5", "5", "5", "5", "5", "5"))
 #'
 #' example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
 #'

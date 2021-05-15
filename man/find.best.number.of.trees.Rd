@@ -25,26 +25,31 @@ center of the window as the optimal number of trees.
 }
 \examples{
 
-id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "3h", "3i", "3a",
-       "3b", "3c", "3d", "3e", "3f", "3g", "2g", "2h")
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e",
+       "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
 
-x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30)
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46,
+47, 48, 49, 54)
 
-y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45)
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21,
+30, 31, 23, 24)
 
 a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
-b = c(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 
-actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "3", "3", "3",
-       "3", "3", "3", "3", "3", "3", "2", "2"))
 
-color = as.factor(c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1))
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2",
+"2", "2", "3", "3", "3",
+       "3", "3", "3", "3", "3", "3"))
 
-example.data <- data.frame(id, x, y, a, b, actual, color)
+example.data <- data.frame(id, x, y, a, b, actual)
 
 set.seed(1)
-rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")], y=example.data[,"actual"], proximity=TRUE, ntree=50)
+rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")],
+y=example.data[,"actual"], proximity=TRUE, ntree=50)
+
 error.oob <- rf.result[[4]][,1]
 
 best.tree <- find.best.number.of.trees(error.oob)
@@ -52,6 +57,10 @@ best.tree <- find.best.number.of.trees(error.oob)
 trees <- 1:length(error.oob)
 
 plot(trees, error.oob, type = "l")
+
+dev.new()
+plot(example.data$x, example.data$y)
+text(example.data$x, example.data$y,labels=example.data$id)
 
 
 }

@@ -29,6 +29,7 @@ Imports:
     mltools (>= 0.3.5),
     moments (>= 0.14),
     papeR (>= 1.0.5),
+    pheatmap (>= 1.0.12),
     plotrix (>= 3.7.8),
     randomForest (>= 4.6.14),
     readxl (>= 1.3.1),

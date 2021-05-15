@@ -1,0 +1,50 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+
+## Overview
+
+Author: Yong-Han Hank Cheng
+
+This package provides functions for:
+1. Preprocessing data.
+2. Clustering with K-means or hierarchical clustering.
+3. Classification with random forest. 
+
+## Installation
+
+```{r, eval = FALSE}
+# Install the package from GitHub
+devtools::install_github("yhhc2/machinelearnr")
+```
+
+```{r}
+# Load package
+library("machinelearnr")
+```
+
+## Usage
+
+Visit the package's website for function reference: <https://yhhc2.github.io/machinelearnr/>
+
+## Examples
+
+All functions with example code is run in this section. The functions are
+listed below in alphabetical order with example code to illustrate
+how each function should be used. The example code should be very similar
+to the example code in the function reference. 
+
+To see detailed descriptions for each function, please visit the package's website.
+
+## Examples for clustering
+
+### AutomatedCompositePlotting()
+
+
+
+## Examples for classification
+
+

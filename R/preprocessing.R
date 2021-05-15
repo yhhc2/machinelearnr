@@ -8,6 +8,8 @@
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 RemoveColWithAllZeros <- function(inputted.data, columns.to.look.at=NULL){
 
   modified.input.data <- NULL
@@ -51,6 +53,8 @@ RemoveColWithAllZeros <- function(inputted.data, columns.to.look.at=NULL){
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 AddPCsToEnd <- function(inputted.data, columns.to.do.PCA.on, scale.boolean, minimum.variance.percent){
 
   pca.results <- stats::prcomp(inputted.data[, columns.to.do.PCA.on], scale=scale.boolean)
@@ -79,6 +83,8 @@ AddPCsToEnd <- function(inputted.data, columns.to.do.PCA.on, scale.boolean, mini
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 #' @examples
 #' identifier.col <- c("a", "a", "a", "b", "b", "b", "c")
 #' value.col <- c(1, 2, 3, 1, 1, 1, 5)
@@ -87,6 +93,8 @@ AddPCsToEnd <- function(inputted.data, columns.to.do.PCA.on, scale.boolean, mini
 #' results <- StabilityTestingAcrossVisits(input.data.frame, "identifier.col", "value.col")
 #'
 #' results
+#'
+#'
 #'
 #'
 StabilityTestingAcrossVisits <- function(inputted.data, col.name.of.unique.identifier, value.to.evaluate){
@@ -137,6 +145,8 @@ StabilityTestingAcrossVisits <- function(inputted.data, col.name.of.unique.ident
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 #' @examples
 #'
 #' identifier.col <- c("a", "a", "a", "b", "b", "b", "c")
@@ -178,6 +188,8 @@ RemoveSamplesWithInstability <- function(inputted.data, col.name.of.unique.ident
 #' @return A dataframe where a single row remains for each identifier.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 #' @examples
 #' identifier.col <- c("a", "a", "a", "b", "b", "b", "c")
@@ -222,6 +234,8 @@ RanomlySelectOneRowForEach <- function(inputted.data, col.name.of.unique.identif
 #' @return A dataframe with outlier rows removed.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 #' @examples
 #'
@@ -276,6 +290,8 @@ ZScoreChallengeOutliers <- function(inputted.data, column.to.perform.outlier.ana
 #' Plots will also be displayed.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 #'
 GeneratePC1andPC2PlotsWithAndWithoutOutliers <- function(inputted.data, columns.to.do.PCA.on, scale.PCA, p.value.for.outliers){
@@ -395,6 +411,8 @@ GeneratePC1andPC2PlotsWithAndWithoutOutliers <- function(inputted.data, columns.
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 GenerateElbowPlotPCA <- function(inputted.data, column.to.do.PCA.on, scale.PCA){
 
   volume.data <- inputted.data[,column.to.do.PCA.on]
@@ -424,6 +442,8 @@ GenerateElbowPlotPCA <- function(inputted.data, column.to.do.PCA.on, scale.PCA){
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 SubsetDataByContinuousCol <- function(inputted.data, col.name.to.subset.on, lower.bound.percent, upper.bound.percent){
 
   working.data <- inputted.data
@@ -445,6 +465,8 @@ SubsetDataByContinuousCol <- function(inputted.data, col.name.to.subset.on, lowe
 #'
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 Log2TargetDensityPlotComparison <- function(inputted.data, col.name.to.log){
 
@@ -470,6 +492,8 @@ Log2TargetDensityPlotComparison <- function(inputted.data, col.name.to.log){
 #' @return A dataframe with bin assignment added as a factor column.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 AddColBinnedToQuartiles <- function(inputted.data, col.name.to.bin, name.of.new.col){
 
@@ -513,6 +537,8 @@ AddColBinnedToQuartiles <- function(inputted.data, col.name.to.bin, name.of.new.
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 AddColBinnedToBinary <- function(inputted.data, col.name.to.bin, name.of.new.col){
 
   working.data <- inputted.data
@@ -536,6 +562,8 @@ AddColBinnedToBinary <- function(inputted.data, col.name.to.bin, name.of.new.col
 #' @return No objects are outputted but a plot is created.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 #'
 LookAtPCFeatureLoadings <- function(pca.results, pc.to.look.at) {
@@ -562,6 +590,8 @@ LookAtPCFeatureLoadings <- function(pca.results, pc.to.look.at) {
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 SplitIntoTrainTest <- function(inputted.data, percent.to.train.with, seed) {
 
   set.seed(seed)
@@ -584,6 +614,8 @@ SplitIntoTrainTest <- function(inputted.data, percent.to.train.with, seed) {
 #'
 #' @return Dataframe with some rows removed.
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 RemoveRowsBasedOnCol <- function(inputted.data, columns.to.look.at, val.to.remove) {
 
@@ -612,6 +644,8 @@ RemoveRowsBasedOnCol <- function(inputted.data, columns.to.look.at, val.to.remov
 #' @return No object is outputted, but a plot is displayed.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 #' @examples
 #'
@@ -666,6 +700,8 @@ generate.descriptive.plots <- function(inputted.data, overall.plot.layout, plot.
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 #'
 #'
 generate.descriptive.plots.save.pdf <- function(inputted.data, overall.plot.layout, plot.type,
@@ -711,6 +747,8 @@ generate.descriptive.plots.save.pdf <- function(inputted.data, overall.plot.layo
 #' 2. P-value
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 correlation.association.test <- function(data1, data1.type, data1.name, data2, data2.type, data2.name){
 
@@ -820,6 +858,8 @@ correlation.association.test <- function(data1, data1.type, data1.name, data2, d
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 CorAssoTestMultipleWithErrorHandling <- function(data.vectors1, variable.types1, names1, data.vectors2, variable.types2, names2, table.name){
 
   #Columns are data.vectors1
@@ -886,6 +926,8 @@ CorAssoTestMultipleWithErrorHandling <- function(data.vectors1, variable.types1,
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 DownSampleDataframe <- function(input.data, name.of.feature.to.balance.on, seedVal){
 
   #Add index column to observations so that I can use this to determine the left
@@ -934,6 +976,8 @@ DownSampleDataframe <- function(input.data, name.of.feature.to.balance.on, seedV
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 RecodeIdentifier <- function(input.data, name.of.identifier, file.name){
 
   vector_recoded123 <- as.integer(as.factor(input.data[,name.of.identifier]))
@@ -963,6 +1007,8 @@ RecodeIdentifier <- function(input.data, name.of.identifier, file.name){
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 captureSessionInfo <- function(){
 
   sink("my_session_info.txt")
@@ -987,6 +1033,8 @@ captureSessionInfo <- function(){
 #' Additionally, a text file will be created which also captured the function output.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 describeNumericalColumns <- function(input.data, column.names.to.use, file.name = NULL){
 
@@ -1058,6 +1106,8 @@ describeNumericalColumns <- function(input.data, column.names.to.use, file.name 
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 describeNumericalColumnsWithLevels <- function(input.data, column.names.to.use,
                                                column.name.containing.levels.within.feature, file.name=NULL){
 
@@ -1117,6 +1167,8 @@ describeNumericalColumnsWithLevels <- function(input.data, column.names.to.use,
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 NormalCheckThenBoxCoxTransform <- function(input.data, alpha.for.shapiro){
 
   #Check if vector is already normally distributed
@@ -1170,6 +1222,8 @@ NormalCheckThenBoxCoxTransform <- function(input.data, alpha.for.shapiro){
 #'
 #' @return A dataframe with the columns specified in names.of.dependent.variables.
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 MultipleColumnsNormalCheckThenBoxCox <- function(input.data,
                                                  names.of.dependent.variables,
@@ -1247,6 +1301,8 @@ MultipleColumnsNormalCheckThenBoxCox <- function(input.data,
 #'
 #' @export
 #'
+#' @family Preprocessing functions
+#'
 ConvertDataToPercentiles <- function(input.data, upper_lower_bound_threshold){
 
   #1.apply ecdf()() to each column.
@@ -1302,6 +1358,8 @@ ConvertDataToPercentiles <- function(input.data, upper_lower_bound_threshold){
 #' are the features.
 #'
 #' @export
+#'
+#' @family Preprocessing functions
 #'
 TwoSampleTTest <- function(input.data, column.names.to.use, name.of.class.column, file.name){
 

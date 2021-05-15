@@ -26,3 +26,34 @@ Cannot use boxcox if data has zeroes. If data has zeros, then do this:
 Add 1 if most values are greater than 1, else  if most of values <1,
 multiply 10 or 100, then add 1. Then do boxcox.
 }
+\seealso{
+Other Preprocessing functions: 
+\code{\link{AddColBinnedToBinary}()},
+\code{\link{AddColBinnedToQuartiles}()},
+\code{\link{AddPCsToEnd}()},
+\code{\link{ConvertDataToPercentiles}()},
+\code{\link{CorAssoTestMultipleWithErrorHandling}()},
+\code{\link{DownSampleDataframe}()},
+\code{\link{GenerateElbowPlotPCA}()},
+\code{\link{GeneratePC1andPC2PlotsWithAndWithoutOutliers}()},
+\code{\link{Log2TargetDensityPlotComparison}()},
+\code{\link{LookAtPCFeatureLoadings}()},
+\code{\link{MultipleColumnsNormalCheckThenBoxCox}()},
+\code{\link{RanomlySelectOneRowForEach}()},
+\code{\link{RecodeIdentifier}()},
+\code{\link{RemoveColWithAllZeros}()},
+\code{\link{RemoveRowsBasedOnCol}()},
+\code{\link{RemoveSamplesWithInstability}()},
+\code{\link{SplitIntoTrainTest}()},
+\code{\link{StabilityTestingAcrossVisits}()},
+\code{\link{SubsetDataByContinuousCol}()},
+\code{\link{TwoSampleTTest}()},
+\code{\link{ZScoreChallengeOutliers}()},
+\code{\link{captureSessionInfo}()},
+\code{\link{correlation.association.test}()},
+\code{\link{describeNumericalColumnsWithLevels}()},
+\code{\link{describeNumericalColumns}()},
+\code{\link{generate.descriptive.plots.save.pdf}()},
+\code{\link{generate.descriptive.plots}()}
+}
+\concept{Preprocessing functions}
