@@ -12,7 +12,9 @@ Author: Yong-Han Hank Cheng
 This package provides functions for:
 1. Preprocessing data.
 2. Clustering with K-means or hierarchical clustering.
-3. Classification with random forest. 
+3. Classification with random forest.
+
+Source code: https://github.com/yhhc2/machinelearnr
 
 ## Installation
 

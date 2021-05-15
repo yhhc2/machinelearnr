@@ -1,12 +1,12 @@
 Package: machinelearnr
-Title: What the Package Does (One Line, Title Case)
+Title: Package with various functions for preprocessing, clustering, and classification 
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Yong-Han Hank",
+           family = "Cheng",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "yhhc@uw.edu",
+           comment = c(ORCID = "0000-0001-7686-0697"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
