@@ -1,5 +1,12 @@
 
+
 reference:
 - title: Preprocessing Functions
   contents:
   - has_concept("Preprocessing functions")
+- title: Clustering Functions
+  contents:
+  - has_concept("Clustering functions")
+- title: Classification Functions
+  contents:
+  - has_concept("Classification functions")

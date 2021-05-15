@@ -28,6 +28,8 @@
 #'
 #' @export
 #'
+#' @family Clustering functions
+#'
 #' @examples
 #'
 #' example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31,
@@ -96,6 +98,8 @@ CalcOptimalNumClustersForKMeans <- function(inputted.data, clustering.columns){
 #'
 #' @export
 #'
+#' @family Clustering functions
+#'
 #' @examples
 #'
 #' example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31,
@@ -147,6 +151,8 @@ generate.plots.comparing.clusters <- function(data.input, rows.for.each.cluster,
 #'
 #'
 #' @export
+#'
+#' @family Clustering functions
 #'
 #' @examples
 #'
@@ -237,6 +243,8 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 #'
 #' @export
 #'
+#' @family Clustering functions
+#'
 #' @examples
 #' example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
 #'                                  39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30),
@@ -313,6 +321,8 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' @return No object is returned, but a rgl plot is displayed.
 #'
 #' @export
+#'
+#' @family Clustering functions
 #'
 #' @examples
 #'
@@ -392,6 +402,8 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' stability of clusters will also be displayed.
 #'
 #' @export
+#'
+#' @family Clustering functions
 #'
 #' @import dendextend
 #'

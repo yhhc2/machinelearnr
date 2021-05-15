@@ -17,6 +17,8 @@
 #'
 #' @export
 #'
+#' @family Classification functions
+#'
 #' @examples
 #'
 #' id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e",
@@ -127,6 +129,8 @@ find.best.number.of.trees <- function(error.oob) {
 #'
 #' @export
 #'
+#' @family Classification functions
+#'
 #' @examples
 #'
 #'
@@ -215,6 +219,8 @@ eval.classification.results <- function(actual_input, predicted_input, name) {
 #' @return A randomForest object is returned
 #'
 #' @export
+#'
+#' @family Classification functions
 #'
 #' @examples
 #'
@@ -312,6 +318,8 @@ RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.
 #' 2. var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile.
 #'
 #' @export
+#'
+#' @family Classification functions
 #'
 #' @examples
 #'
@@ -524,6 +532,8 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #'
 #' @export
 #'
+#' @family Classification functions
+#'
 #' @examples
 #'
 #' #Make example data where samples with 1, 2, and 3 in their ID names can be
@@ -715,6 +725,8 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #'
 #' @export
 #'
+#' @family Classification functions
+#'
 #' @examples
 #'
 #' #Make example data where samples with 1, 2, and 3 in their ID names can be
@@ -848,6 +860,8 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #'
 #'
 #' @export
+#'
+#' @family Classification functions
 #'
 #' @examples
 #'
