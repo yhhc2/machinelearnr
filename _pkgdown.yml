@@ -10,3 +10,5 @@ reference:
 - title: Classification Functions
   contents:
   - has_concept("Classification functions")
+always_allow_html: yes
+
