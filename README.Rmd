@@ -71,7 +71,7 @@ ch.and.asw.plot
 ```
 
 ### generate.2D.clustering.with.labeled.subgroup()
-```{r}
+```{r, warning=FALSE, message=FALSE}
 
 example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
                                  39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30),
@@ -92,9 +92,7 @@ pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
                         "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 
-sink("NUL")
-pkgcond::suppress_messages(try((invisible(utils::capture.output(results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)))), silent = TRUE))
-sink()
+results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)
 
 #PC1 vs PC2
 print(results[[1]])
@@ -118,7 +116,8 @@ library(rgl)
 knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
-```{r, test-rgl, webgl=TRUE}
+```{r, test-rgl, webgl=TRUE, warning=FALSE, message=FALSE}
+
 example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
                                  39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30),
                            y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44,
@@ -126,8 +125,8 @@ example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
                            z = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3,
                                  3, 3, 3, 3, 3, 3, 3, 3))
 
-dev.new()
-plot(example.data$x, example.data$y)
+#dev.new()
+plot(example.data[,"x"], example.data[,"y"])
 
 km.res <- stats::kmeans(example.data[,c("x", "y", "z")], 3, nstart = 25, iter.max=10)
 
@@ -145,10 +144,10 @@ options(rgl.useNULL=TRUE)
 
 rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
-pkgcond::suppress_messages(generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                             "Cluster results with actual group label", 0.5))
+#pkgcond::suppress_messages(generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+#                                             "Cluster results with actual group label", 0.5))
 
-rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
+#rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
 ```
 

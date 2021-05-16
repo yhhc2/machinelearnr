@@ -294,7 +294,7 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
   
   tbl <- table(subgroup.labels.input, cluster.labels.input)
   sink("NUL")
-  chisq.res <- invisible(stats::chisq.test(tbl))
+  chisq.res <- stats::chisq.test(tbl)
   sink()
 
   ##Plot
@@ -394,7 +394,7 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name, subgroup.text.size){
 
   tbl <- table(subgroup.labels.input, cluster.labels.input)
-  chisq.res <- invisible(utils::capture.output(stats::chisq.test(tbl)))
+  chisq.res <- stats::chisq.test(tbl)
   main.text <- paste(as.character(name),"Chi-square p-value=", as.character(chisq.res$p.value))
 
   totalvar <- (pca.results.input[[1]]^2)
