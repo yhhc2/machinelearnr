@@ -121,7 +121,7 @@ generate.plots.comparing.clusters <- function(data.input, rows.for.each.cluster,
 
   number.of.clusters.to.use <- length(unique(rows.for.each.cluster))
 
-  grDevices::dev.new()
+  #grDevices::dev.new()
   graphics::par(mfrow=c(1,number.of.clusters.to.use))
 
   running.vals <- NULL
@@ -211,7 +211,7 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 
   }
 
-  grDevices::dev.new()
+  #grDevices::dev.new()
   MASS::parcoord(temp.data2 , col= parcoord.col, lwd = parcoord.lwd)
 
   graphics::legend("topright", legend=legend.lab,
@@ -341,7 +341,7 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
   
 }
 
-#' Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters.
+#' Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters
 #'
 #' After clustering of a dataset with three or more dimensions, we often want to
 #' visualize the result of the clustering on a 3D plot. If there are more than
@@ -351,12 +351,13 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'
 #' This function plots PC1 vs PC2 vs PC3. This function uses
 #' the output of stat::prcomp(). The input into prcomp() needs to have
-#' at least 3 dimensions.
+#' at least 3 dimensions. PC = principal component. 
 #'
 #' @param pca.results.input An object outputted by stats::prcomp(). The PCA of all the features used for clustering. There should be at least 3 features.
-#' @param cluster.labels.input A vector of integers that specify which cluster each observation belongs to
-#' @param subgroup.labels.input A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled. If it's 2 then it'll be triangled.
+#' @param cluster.labels.input A vector of integers that specify which cluster each observation belongs to.
+#' @param subgroup.labels.input A vector of strings that specify an additional label for each observations. Each point needs to be labeled
 #' @param name A string used for the title of the plot.
+#' @param subgroup.text.size A number to set for cex of the text size for subgroup label of each point.
 #'
 #' @return No object is returned, but a rgl plot is displayed.
 #'
@@ -382,12 +383,13 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'
 #' pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 #'
-#' actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
-#'
+#' actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
+#' "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
+#' 
 #' generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-#'                                              "Cluster results with actual group label")
+#'                                            "Cluster results with actual group label", 0.5)
 #'
-generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name){
+generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name, subgroup.text.size){
 
   tbl <- table(subgroup.labels.input, cluster.labels.input)
   chisq.res <- stats::chisq.test(tbl)
@@ -396,16 +398,20 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
   totalvar <- (pca.results.input[[1]]^2)
   variancePer <- round(totalvar/sum(totalvar)*100,1)
 
-  xlab <- paste(c("Principal Component 1 (",variancePer[1],"%)"),collapse="")
-  ylab <- paste(c("Principal Component 2 (",variancePer[2],"%)"),collapse="")
-  zlab <- paste(c("Principal Component 3 (",variancePer[3],"%)"),collapse="")
+  xlab <- paste(c("PC 1 (",variancePer[1],"%)"),collapse="")
+  ylab <- paste(c("PC 2 (",variancePer[2],"%)"),collapse="")
+  zlab <- paste(c("PC 3 (",variancePer[3],"%)"),collapse="")
 
   ##Plot
   rgl::rgl.open()
   rgl::rgl.bg(color = "white")
   rgl::plot3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)],
          xlab = xlab, ylab = ylab, zlab = zlab, col=(cluster.labels.input+1), pch=20, cex=2, main=main.text)
-  rgl::pch3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], pch= subgroup.labels.input, cex=0.3)
+  
+  rgl::text3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], text= subgroup.labels.input, cex=subgroup.text.size)
+  
+  
+  #rgl::pch3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], pch= subgroup.labels.input, cex=0.3)
 
 }
 
@@ -541,7 +547,7 @@ HierarchicalClustering <- function(working.data, clustering.columns, label.colum
   cluster <- stats::cutree(tree, k = number.of.clusters.to.use) #LEFT OFF HERE. CLUSTER LABEL AND COLORING ON DEND DO NOT MATCH
   dunn.index <- clValid::dunn(data.dist, cluster) #From 0 to inf. Should be maximized.
 
-  grDevices::dev.new()
+  #grDevices::dev.new()
   title <- paste(title.to.use, linkage_method_type, " linkage. ", distance_method, " distance. ", correlation_method, " correlation.\n", "Correlation Used", Use.correlation.for.hclust, ". Dunn's index= ", dunn.index)
   plot(dend1, main = title)
 

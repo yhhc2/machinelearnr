@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a 2D scatter plot that shows the data as represented by PC1 and PC2 and color labels clusters. — generate.2D.clustering.with.labeled.subgroup • machinelearnr</title>
+<title>Make a 2D scatter plot that shows the data as represented by PC1 and PC2 — generate.2D.clustering.with.labeled.subgroup • machinelearnr</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,12 @@
 
 
 
-<meta property="og:title" content="Make a 2D scatter plot that shows the data as represented by PC1 and PC2 and color labels clusters. — generate.2D.clustering.with.labeled.subgroup" />
+<meta property="og:title" content="Make a 2D scatter plot that shows the data as represented by PC1 and PC2 — generate.2D.clustering.with.labeled.subgroup" />
 <meta property="og:description" content="After clustering of a dataset with two or more dimensions, we often want to
 visualize the result of the clustering on a 2D plot. If there are more than
 two dimensions, we want to first reduce the data down to two dimensions.
 This can be done with PCA. After PCA is completed, the data can be plotted
 with this function." />
-
-
 
 
 
@@ -62,18 +60,9 @@ with this function." />
 
 
 
-<!-- dependencies from examples -->
-
-
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -94,6 +83,12 @@ with this function." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -112,7 +107,7 @@ with this function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a 2D scatter plot that shows the data as represented by PC1 and PC2 and color labels clusters.</h1>
+    <h1>Make a 2D scatter plot that shows the data as represented by PC1 and PC2</h1>
     
     <div class="hidden name"><code>generate.2D.clustering.with.labeled.subgroup.Rd</code></div>
     </div>
@@ -128,8 +123,7 @@ with this function.</p>
     <pre class="usage"><span class='fu'>generate.2D.clustering.with.labeled.subgroup</span><span class='op'>(</span>
   <span class='va'>pca.results.input</span>,
   <span class='va'>cluster.labels.input</span>,
-  <span class='va'>subgroup.labels.input</span>,
-  <span class='va'>name</span>
+  <span class='va'>subgroup.labels.input</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -146,22 +140,25 @@ with this function.</p>
     </tr>
     <tr>
       <th>subgroup.labels.input</th>
-      <td><p>A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled.</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>A string that is used for the title of the plot.</p></td>
+      <td><p>A vector of strings that specify an additional label for each observations.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>No object is outputted, but a plot is outputted.</p>
+    <p>A list of 4 objects:
+1.ggplot objct for PC1 vs PC2.
+2.ggplot object for PC1 vs PC3.
+3.Chi-square results.
+4.Table used for chi-square.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function plots PC1 vs PC2 as well as PC1 vs PC3. This function uses
 the output of stat::prcomp(). The input into prcomp() needs to have
-at least 3 dimensions.</p>
+at least 3 dimensions. Points are colored by the cluster input and they are
+labeled by the subgroup input.</p>
+<p>Additionally, this function also calculates chi-square results
+to see if cluster.labels.input and subgroup.labels.input are associated.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Clustering functions: 
@@ -188,18 +185,31 @@ at least 3 dimensions.</p>
 
 <span class='va'>pca.results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span><span class='op'>)</span><span class='op'>]</span>, scale<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='va'>actual.group.label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>actual.group.label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, 
+                        <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span><span class='op'>)</span>
 
-<span class='fu'>generate.2D.clustering.with.labeled.subgroup</span><span class='op'>(</span><span class='va'>pca.results</span>, <span class='va'>grouped</span>, <span class='va'>actual.group.label</span>,
-                                             <span class='st'>"Cluster results with actual group label"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='output co'>#&gt;                      cluster.labels.input
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>generate.2D.clustering.with.labeled.subgroup</span><span class='op'>(</span><span class='va'>pca.results</span>, <span class='va'>grouped</span>, <span class='va'>actual.group.label</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='input'>                                             
+<span class='co'>#PC1 vs PC2</span>
+<span class='va'>results</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+
+<span class='co'>#PC1 vs PC3</span>
+<span class='va'>results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+
+<span class='co'>#Chi-square results</span>
+<span class='va'>results</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; 
+#&gt; 	Pearson's Chi-squared test
+#&gt; 
+#&gt; data:  tbl
+#&gt; X-squared = 22, df = 2, p-value = 1.67e-05
+#&gt; </div><div class='input'>
+<span class='co'>#Table</span>
+<span class='va'>results</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span>
+</div><div class='output co'>#&gt;                      cluster.labels.input
 #&gt; subgroup.labels.input 1 2 3
-#&gt;                     1 7 0 0
-#&gt;                     2 0 6 9
-#&gt;  'table' int [1:2, 1:3] 7 0 0 6 0 9
-#&gt;  - attr(*, "dimnames")=List of 2
-#&gt;   ..$ subgroup.labels.input: chr [1:2] "1" "2"
-#&gt;   ..$ cluster.labels.input : chr [1:3] "1" "2" "3"</div><div class='input'>
+#&gt;                     A 7 0 0
+#&gt;                     B 0 6 9</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -212,11 +222,11 @@ at least 3 dimensions.</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Yong-Han Hank Cheng.</p></p>
+  <p>Developed by Yong-Han Hank Cheng.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -224,8 +234,6 @@ at least 3 dimensions.</p>
 
   
 
-
-  
 
   </body>
 </html>

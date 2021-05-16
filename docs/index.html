@@ -19,8 +19,6 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -40,6 +38,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
+  <a href="index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
@@ -55,40 +59,159 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-What the package does (one paragraph).
+
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p>Author: Yong-Han Hank Cheng</p>
+<p>This package provides functions for: 1. Preprocessing data. 2. Clustering with K-means or hierarchical clustering. 3. Classification with random forest.</p>
+<p>Source code: <a href="https://github.com/yhhc2/machinelearnr" class="uri">https://github.com/yhhc2/machinelearnr</a></p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install the package from GitHub</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"yhhc2/machinelearnr"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Load package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"machinelearnr"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>Visit the package’s website for function reference: <a href="https://yhhc2.github.io/machinelearnr/" class="uri">https://yhhc2.github.io/machinelearnr/</a></p>
+</div>
+<div id="examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h2>
+<p>All functions with example code is run in this section. The functions are listed below in alphabetical order with example code to illustrate how each function should be used. The example code should be very similar to the example code in the function reference.</p>
+<p>To see detailed descriptions for each function, please visit the package’s website.</p>
+</div>
+<div id="examples-for-clustering" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples-for-clustering" class="anchor"></a>Examples for clustering</h2>
+<div id="calcoptimalnumclustersforkmeans" class="section level3">
+<h3 class="hasAnchor">
+<a href="#calcoptimalnumclustersforkmeans" class="anchor"></a>CalcOptimalNumClustersForKMeans()</h3>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>,
+                                 <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
+                          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>,
+                                <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>, <span class="fl">40</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-3-1.png"><!-- --></p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Results should say that 3 clusters is optimal</span>
+<span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/CalcOptimalNumClustersForKMeans.html">CalcOptimalNumClustersForKMeans</a></span><span class="op">(</span><span class="va">example.data</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">elbow.plot</span> <span class="op">&lt;-</span> <span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+
+<span class="va">ch.and.asw.plot</span> <span class="op">&lt;-</span> <span class="va">output</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+
+<span class="co">#dev.new()</span>
+<span class="va">elbow.plot</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-3-2.png"><!-- --></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#dev.new()</span>
+<span class="va">ch.and.asw.plot</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-3-3.png"><!-- --></p>
+</div>
+<div id="generate2dclusteringwithlabeledsubgroup" class="section level3">
+<h3 class="hasAnchor">
+<a href="#generate2dclusteringwithlabeledsubgroup" class="anchor"></a>generate.2D.clustering.with.labeled.subgroup()</h3>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>,
+                                 <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
+                           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">27</span>,
+                                 <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>, <span class="fl">40</span>, <span class="fl">45</span><span class="op">)</span>,
+                           z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+                                 <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+
+<span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+
+<span class="va">grouped</span> <span class="op">&lt;-</span> <span class="va">km.res</span><span class="op">$</span><span class="va">cluster</span>
+
+<span class="va">pca.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="va">actual.group.label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, 
+                        <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span><span class="op">)</span>
+
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate.2D.clustering.with.labeled.subgroup.html">generate.2D.clustering.with.labeled.subgroup</a></span><span class="op">(</span><span class="va">pca.results</span>, <span class="va">grouped</span>, <span class="va">actual.group.label</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## Warning in stats::chisq.test(tbl): Chi-squared approximation may be incorrect</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#PC1 vs PC2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+
+<span class="co">#PC1 vs PC3</span>
+<span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+
+<span class="co">#Chi-square results</span>
+<span class="va">results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">##  Pearson's Chi-squared test</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">## </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">## data:  tbl</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">## X-squared = 22, df = 2, p-value = 1.67e-05</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Table</span>
+<span class="va">results</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">##                      cluster.labels.input</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">## subgroup.labels.input 1 2 3</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">##                     A 0 7 0</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">##                     B 9 0 6</span></span></code></pre></div>
+</div>
+<div id="generate3dclusteringwithlabeledsubgroup" class="section level3">
+<h3 class="hasAnchor">
+<a href="#generate3dclusteringwithlabeledsubgroup" class="anchor"></a>generate.3D.clustering.with.labeled.subgroup</h3>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmurdoch/rgl">rgl</a></span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## Warning: package 'rgl' was built under R version 4.0.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/knit_hooks.html">knit_hooks</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>webgl <span class="op">=</span> <span class="va">hook_webgl</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="calcoptimalnumclustersforkmeans-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#calcoptimalnumclustersforkmeans-1" class="anchor"></a>CalcOptimalNumClustersForKMeans()</h3>
+</div>
+</div>
+<div id="examples-for-classification" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples-for-classification" class="anchor"></a>Examples for classification</h2>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2 data-toc-skip>License</h2>
+<h2>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
-
-
 <div class="developers">
-<h2 data-toc-skip>Developers</h2>
+<h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Yong-Han Hank Cheng <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-7686-0697" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
-
-
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p></p>
-<p>Developed by Yong-Han Hank Cheng.</p>
+  <p>Developed by Yong-Han Hank Cheng.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -96,8 +219,6 @@ What the package does (one paragraph).
 
   
 
-
-  
 
   </body>
 </html>

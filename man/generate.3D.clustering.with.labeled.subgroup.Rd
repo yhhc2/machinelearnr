@@ -2,23 +2,26 @@
 % Please edit documentation in R/clustering.R
 \name{generate.3D.clustering.with.labeled.subgroup}
 \alias{generate.3D.clustering.with.labeled.subgroup}
-\title{Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters.}
+\title{Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters}
 \usage{
 generate.3D.clustering.with.labeled.subgroup(
   pca.results.input,
   cluster.labels.input,
   subgroup.labels.input,
-  name
+  name,
+  subgroup.text.size
 )
 }
 \arguments{
 \item{pca.results.input}{An object outputted by stats::prcomp(). The PCA of all the features used for clustering. There should be at least 3 features.}
 
-\item{cluster.labels.input}{A vector of integers that specify which cluster each observation belongs to}
+\item{cluster.labels.input}{A vector of integers that specify which cluster each observation belongs to.}
 
-\item{subgroup.labels.input}{A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled. If it's 2 then it'll be triangled.}
+\item{subgroup.labels.input}{A vector of strings that specify an additional label for each observations. Each point needs to be labeled}
 
 \item{name}{A string used for the title of the plot.}
+
+\item{subgroup.text.size}{A number to set for cex of the text size for subgroup label of each point.}
 }
 \value{
 No object is returned, but a rgl plot is displayed.
@@ -33,7 +36,7 @@ with this function.
 \details{
 This function plots PC1 vs PC2 vs PC3. This function uses
 the output of stat::prcomp(). The input into prcomp() needs to have
-at least 3 dimensions.
+at least 3 dimensions. PC = principal component.
 }
 \examples{
 
@@ -53,10 +56,11 @@ grouped <- km.res$cluster
 
 pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 
-actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
+actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
+"B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 
 generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                             "Cluster results with actual group label")
+                                           "Cluster results with actual group label", 0.5)
 
 }
 \seealso{

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters. — generate.3D.clustering.with.labeled.subgroup • machinelearnr</title>
+<title>Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters — generate.3D.clustering.with.labeled.subgroup • machinelearnr</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,12 @@
 
 
 
-<meta property="og:title" content="Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters. — generate.3D.clustering.with.labeled.subgroup" />
+<meta property="og:title" content="Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters — generate.3D.clustering.with.labeled.subgroup" />
 <meta property="og:description" content="After clustering of a dataset with three or more dimensions, we often want to
 visualize the result of the clustering on a 3D plot. If there are more than
 three dimensions, we want to first reduce the data down to three dimensions.
 This can be done with PCA. After PCA is completed, the data can be plotted
 with this function." />
-
-
 
 
 
@@ -62,18 +60,9 @@ with this function." />
 
 
 
-<!-- dependencies from examples -->
-
-
-  
-
-  
-
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    
-
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -94,6 +83,12 @@ with this function." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -112,7 +107,7 @@ with this function." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters.</h1>
+    <h1>Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters</h1>
     
     <div class="hidden name"><code>generate.3D.clustering.with.labeled.subgroup.Rd</code></div>
     </div>
@@ -129,7 +124,8 @@ with this function.</p>
   <span class='va'>pca.results.input</span>,
   <span class='va'>cluster.labels.input</span>,
   <span class='va'>subgroup.labels.input</span>,
-  <span class='va'>name</span>
+  <span class='va'>name</span>,
+  <span class='va'>subgroup.text.size</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -141,15 +137,19 @@ with this function.</p>
     </tr>
     <tr>
       <th>cluster.labels.input</th>
-      <td><p>A vector of integers that specify which cluster each observation belongs to</p></td>
+      <td><p>A vector of integers that specify which cluster each observation belongs to.</p></td>
     </tr>
     <tr>
       <th>subgroup.labels.input</th>
-      <td><p>A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled. If it's 2 then it'll be triangled.</p></td>
+      <td><p>A vector of strings that specify an additional label for each observations. Each point needs to be labeled</p></td>
     </tr>
     <tr>
       <th>name</th>
       <td><p>A string used for the title of the plot.</p></td>
+    </tr>
+    <tr>
+      <th>subgroup.text.size</th>
+      <td><p>A number to set for cex of the text size for subgroup label of each point.</p></td>
     </tr>
     </table>
 
@@ -160,7 +160,7 @@ with this function.</p>
 
     <p>This function plots PC1 vs PC2 vs PC3. This function uses
 the output of stat::prcomp(). The input into prcomp() needs to have
-at least 3 dimensions.</p>
+at least 3 dimensions. PC = principal component.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Clustering functions: 
@@ -188,11 +188,12 @@ at least 3 dimensions.</p>
 
 <span class='va'>pca.results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span><span class='op'>)</span><span class='op'>]</span>, scale<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='va'>actual.group.label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>actual.group.label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, 
+<span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span><span class='op'>)</span>
 
 <span class='fu'>generate.3D.clustering.with.labeled.subgroup</span><span class='op'>(</span><span class='va'>pca.results</span>, <span class='va'>grouped</span>, <span class='va'>actual.group.label</span>,
-                                             <span class='st'>"Cluster results with actual group label"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='input'>
+                                           <span class='st'>"Cluster results with actual group label"</span>, <span class='fl'>0.5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in generate.3D.clustering.with.labeled.subgroup(pca.results, grouped,     actual.group.label, "Cluster results with actual group label",     0.5): unused argument (0.5)</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -205,11 +206,11 @@ at least 3 dimensions.</p>
 
       <footer>
       <div class="copyright">
-  <p><p>Developed by Yong-Han Hank Cheng.</p></p>
+  <p>Developed by Yong-Han Hank Cheng.</p>
 </div>
 
 <div class="pkgdown">
-  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
@@ -217,8 +218,6 @@ at least 3 dimensions.</p>
 
   
 
-
-  
 
   </body>
 </html>
