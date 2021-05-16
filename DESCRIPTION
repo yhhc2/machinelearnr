@@ -37,4 +37,5 @@ Imports:
     reshape2 (>= 1.4.4),
     rgl (>= 0.103.5),
     stats (>= 4.0.2),
-    utils (>= 4.0.2)
+    utils (>= 4.0.2),
+    webshot (>= 0.5.2)

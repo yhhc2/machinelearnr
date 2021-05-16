@@ -1,5 +1,5 @@
 ---
-output: html_document
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -116,6 +116,10 @@ knitr::opts_chunk$set(echo = TRUE)
 options(rgl.useNULL=TRUE)
 library(rgl)
 knitr::knit_hooks$set(webgl = hook_webgl)
+
+#Allow html to work in md
+webshot::install_phantomjs()
+
 ```
 
 ```{r, webgl=TRUE, warning=FALSE, message=FALSE}
