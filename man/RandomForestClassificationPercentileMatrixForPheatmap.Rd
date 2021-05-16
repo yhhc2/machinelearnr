@@ -109,3 +109,13 @@ dev.new()
 pheatmap_RF
 
 }
+\seealso{
+Other Classification functions: 
+\code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
+\code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{RandomForestAutomaticMtryAndNtree}()},
+\code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
+\code{\link{eval.classification.results}()},
+\code{\link{find.best.number.of.trees}()}
+}
+\concept{Classification functions}

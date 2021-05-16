@@ -64,3 +64,13 @@ text(example.data$x, example.data$y,labels=example.data$id)
 
 
 }
+\seealso{
+Other Classification functions: 
+\code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
+\code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{RandomForestAutomaticMtryAndNtree}()},
+\code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
+\code{\link{RandomForestClassificationPercentileMatrixForPheatmap}()},
+\code{\link{eval.classification.results}()}
+}
+\concept{Classification functions}

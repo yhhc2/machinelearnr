@@ -63,3 +63,13 @@ actual <- example.data[,"actual"]
 eval.classification.results(actual, predicted, "Example")
 
 }
+\seealso{
+Other Classification functions: 
+\code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
+\code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
+\code{\link{RandomForestClassificationPercentileMatrixForPheatmap}()},
+\code{\link{eval.classification.results}()},
+\code{\link{find.best.number.of.trees}()}
+}
+\concept{Classification functions}

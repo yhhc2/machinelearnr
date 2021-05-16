@@ -99,3 +99,13 @@ result[[2]]
 
 
 }
+\seealso{
+Other Classification functions: 
+\code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{RandomForestAutomaticMtryAndNtree}()},
+\code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
+\code{\link{RandomForestClassificationPercentileMatrixForPheatmap}()},
+\code{\link{eval.classification.results}()},
+\code{\link{find.best.number.of.trees}()}
+}
+\concept{Classification functions}

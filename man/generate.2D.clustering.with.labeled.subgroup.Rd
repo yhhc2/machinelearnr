@@ -59,3 +59,12 @@ generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.
                                              "Cluster results with actual group label")
 
 }
+\seealso{
+Other Clustering functions: 
+\code{\link{CalcOptimalNumClustersForKMeans}()},
+\code{\link{GenerateParcoordForClusters}()},
+\code{\link{HierarchicalClustering}()},
+\code{\link{generate.3D.clustering.with.labeled.subgroup}()},
+\code{\link{generate.plots.comparing.clusters}()}
+}
+\concept{Clustering functions}

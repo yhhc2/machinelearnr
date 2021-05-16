@@ -92,3 +92,12 @@ HierarchicalClustering(working.data = example.data,
                        title.to.use = "Clustering based on x and y data")
 
 }
+\seealso{
+Other Clustering functions: 
+\code{\link{CalcOptimalNumClustersForKMeans}()},
+\code{\link{GenerateParcoordForClusters}()},
+\code{\link{generate.2D.clustering.with.labeled.subgroup}()},
+\code{\link{generate.3D.clustering.with.labeled.subgroup}()},
+\code{\link{generate.plots.comparing.clusters}()}
+}
+\concept{Clustering functions}

@@ -43,3 +43,12 @@ GenerateParcoordForClusters(example.data, "grouped", c("x", "y"))
 
 
 }
+\seealso{
+Other Clustering functions: 
+\code{\link{CalcOptimalNumClustersForKMeans}()},
+\code{\link{HierarchicalClustering}()},
+\code{\link{generate.2D.clustering.with.labeled.subgroup}()},
+\code{\link{generate.3D.clustering.with.labeled.subgroup}()},
+\code{\link{generate.plots.comparing.clusters}()}
+}
+\concept{Clustering functions}

@@ -53,3 +53,13 @@ eval.classification.results(actual, predicted, "Example")
 
 
 }
+\seealso{
+Other Classification functions: 
+\code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
+\code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{RandomForestAutomaticMtryAndNtree}()},
+\code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
+\code{\link{RandomForestClassificationPercentileMatrixForPheatmap}()},
+\code{\link{find.best.number.of.trees}()}
+}
+\concept{Classification functions}
