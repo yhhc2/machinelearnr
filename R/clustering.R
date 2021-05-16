@@ -405,14 +405,15 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
   zlab <- paste(c("PC 3 (",variancePer[3],"%)"),collapse="")
 
   ##Plot
-  #rgl::rgl.open()
+  rgl::rgl.open()
   rgl::rgl.bg(color = "white")
   rgl::plot3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)],
          xlab = xlab, ylab = ylab, zlab = zlab, col=(cluster.labels.input+1), pch=20, cex=2, main=main.text)
   
   rgl::text3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], text= subgroup.labels.input, cex=subgroup.text.size)
   
-  #rgl::rglwidget()
+  #Allow plot to be displayed on html file
+  rgl::rglwidget()
   
   #rgl::pch3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], pch= subgroup.labels.input, cex=0.3)
 
