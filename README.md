@@ -285,7 +285,7 @@ text(example.data$x, example.data$y, labels = id, cex=0.9, font=2)
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
-HierarchicalClustering(working.data = example.data,
+results <- HierarchicalClustering(working.data = example.data,
                        clustering.columns = c("x", "y"),
                        label.column.name = "id",
                        grouping.column.name = "color",
@@ -296,127 +296,52 @@ HierarchicalClustering(working.data = example.data,
                        Use.correlation.for.hclust = FALSE,
                        terminal.branch.font.size = 1,
                        title.to.use = "Clustering based on x and y data")
+                       
+hclust.res <- results[[1]]
+dend <- results[[2]]
+kcboot.res <- results[[3]]
+title.to.use <- results[[4]]
+labeled.samples <- results[[5]]
+stability.table <- results[[6]]
+                     
+#Plot dendrogram                         
+plot(dend, main = title.to.use, cex.main = 0.75)
+
+#Add legend to dendrogram
+legend.labels.to.use <- levels(example.data[,"color"])
+col.to.use <- as.integer(levels(example.data[,"color"])) + 1
+pch.to.use <- rep(20, times = length(legend.labels.to.use))
+graphics::legend("topright",
+      legend = legend.labels.to.use,
+      col = col.to.use,
+      pch = pch.to.use, bty = "n",  pt.cex = 1.5, cex = 0.8 ,
+      text.col = "black", horiz = FALSE, inset = c(0, 0.1),
+      title = "Color")
 ```
 
-    ## [1] "Clustering based on x and y data ward.D  linkage.  euclidean  distance.    correlation.\n Correlation Used FALSE . Dunn's index=  0.698430295769578"
-    ## [1] "Cluster assignment"
-    ## 1a 1b 1c 1d 1g 1e 1f 2a 2b 2c 2g 2d 2h 3g 3a 3c 3f 3d 3e 3b 3h 3i 
-    ##  1  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3  3  3  3  3  3  3 
-    ## boot 1 
-    ## boot 2 
-    ## boot 3 
-    ## boot 4 
-    ## boot 5 
-    ## boot 6 
-    ## boot 7 
-    ## boot 8 
-    ## boot 9 
-    ## boot 10 
-    ## boot 11 
-    ## boot 12 
-    ## boot 13 
-    ## boot 14 
-    ## boot 15 
-    ## boot 16 
-    ## boot 17 
-    ## boot 18 
-    ## boot 19 
-    ## boot 20 
-    ## boot 21 
-    ## boot 22 
-    ## boot 23 
-    ## boot 24 
-    ## boot 25 
-    ## boot 26 
-    ## boot 27 
-    ## boot 28 
-    ## boot 29 
-    ## boot 30 
-    ## boot 31 
-    ## boot 32 
-    ## boot 33 
-    ## boot 34 
-    ## boot 35 
-    ## boot 36 
-    ## boot 37 
-    ## boot 38 
-    ## boot 39 
-    ## boot 40 
-    ## boot 41 
-    ## boot 42 
-    ## boot 43 
-    ## boot 44 
-    ## boot 45 
-    ## boot 46 
-    ## boot 47 
-    ## boot 48 
-    ## boot 49 
-    ## boot 50 
-    ## boot 51 
-    ## boot 52 
-    ## boot 53 
-    ## boot 54 
-    ## boot 55 
-    ## boot 56 
-    ## boot 57 
-    ## boot 58 
-    ## boot 59 
-    ## boot 60 
-    ## boot 61 
-    ## boot 62 
-    ## boot 63 
-    ## boot 64 
-    ## boot 65 
-    ## boot 66 
-    ## boot 67 
-    ## boot 68 
-    ## boot 69 
-    ## boot 70 
-    ## boot 71 
-    ## boot 72 
-    ## boot 73 
-    ## boot 74 
-    ## boot 75 
-    ## boot 76 
-    ## boot 77 
-    ## boot 78 
-    ## boot 79 
-    ## boot 80 
-    ## boot 81 
-    ## boot 82 
-    ## boot 83 
-    ## boot 84 
-    ## boot 85 
-    ## boot 86 
-    ## boot 87 
-    ## boot 88 
-    ## boot 89 
-    ## boot 90 
-    ## boot 91 
-    ## boot 92 
-    ## boot 93 
-    ## boot 94 
-    ## boot 95 
-    ## boot 96 
-    ## boot 97 
-    ## boot 98 
-    ## boot 99 
-    ## boot 100
+![](README_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
 
-    ## [[1]]
-    ## 
-    ## Call:
-    ## stats::hclust(d = data.dist, method = linkage_method_type)
-    ## 
-    ## Cluster method   : ward.D 
-    ## Distance         : euclidean 
-    ## Number of objects: 22 
-    ## 
-    ## 
-    ## [[2]]
-    ## 'dendrogram' with 2 branches and 22 members total, at height 167.2036 
-    ## 
-    ## [[3]]
+``` r
+#Display sample assignment
+labeled.samples
+```
+
+    ## 1a 1b 1c 1d 1g 1e 1f 2a 2b 2c 2g 2d 2h 3g 3a 3c 3f 3d 3e 3b 3h 3i 
+    ##  1  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3  3  3  3  3  3  3
+
+``` r
+#Display stability of clusters
+plot(1,1)
+gridExtra::grid.table(stability.table)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-8-3.png)<!-- -->
+
+``` r
+#Display kcboot full output
+kcboot.res
+```
+
     ## * Cluster stability assessment *
     ## Cluster method:  hclust 
     ## Full clustering results are given as parameter result

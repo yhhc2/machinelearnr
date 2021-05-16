@@ -161,8 +161,6 @@ legend(s3d$xyz.convert(-30, 20, 1), legend = levels(as.factor(grouped)),
 text(s3d$xyz.convert(data.to.plot[,1:3]), labels = actual.group.label,
      cex= 0.7, col = "steelblue")
 
-
-
 ```
 
 
@@ -247,10 +245,10 @@ dend <- results[[2]]
 kcboot.res <- results[[3]]
 title.to.use <- results[[4]]
 labeled.samples <- results[[5]]
-stability.table < - results[[6]]
+stability.table <- results[[6]]
                      
 #Plot dendrogram                         
-plot(dend, main = title.to.use)
+plot(dend, main = title.to.use, cex.main = 0.75)
 
 #Add legend to dendrogram
 legend.labels.to.use <- levels(example.data[,"color"])
@@ -267,6 +265,7 @@ graphics::legend("topright",
 labeled.samples
       
 #Display stability of clusters
+plot(1,1)
 gridExtra::grid.table(stability.table)
 
 #Display kcboot full output

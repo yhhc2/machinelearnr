@@ -123,9 +123,7 @@ with this function.</p>
     <pre class="usage"><span class='fu'>generate.3D.clustering.with.labeled.subgroup</span><span class='op'>(</span>
   <span class='va'>pca.results.input</span>,
   <span class='va'>cluster.labels.input</span>,
-  <span class='va'>subgroup.labels.input</span>,
-  <span class='va'>name</span>,
-  <span class='va'>subgroup.text.size</span>
+  <span class='va'>subgroup.labels.input</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -143,24 +141,28 @@ with this function.</p>
       <th>subgroup.labels.input</th>
       <td><p>A vector of strings that specify an additional label for each observations. Each point needs to be labeled</p></td>
     </tr>
-    <tr>
-      <th>name</th>
-      <td><p>A string used for the title of the plot.</p></td>
-    </tr>
-    <tr>
-      <th>subgroup.text.size</th>
-      <td><p>A number to set for cex of the text size for subgroup label of each point.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>No object is returned, but a rgl plot is displayed.</p>
+    <p>A list with 8 objects:</p><ol>
+<li><p>String specifying x axis label with percent variance for PC1.</p></li>
+<li><p>String specifying y axis label with percent variance for PC2.</p></li>
+<li><p>String specifying z axis label with percent variance for PC3.</p></li>
+<li><p>A vector specifying values for x coordinates of points. PC1 values.</p></li>
+<li><p>A vector specifying values for y coordinates of points. PC2 values.</p></li>
+<li><p>A vector specifying values for z coordinates of points. PC3 values</p></li>
+<li><p>A chisq.test() result object.</p></li>
+<li><p>A table used for chisq.test()</p></li>
+</ol>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function plots PC1 vs PC2 vs PC3. This function uses
-the output of stat::prcomp(). The input into prcomp() needs to have
+    <p>This function outputs values that can be used to plot PC1 vs PC2 vs PC3 using the rgl package.
+This function uses the output of stat::prcomp(). The input into prcomp() needs to have
 at least 3 dimensions. PC = principal component.</p>
+<p>This function creates a contingency table to show if the cluster labels
+and subgroup labels are significantly associated.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Clustering functions: 
@@ -191,9 +193,22 @@ at least 3 dimensions. PC = principal component.</p>
 <span class='va'>actual.group.label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, 
 <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span><span class='op'>)</span>
 
-<span class='fu'>generate.3D.clustering.with.labeled.subgroup</span><span class='op'>(</span><span class='va'>pca.results</span>, <span class='va'>grouped</span>, <span class='va'>actual.group.label</span>,
-                                           <span class='st'>"Cluster results with actual group label"</span>, <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in generate.3D.clustering.with.labeled.subgroup(pca.results, grouped,     actual.group.label, "Cluster results with actual group label",     0.5): unused argument (0.5)</span></div><div class='input'>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>generate.3D.clustering.with.labeled.subgroup</span><span class='op'>(</span><span class='va'>pca.results</span>, <span class='va'>grouped</span>, <span class='va'>actual.group.label</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Chi-squared approximation may be incorrect</span></div><div class='input'>
+<span class='va'>xlab.values</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>ylab.values</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>zlab.values</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>xdata.values</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>ydata.values</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>zdata.values</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>]</span>
+
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/bg.html'>rgl.bg</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
+
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/plot3d.html'>plot3d</a></span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>xdata.values</span>, y<span class='op'>=</span> <span class='va'>ydata.values</span>, z<span class='op'>=</span> <span class='va'>zdata.values</span>,
+xlab <span class='op'>=</span> <span class='va'>xlab.values</span>, ylab <span class='op'>=</span> <span class='va'>ylab.values</span>, zlab <span class='op'>=</span> <span class='va'>zlab.values</span>, col<span class='op'>=</span><span class='op'>(</span><span class='va'>grouped</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>, pch<span class='op'>=</span><span class='fl'>20</span>, cex<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+
+<span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://dmurdoch.github.io/rgl/dev/reference/texts.html'>text3d</a></span><span class='op'>(</span>x<span class='op'>=</span> <span class='va'>xdata.values</span>, y<span class='op'>=</span> <span class='va'>ydata.values</span>, z<span class='op'>=</span> <span class='va'>zdata.values</span>, text<span class='op'>=</span> <span class='va'>actual.group.label</span>, cex<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

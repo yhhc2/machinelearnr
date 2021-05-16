@@ -130,10 +130,11 @@
                            z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
                                  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
-
-<span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-1.png"><!-- --></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
 
 <span class="va">grouped</span> <span class="op">&lt;-</span> <span class="va">km.res</span><span class="op">$</span><span class="va">cluster</span>
 
@@ -142,42 +143,226 @@
 <span class="va">actual.group.label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, 
                         <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span><span class="op">)</span>
 
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate.2D.clustering.with.labeled.subgroup.html">generate.2D.clustering.with.labeled.subgroup</a></span><span class="op">(</span><span class="va">pca.results</span>, <span class="va">grouped</span>, <span class="va">actual.group.label</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## Warning in stats::chisq.test(tbl): Chi-squared approximation may be incorrect</span></span></code></pre></div>
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate.2D.clustering.with.labeled.subgroup.html">generate.2D.clustering.with.labeled.subgroup</a></span><span class="op">(</span><span class="va">pca.results</span>, <span class="va">grouped</span>, <span class="va">actual.group.label</span><span class="op">)</span>
+
+<span class="co">#PC1 vs PC2</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-2.png"><!-- --></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#PC1 vs PC2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co">#PC1 vs PC3</span>
-<span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
-
-<span class="co">#Chi-square results</span>
-<span class="va">results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">##  Pearson's Chi-squared test</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="co">## </span></span>
-<span id="cb9-4"><a href="#cb9-4"></a><span class="co">## data:  tbl</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="co">## X-squared = 22, df = 2, p-value = 1.67e-05</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#PC1 vs PC3</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-4-3.png"><!-- --></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Chi-square results</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">##  Pearson's Chi-squared test</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">## </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">## data:  tbl</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">## X-squared = 22, df = 2, p-value = 1.67e-05</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Table</span>
-<span class="va">results</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">##                      cluster.labels.input</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="co">## subgroup.labels.input 1 2 3</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="co">##                     A 0 7 0</span></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="co">##                     B 9 0 6</span></span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">##                      cluster.labels.input</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="co">## subgroup.labels.input 1 2 3</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="co">##                     A 0 7 0</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">##                     B 9 0 6</span></span></code></pre></div>
 </div>
 <div id="generate3dclusteringwithlabeledsubgroup" class="section level3">
 <h3 class="hasAnchor">
-<a href="#generate3dclusteringwithlabeledsubgroup" class="anchor"></a>generate.3D.clustering.with.labeled.subgroup</h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dmurdoch/rgl">rgl</a></span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## Warning: package 'rgl' was built under R version 4.0.5</span></span></code></pre></div>
+<a href="#generate3dclusteringwithlabeledsubgroup" class="anchor"></a>generate.3D.clustering.with.labeled.subgroup()</h3>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>,
+                                 <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
+                           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>,
+                                 <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>, <span class="fl">40</span>, <span class="fl">45</span><span class="op">)</span>,
+                           z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>,
+                                 <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-5-1.png"><!-- --></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/knit_hooks.html">knit_hooks</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>webgl <span class="op">=</span> <span class="va">hook_webgl</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+
+<span class="va">grouped</span> <span class="op">&lt;-</span> <span class="va">km.res</span><span class="op">$</span><span class="va">cluster</span>
+
+<span class="va">pca.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prcomp.html">prcomp</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">]</span>, scale<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="va">actual.group.label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, 
+<span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span><span class="op">)</span>
+
+<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate.3D.clustering.with.labeled.subgroup.html">generate.3D.clustering.with.labeled.subgroup</a></span><span class="op">(</span><span class="va">pca.results</span>, <span class="va">grouped</span>, <span class="va">actual.group.label</span><span class="op">)</span>
+
+<span class="va">xlab.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">ylab.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="va">zlab.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
+<span class="va">xdata.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>
+<span class="va">ydata.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span>
+<span class="va">zdata.values</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>
+
+<span class="va">data.to.plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xdata.values</span>, <span class="va">ydata.values</span>, <span class="va">zdata.values</span><span class="op">)</span>
+
+<span class="co">#Interactive 3d plot, but cannot display in html or md</span>
+<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/bg.html">rgl.bg</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>
+<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html">plot3d</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">xdata.values</span>, y<span class="op">=</span> <span class="va">ydata.values</span>, z<span class="op">=</span> <span class="va">zdata.values</span>,
+xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span class="op">=</span> <span class="va">ylab.values</span>, zlab <span class="op">=</span> <span class="va">zlab.values</span>, col<span class="op">=</span><span class="op">(</span><span class="va">grouped</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">20</span>, cex<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
+<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/texts.html">text3d</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">xdata.values</span>, y<span class="op">=</span> <span class="va">ydata.values</span>, z<span class="op">=</span> <span class="va">zdata.values</span>, text<span class="op">=</span> <span class="va">actual.group.label</span>, cex<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/rglwidget.html">rglwidget</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-5-2.png"><!-- --></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Non-interactive 3d plot</span>
+<span class="va">s3d</span> <span class="op">&lt;-</span> <span class="fu">scatterplot3d</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scatterplot3d/man/scatterplot3d.html">scatterplot3d</a></span><span class="op">(</span><span class="va">data.to.plot</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, pch <span class="op">=</span> <span class="fl">16</span>, color<span class="op">=</span><span class="op">(</span><span class="va">grouped</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>,
+                                    xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span class="op">=</span> <span class="va">ylab.values</span>, 
+                                    zlab <span class="op">=</span> <span class="va">zlab.values</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">$</span><span class="fu">xyz.convert</span><span class="op">(</span><span class="op">-</span><span class="fl">30</span>, <span class="fl">20</span>, <span class="fl">1</span><span class="op">)</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">grouped</span><span class="op">)</span><span class="op">)</span>,
+      col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">grouped</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">$</span><span class="fu">xyz.convert</span><span class="op">(</span><span class="va">data.to.plot</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>, labels <span class="op">=</span> <span class="va">actual.group.label</span>,
+     cex<span class="op">=</span> <span class="fl">0.7</span>, col <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-5-3.png"><!-- --></p>
 </div>
-<div id="calcoptimalnumclustersforkmeans-1" class="section level3">
+<div id="generateplotscomparingclusters" class="section level3">
 <h3 class="hasAnchor">
-<a href="#calcoptimalnumclustersforkmeans-1" class="anchor"></a>CalcOptimalNumClustersForKMeans()</h3>
+<a href="#generateplotscomparingclusters" class="anchor"></a>generate.plots.comparing.clusters()</h3>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>,
+                                 <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
+                          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>,
+                                <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>, <span class="fl">40</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+
+<span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+
+<span class="va">grouped</span> <span class="op">&lt;-</span> <span class="va">km.res</span><span class="op">$</span><span class="va">cluster</span>
+
+<span class="fu"><a href="reference/generate.plots.comparing.clusters.html">generate.plots.comparing.clusters</a></span><span class="op">(</span><span class="va">example.data</span>, <span class="va">grouped</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="generateparcoordforclusters" class="section level3">
+<h3 class="hasAnchor">
+<a href="#generateparcoordforclusters" class="anchor"></a>GenerateParcoordForClusters()</h3>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>,
+                                 <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
+                          y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>,
+                                <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>, <span class="fl">40</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-7-1.png"><!-- --></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
+
+<span class="va">grouped</span> <span class="op">&lt;-</span> <span class="va">km.res</span><span class="op">$</span><span class="va">cluster</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">example.data</span>, <span class="va">grouped</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="reference/GenerateParcoordForClusters.html">GenerateParcoordForClusters</a></span><span class="op">(</span><span class="va">example.data</span>, <span class="st">"grouped"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-7-2.png"><!-- --></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">## $rect</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a><span class="co">## $rect$w</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="co">## [1] 0.2535938</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="co">## </span></span>
+<span id="cb19-5"><a href="#cb19-5"></a><span class="co">## $rect$h</span></span>
+<span id="cb19-6"><a href="#cb19-6"></a><span class="co">## [1] 0.3827849</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a><span class="co">## </span></span>
+<span id="cb19-8"><a href="#cb19-8"></a><span class="co">## $rect$left</span></span>
+<span id="cb19-9"><a href="#cb19-9"></a><span class="co">## [1] 1.786406</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="co">## </span></span>
+<span id="cb19-11"><a href="#cb19-11"></a><span class="co">## $rect$top</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a><span class="co">## [1] 1.04</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a><span class="co">## </span></span>
+<span id="cb19-14"><a href="#cb19-14"></a><span class="co">## </span></span>
+<span id="cb19-15"><a href="#cb19-15"></a><span class="co">## $text</span></span>
+<span id="cb19-16"><a href="#cb19-16"></a><span class="co">## $text$x</span></span>
+<span id="cb19-17"><a href="#cb19-17"></a><span class="co">## [1] 1.876406 1.876406 1.876406 1.876406 1.876406 1.876406</span></span>
+<span id="cb19-18"><a href="#cb19-18"></a><span class="co">## </span></span>
+<span id="cb19-19"><a href="#cb19-19"></a><span class="co">## $text$y</span></span>
+<span id="cb19-20"><a href="#cb19-20"></a><span class="co">## [1] 0.9853164 0.9306329 0.8759493 0.8212658 0.7665822 0.7118986</span></span></code></pre></div>
+</div>
+<div id="hierarchicalclustering" class="section level3">
+<h3 class="hasAnchor">
+<a href="#hierarchicalclustering" class="anchor"></a>HierarchicalClustering()</h3>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"2g"</span>, <span class="st">"2h"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>, <span class="fl">40</span>, <span class="fl">45</span><span class="op">)</span>
+
+<span class="va">color</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">color</span><span class="op">)</span>
+
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>, labels <span class="op">=</span> <span class="va">id</span>, cex<span class="op">=</span><span class="fl">0.9</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-8-1.png"><!-- --></p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/HierarchicalClustering.html">HierarchicalClustering</a></span><span class="op">(</span>working.data <span class="op">=</span> <span class="va">example.data</span>,
+                       clustering.columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
+                       label.column.name <span class="op">=</span> <span class="st">"id"</span>,
+                       grouping.column.name <span class="op">=</span> <span class="st">"color"</span>,
+                       number.of.clusters.to.use <span class="op">=</span> <span class="fl">3</span>,
+                       distance_method <span class="op">=</span> <span class="st">"euclidean"</span>,
+                       correlation_method <span class="op">=</span> <span class="cn">NULL</span>,
+                       linkage_method_type <span class="op">=</span> <span class="st">"ward.D"</span>,
+                       Use.correlation.for.hclust <span class="op">=</span> <span class="cn">FALSE</span>,
+                       terminal.branch.font.size <span class="op">=</span> <span class="fl">1</span>,
+                       title.to.use <span class="op">=</span> <span class="st">"Clustering based on x and y data"</span><span class="op">)</span>
+                       
+<span class="va">hclust.res</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">dend</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
+<span class="va">kcboot.res</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
+<span class="va">title.to.use</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>
+<span class="va">labeled.samples</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span>
+<span class="va">stability.table</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>
+                     
+<span class="co">#Plot dendrogram                         </span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dend</span>, main <span class="op">=</span> <span class="va">title.to.use</span>, cex.main <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span>
+
+<span class="co">#Add legend to dendrogram</span>
+<span class="va">legend.labels.to.use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="st">"color"</span><span class="op">]</span><span class="op">)</span>
+<span class="va">col.to.use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="st">"color"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="va">pch.to.use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">20</span>, times <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">legend.labels.to.use</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">graphics</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topright"</span>,
+      legend <span class="op">=</span> <span class="va">legend.labels.to.use</span>,
+      col <span class="op">=</span> <span class="va">col.to.use</span>,
+      pch <span class="op">=</span> <span class="va">pch.to.use</span>, bty <span class="op">=</span> <span class="st">"n"</span>,  pt.cex <span class="op">=</span> <span class="fl">1.5</span>, cex <span class="op">=</span> <span class="fl">0.8</span> ,
+      text.col <span class="op">=</span> <span class="st">"black"</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, inset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>,
+      title <span class="op">=</span> <span class="st">"Color"</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-8-2.png"><!-- --></p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Display sample assignment</span>
+<span class="va">labeled.samples</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">## 1a 1b 1c 1d 1g 1e 1f 2a 2b 2c 2g 2d 2h 3g 3a 3c 3f 3d 3e 3b 3h 3i </span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co">##  1  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3  3  3  3  3  3  3</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Display stability of clusters</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/tableGrob.html">grid.table</a></span><span class="op">(</span><span class="va">stability.table</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-8-3.png"><!-- --></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Display kcboot full output</span>
+<span class="va">kcboot.res</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">## * Cluster stability assessment *</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co">## Cluster method:  hclust </span></span>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="co">## Full clustering results are given as parameter result</span></span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co">## of the clusterboot object, which also provides further statistics</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="co">## of the resampling results.</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="co">## Number of resampling runs:  100 </span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="co">## </span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="co">## Number of clusters found in data:  3 </span></span>
+<span id="cb26-9"><a href="#cb26-9"></a><span class="co">## </span></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="co">##  Clusterwise Jaccard bootstrap (omitting multiple points) mean:</span></span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">## [1] 1 1 1</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="co">## dissolved:</span></span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">## [1] 0 0 0</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">## recovered:</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">## [1] 100 100 100</span></span></code></pre></div>
 </div>
 </div>
 <div id="examples-for-classification" class="section level2">

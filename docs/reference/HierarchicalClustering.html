@@ -182,9 +182,10 @@ clustering. The linkage can also be specified.</p>
     <p>A list with three objects:
 1.hclust.res: The object outputted from stats::hclust().
 2.dend1: The object outtputed from converting hclust.res into a dendrogram.
-3.kcboot: The results from fpc::clusterboot() which evaluates the stability of the clusters.</p>
-<p>Additionally, the dendrogram will be displayed and a table summarizing
-stability of clusters will also be displayed.</p>
+3.kcboot: The results from fpc::clusterboot() which evaluates the stability of the clusters.
+4.title: Title to use for dendrogram
+5.cluster.labels.renamed.reordered: Cluster group matched with labels of samples.
+6.d: Table generated with kcboot to assess stability of clusters</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Correlation type, distance type, linkage type, and coloring of groups can
@@ -219,7 +220,7 @@ used to make this function are provided in the code.</p>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>y</span>, labels <span class='op'>=</span> <span class='va'>id</span>, cex<span class='op'>=</span><span class='fl'>0.9</span>, font<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'>HierarchicalClustering</span><span class='op'>(</span>working.data <span class='op'>=</span> <span class='va'>example.data</span>,
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>HierarchicalClustering</span><span class='op'>(</span>working.data <span class='op'>=</span> <span class='va'>example.data</span>,
                        clustering.columns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span><span class='op'>)</span>,
                        label.column.name <span class='op'>=</span> <span class='st'>"id"</span>,
                        grouping.column.name <span class='op'>=</span> <span class='st'>"color"</span>,
@@ -230,124 +231,38 @@ used to make this function are provided in the code.</p>
                        Use.correlation.for.hclust <span class='op'>=</span> <span class='cn'>FALSE</span>,
                        terminal.branch.font.size <span class='op'>=</span> <span class='fl'>1</span>,
                        title.to.use <span class='op'>=</span> <span class='st'>"Clustering based on x and y data"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "Clustering based on x and y data ward.D  linkage.  euclidean  distance.    correlation.\n Correlation Used FALSE . Dunn's index=  0.698430295769578"
-#&gt; [1] "Cluster assignment"
-#&gt; 1a 1b 1c 1d 1g 1e 1f 2a 2b 2c 2g 2d 2h 3g 3a 3c 3f 3d 3e 3b 3h 3i 
-#&gt;  1  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3  3  3  3  3  3  3 
-#&gt; boot 1 
-#&gt; boot 2 
-#&gt; boot 3 
-#&gt; boot 4 
-#&gt; boot 5 
-#&gt; boot 6 
-#&gt; boot 7 
-#&gt; boot 8 
-#&gt; boot 9 
-#&gt; boot 10 
-#&gt; boot 11 
-#&gt; boot 12 
-#&gt; boot 13 
-#&gt; boot 14 
-#&gt; boot 15 
-#&gt; boot 16 
-#&gt; boot 17 
-#&gt; boot 18 
-#&gt; boot 19 
-#&gt; boot 20 
-#&gt; boot 21 
-#&gt; boot 22 
-#&gt; boot 23 
-#&gt; boot 24 
-#&gt; boot 25 
-#&gt; boot 26 
-#&gt; boot 27 
-#&gt; boot 28 
-#&gt; boot 29 
-#&gt; boot 30 
-#&gt; boot 31 
-#&gt; boot 32 
-#&gt; boot 33 
-#&gt; boot 34 
-#&gt; boot 35 
-#&gt; boot 36 
-#&gt; boot 37 
-#&gt; boot 38 
-#&gt; boot 39 
-#&gt; boot 40 
-#&gt; boot 41 
-#&gt; boot 42 
-#&gt; boot 43 
-#&gt; boot 44 
-#&gt; boot 45 
-#&gt; boot 46 
-#&gt; boot 47 
-#&gt; boot 48 
-#&gt; boot 49 
-#&gt; boot 50 
-#&gt; boot 51 
-#&gt; boot 52 
-#&gt; boot 53 
-#&gt; boot 54 
-#&gt; boot 55 
-#&gt; boot 56 
-#&gt; boot 57 
-#&gt; boot 58 
-#&gt; boot 59 
-#&gt; boot 60 
-#&gt; boot 61 
-#&gt; boot 62 
-#&gt; boot 63 
-#&gt; boot 64 
-#&gt; boot 65 
-#&gt; boot 66 
-#&gt; boot 67 
-#&gt; boot 68 
-#&gt; boot 69 
-#&gt; boot 70 
-#&gt; boot 71 
-#&gt; boot 72 
-#&gt; boot 73 
-#&gt; boot 74 
-#&gt; boot 75 
-#&gt; boot 76 
-#&gt; boot 77 
-#&gt; boot 78 
-#&gt; boot 79 
-#&gt; boot 80 
-#&gt; boot 81 
-#&gt; boot 82 
-#&gt; boot 83 
-#&gt; boot 84 
-#&gt; boot 85 
-#&gt; boot 86 
-#&gt; boot 87 
-#&gt; boot 88 
-#&gt; boot 89 
-#&gt; boot 90 
-#&gt; boot 91 
-#&gt; boot 92 
-#&gt; boot 93 
-#&gt; boot 94 
-#&gt; boot 95 
-#&gt; boot 96 
-#&gt; boot 97 
-#&gt; boot 98 
-#&gt; boot 99 
-#&gt; boot 100 </div><div class='output co'>#&gt; [[1]]
-#&gt; 
-#&gt; Call:
-#&gt; stats::hclust(d = data.dist, method = linkage_method_type)
-#&gt; 
-#&gt; Cluster method   : ward.D 
-#&gt; Distance         : euclidean 
-#&gt; Number of objects: 22 
-#&gt; 
-#&gt; 
-#&gt; [[2]]
-#&gt; 'dendrogram' with 2 branches and 22 members total, at height 167.2036 
-#&gt; 
-#&gt; [[3]]
-#&gt; * Cluster stability assessment *
+                       
+<span class='va'>hclust.res</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>dend</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>kcboot.res</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>title.to.use</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>labeled.samples</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>5</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>stability.table</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>]</span>
+                     
+<span class='co'>#Plot dendrogram                         </span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>dend</span>, main <span class='op'>=</span> <span class='va'>title.to.use</span><span class='op'>)</span>
+
+<span class='co'>#Add legend to dendrogram</span>
+<span class='va'>legend.labels.to.use</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>[</span>,<span class='st'>"color"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>col.to.use</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>[</span>,<span class='st'>"color"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span>
+<span class='va'>pch.to.use</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>20</span>, times <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>legend.labels.to.use</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>graphics</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span><span class='st'>"topright"</span>,
+      legend <span class='op'>=</span> <span class='va'>legend.labels.to.use</span>,
+      col <span class='op'>=</span> <span class='va'>col.to.use</span>,
+      pch <span class='op'>=</span> <span class='va'>pch.to.use</span>, bty <span class='op'>=</span> <span class='st'>"n"</span>,  pt.cex <span class='op'>=</span> <span class='fl'>1.5</span>, cex <span class='op'>=</span> <span class='fl'>0.8</span> ,
+      text.col <span class='op'>=</span> <span class='st'>"black"</span>, horiz <span class='op'>=</span> <span class='cn'>FALSE</span>, inset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.1</span><span class='op'>)</span>,
+      title <span class='op'>=</span> <span class='st'>"Color"</span><span class='op'>)</span>
+      
+<span class='co'>#Display sample assignment</span>
+<span class='va'>labeled.samples</span>
+</div><div class='output co'>#&gt; 1a 1b 1c 1d 1g 1e 1f 2a 2b 2c 2g 2d 2h 3g 3a 3c 3f 3d 3e 3b 3h 3i 
+#&gt;  1  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3  3  3  3  3  3  3 </div><div class='input'>      
+<span class='co'>#Display stability of clusters</span>
+<span class='fu'>gridExtra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gridExtra/man/tableGrob.html'>grid.table</a></span><span class='op'>(</span><span class='va'>stability.table</span><span class='op'>)</span>
+
+<span class='co'>#Display kcboot full output</span>
+<span class='va'>kcboot.res</span>
+</div><div class='output co'>#&gt; * Cluster stability assessment *
 #&gt; Cluster method:  hclust 
 #&gt; Full clustering results are given as parameter result
 #&gt; of the clusterboot object, which also provides further statistics
@@ -361,8 +276,8 @@ used to make this function are provided in the code.</p>
 #&gt; dissolved:
 #&gt; [1] 0 0 0
 #&gt; recovered:
-#&gt; [1] 100 100 100
-#&gt; </div><div class='input'>
+#&gt; [1] 100 100 100</div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
