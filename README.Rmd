@@ -140,14 +140,14 @@ actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B",
 generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
                                              "Cluster results with actual group label", 0.5)
 
-#options(rgl.useNULL=TRUE)
+options(rgl.useNULL=TRUE)
 
-#rgl::rglwidget(width = 400, height = 800)
+rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
-#generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-#                                             "Cluster results with actual group label", 0.5)
+generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+                                             "Cluster results with actual group label", 0.5)
 
-#rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
+rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
 ```
 

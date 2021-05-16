@@ -413,7 +413,7 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
   rgl::text3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], text= subgroup.labels.input, cex=subgroup.text.size)
   
   #Allow plot to be displayed on html file
-  rgl::rglwidget()
+  #rgl::rglwidget()
   
   #rgl::pch3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], pch= subgroup.labels.input, cex=0.3)
 
