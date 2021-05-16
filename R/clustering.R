@@ -351,15 +351,16 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' This can be done with PCA. After PCA is completed, the data can be plotted
 #' with this function.
 #'
-#' This function plots PC1 vs PC2 vs PC3. This function uses
-#' the output of stat::prcomp(). The input into prcomp() needs to have
+#' This function outputs values that can be used to plot PC1 vs PC2 vs PC3 using the rgl package. 
+#' This function uses the output of stat::prcomp(). The input into prcomp() needs to have
 #' at least 3 dimensions. PC = principal component. 
+#' 
+#' This function creates a contingency table to show if the cluster labels
+#' and subgroup labels are significantly associated. 
 #'
 #' @param pca.results.input An object outputted by stats::prcomp(). The PCA of all the features used for clustering. There should be at least 3 features.
 #' @param cluster.labels.input A vector of integers that specify which cluster each observation belongs to.
 #' @param subgroup.labels.input A vector of strings that specify an additional label for each observations. Each point needs to be labeled
-#' @param name A string used for the title of the plot.
-#' @param subgroup.text.size A number to set for cex of the text size for subgroup label of each point.
 #'
 #' @return A list with 8 objects:
 #'   1. String specifying x axis label with percent variance for PC1.
@@ -416,7 +417,6 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 
   tbl <- table(subgroup.labels.input, cluster.labels.input)
   chisq.res <- stats::chisq.test(tbl)
-  main.text <- paste(as.character(name),"Chi-square p-value=", as.character(chisq.res$p.value))
 
   totalvar <- (pca.results.input[[1]]^2)
   variancePer <- round(totalvar/sum(totalvar)*100,1)

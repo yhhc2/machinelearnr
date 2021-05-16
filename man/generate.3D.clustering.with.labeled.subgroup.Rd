@@ -7,9 +7,7 @@
 generate.3D.clustering.with.labeled.subgroup(
   pca.results.input,
   cluster.labels.input,
-  subgroup.labels.input,
-  name,
-  subgroup.text.size
+  subgroup.labels.input
 )
 }
 \arguments{
@@ -18,13 +16,19 @@ generate.3D.clustering.with.labeled.subgroup(
 \item{cluster.labels.input}{A vector of integers that specify which cluster each observation belongs to.}
 
 \item{subgroup.labels.input}{A vector of strings that specify an additional label for each observations. Each point needs to be labeled}
-
-\item{name}{A string used for the title of the plot.}
-
-\item{subgroup.text.size}{A number to set for cex of the text size for subgroup label of each point.}
 }
 \value{
-No object is returned, but a rgl plot is displayed.
+A list with 8 objects:
+\enumerate{
+\item String specifying x axis label with percent variance for PC1.
+\item String specifying y axis label with percent variance for PC2.
+\item String specifying z axis label with percent variance for PC3.
+\item A vector specifying values for x coordinates of points. PC1 values.
+\item A vector specifying values for y coordinates of points. PC2 values.
+\item A vector specifying values for z coordinates of points. PC3 values
+\item A chisq.test() result object.
+\item A table used for chisq.test()
+}
 }
 \description{
 After clustering of a dataset with three or more dimensions, we often want to
@@ -34,9 +38,12 @@ This can be done with PCA. After PCA is completed, the data can be plotted
 with this function.
 }
 \details{
-This function plots PC1 vs PC2 vs PC3. This function uses
-the output of stat::prcomp(). The input into prcomp() needs to have
+This function outputs values that can be used to plot PC1 vs PC2 vs PC3 using the rgl package.
+This function uses the output of stat::prcomp(). The input into prcomp() needs to have
 at least 3 dimensions. PC = principal component.
+
+This function creates a contingency table to show if the cluster labels
+and subgroup labels are significantly associated.
 }
 \examples{
 
@@ -59,8 +66,21 @@ pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
 "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 
-generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                           "Cluster results with actual group label", 0.5)
+results <- generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)
+
+xlab.values <- results[[1]]
+ylab.values <- results[[2]]
+zlab.values <- results[[3]]
+xdata.values <- results[[4]]
+ydata.values <- results[[5]]
+zdata.values <- results[[6]]
+
+rgl::rgl.bg(color = "white")
+
+rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
+xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
+
+rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
 
 }
 \seealso{
