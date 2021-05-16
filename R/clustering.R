@@ -485,9 +485,9 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' 1.hclust.res: The object outputted from stats::hclust().
 #' 2.dend1: The object outtputed from converting hclust.res into a dendrogram.
 #' 3.kcboot: The results from fpc::clusterboot() which evaluates the stability of the clusters.
-#'
-#' Additionally, the dendrogram will be displayed and a table summarizing
-#' stability of clusters will also be displayed.
+#' 4.title: Title to use for dendrogram
+#' 5.cluster.labels.renamed.reordered: Cluster group matched with labels of samples. 
+#' 6.d: Table generated with kcboot to assess stability of clusters
 #'
 #' @export
 #'
@@ -512,7 +512,7 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' plot(example.data$x, example.data$y)
 #' text(example.data$x, example.data$y, labels = id, cex=0.9, font=2)
 #'
-#' HierarchicalClustering(working.data = example.data,
+#' results <- HierarchicalClustering(working.data = example.data,
 #'                        clustering.columns = c("x", "y"),
 #'                        label.column.name = "id",
 #'                        grouping.column.name = "color",
@@ -523,6 +523,37 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'                        Use.correlation.for.hclust = FALSE,
 #'                        terminal.branch.font.size = 1,
 #'                        title.to.use = "Clustering based on x and y data")
+#'                        
+#' hclust.res <- results[[1]]
+#' dend <- results[[2]]
+#' kcboot.res <- results[[3]]
+#' title.to.use <- results[[4]]
+#' labeled.samples <- results[[5]]
+#' stability.table <- results[[6]]
+#'                      
+#' #Plot dendrogram                         
+#' plot(dend, main = title.to.use)
+#' 
+#' #Add legend to dendrogram
+#' legend.labels.to.use <- levels(example.data[,"color"])
+#' col.to.use <- as.integer(levels(example.data[,"color"])) + 1
+#' pch.to.use <- rep(20, times = length(legend.labels.to.use))
+#' graphics::legend("topright",
+#'       legend = legend.labels.to.use,
+#'       col = col.to.use,
+#'       pch = pch.to.use, bty = "n",  pt.cex = 1.5, cex = 0.8 ,
+#'       text.col = "black", horiz = FALSE, inset = c(0, 0.1),
+#'       title = "Color")
+#'       
+#' #Display sample assignment
+#' labeled.samples
+#'       
+#' #Display stability of clusters
+#' gridExtra::grid.table(stability.table)
+#' 
+#' #Display kcboot full output
+#' kcboot.res
+#' 
 #'
 HierarchicalClustering <- function(working.data, clustering.columns, label.column.name,
                                    grouping.column.name, number.of.clusters.to.use,
@@ -591,43 +622,43 @@ HierarchicalClustering <- function(working.data, clustering.columns, label.colum
 
   #grDevices::dev.new()
   title <- paste(title.to.use, linkage_method_type, " linkage. ", distance_method, " distance. ", correlation_method, " correlation.\n", "Correlation Used", Use.correlation.for.hclust, ". Dunn's index= ", dunn.index)
-  plot(dend1, main = title)
+  #plot(dend1, main = title)
 
   #Add legend to dendrogram
-  legend.labels.to.use <- levels(working.data[,grouping.column.name])
-  col.to.use <- as.integer(levels(working.data[,grouping.column.name])) + 1
-  pch.to.use <- rep(20, times = length(legend.labels.to.use))
-  graphics::legend("topright",
-         legend = legend.labels.to.use,
-         col = col.to.use,
-         pch = pch.to.use, bty = "n",  pt.cex = 1.5, cex = 0.8 ,
-         text.col = "black", horiz = FALSE, inset = c(0, 0.1),
-         title = grouping.column.name)
+  #legend.labels.to.use <- levels(working.data[,grouping.column.name])
+  #col.to.use <- as.integer(levels(working.data[,grouping.column.name])) + 1
+  #pch.to.use <- rep(20, times = length(legend.labels.to.use))
+  #graphics::legend("topright",
+  #       legend = legend.labels.to.use,
+  #       col = col.to.use,
+  #       pch = pch.to.use, bty = "n",  pt.cex = 1.5, cex = 0.8 ,
+  #       text.col = "black", horiz = FALSE, inset = c(0, 0.1),
+  #       title = grouping.column.name)
 
   #Get the cluster assignment for each leaf
   ##The name labels of the leaves on the outputted dendrogram reflects the cluster assignment
   cluster.labels.renamed <- cluster
   names(cluster.labels.renamed) <- working.data[,label.column.name]
   cluster.labels.renamed.reordered <- cluster.labels.renamed[hclust.res$order]
-  print(title)
-  print("Cluster assignment")
-  print(cluster.labels.renamed.reordered)
+  #print(title)
+  #print("Cluster assignment")
+  #print(cluster.labels.renamed.reordered)
 
   ##Evaluate stability of clusters
   #https://win-vector.com/2015/09/04/bootstrap-evaluation-of-clusters/
   #disthclustCBI needs to be used because the input matrix is already a distance (dissimilarity)
   #matrix. https://rdrr.io/cran/fpc/src/R/clusterboot.R
   set.seed(1)
-  kcboot <- fpc::clusterboot(data.dist, distances = TRUE, B=100, clustermethod = fpc::disthclustCBI ,method=linkage_method_type, k=number.of.clusters.to.use, seed=1)
+  invisible(utils::capture.output(kcboot <- fpc::clusterboot(data.dist, distances = TRUE, B=100, clustermethod = fpc::disthclustCBI ,method=linkage_method_type, k=number.of.clusters.to.use, seed=1)))
   kcboot$bootmean
   kcboot$bootbrd
   ##Display stability
   stability.table <- rbind(kcboot$bootmean, kcboot$bootbrd)
   rownames(stability.table) <- c("bootmean", "bootbrd")
   colnames(stability.table) <- c(1:number.of.clusters.to.use)
-  grDevices::dev.new()
+  #grDevices::dev.new()
   d <- stability.table
-  gridExtra::grid.table(d)
+  #gridExtra::grid.table(d)
 
   #From the stability output, how do you tell which cluster on the dendrogram
   #is stable?
@@ -639,7 +670,12 @@ HierarchicalClustering <- function(working.data, clustering.columns, label.colum
   #Checked that group assignment from hclust and cluster boot match by
   #comparing cluster.labels.renamed.reordered and groups_relabeled_reordered
 
-  output <- list(hclust.res, dend1, kcboot)
+  output <- list(hclust.res, 
+                 dend1, 
+                 kcboot, 
+                 title,
+                 cluster.labels.renamed.reordered,
+                 d)
 
   return(output)
 

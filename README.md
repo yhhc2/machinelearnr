@@ -85,9 +85,13 @@ example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
                            z = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                                  1, 1, 1, 1, 1, 1, 1, 1, 1))
 
-dev.new()
+#dev.new()
 plot(example.data$x, example.data$y)
+```
 
+![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+``` r
 km.res <- stats::kmeans(example.data[,c("x", "y", "z")], 3, nstart = 25, iter.max=10)
 
 grouped <- km.res$cluster
@@ -101,10 +105,18 @@ results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, ac
 
 #PC1 vs PC2
 print(results[[1]])
+```
 
+![](README_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
+
+``` r
 #PC1 vs PC3
 print(results[[2]])
+```
 
+![](README_files/figure-gfm/unnamed-chunk-4-3.png)<!-- -->
+
+``` r
 #Chi-square results
 print(results[[3]])
 ```
@@ -126,23 +138,6 @@ print(results[[4]])
     ##                     B 9 0 6
 
 ### generate.3D.clustering.with.labeled.subgroup()
-
-``` r
-knitr::opts_chunk$set(echo = TRUE)
-options(rgl.useNULL=TRUE)
-library(rgl)
-```
-
-    ## Warning: package 'rgl' was built under R version 4.0.5
-
-``` r
-knitr::knit_hooks$set(webgl = hook_webgl)
-
-#Allow html to work in md
-webshot::install_phantomjs()
-```
-
-    ## It seems that the version of `phantomjs` installed is greater than or equal to the requested version.To install the requested version or downgrade to another version, use `force = TRUE`.
 
 ``` r
 example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
@@ -177,17 +172,32 @@ xdata.values <- results[[4]]
 ydata.values <- results[[5]]
 zdata.values <- results[[6]]
 
-rgl::rgl.bg(color = "white")
+data.to.plot <- data.frame(xdata.values, ydata.values, zdata.values)
 
+#Interactive 3d plot, but cannot display in html or md
+rgl::rgl.bg(color = "white")
 rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
 xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
-
 rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
-
 rgl::rglwidget()
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+
+``` r
+#Non-interactive 3d plot
+s3d <- scatterplot3d::scatterplot3d(data.to.plot[,1:3], pch = 16, color=(grouped+1),
+                                    xlab = xlab.values, ylab = ylab.values, 
+                                    zlab = zlab.values)
+
+legend(s3d$xyz.convert(-30, 20, 1), legend = levels(as.factor(grouped)),
+      col = levels(as.factor(grouped+1)), pch = 16)
+
+text(s3d$xyz.convert(data.to.plot[,1:3]), labels = actual.group.label,
+     cex= 0.7, col = "steelblue")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
 
 ### generate.plots.comparing.clusters()
 

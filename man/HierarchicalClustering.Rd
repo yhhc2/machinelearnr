@@ -46,9 +46,9 @@ A list with three objects:
 1.hclust.res: The object outputted from stats::hclust().
 2.dend1: The object outtputed from converting hclust.res into a dendrogram.
 3.kcboot: The results from fpc::clusterboot() which evaluates the stability of the clusters.
-
-Additionally, the dendrogram will be displayed and a table summarizing
-stability of clusters will also be displayed.
+4.title: Title to use for dendrogram
+5.cluster.labels.renamed.reordered: Cluster group matched with labels of samples.
+6.d: Table generated with kcboot to assess stability of clusters
 }
 \description{
 Versatile hierarchical clustering function that can use correlation or distance
@@ -79,7 +79,7 @@ dev.new()
 plot(example.data$x, example.data$y)
 text(example.data$x, example.data$y, labels = id, cex=0.9, font=2)
 
-HierarchicalClustering(working.data = example.data,
+results <- HierarchicalClustering(working.data = example.data,
                        clustering.columns = c("x", "y"),
                        label.column.name = "id",
                        grouping.column.name = "color",
@@ -90,6 +90,37 @@ HierarchicalClustering(working.data = example.data,
                        Use.correlation.for.hclust = FALSE,
                        terminal.branch.font.size = 1,
                        title.to.use = "Clustering based on x and y data")
+                       
+hclust.res <- results[[1]]
+dend <- results[[2]]
+kcboot.res <- results[[3]]
+title.to.use <- results[[4]]
+labeled.samples <- results[[5]]
+stability.table <- results[[6]]
+                     
+#Plot dendrogram                         
+plot(dend, main = title.to.use)
+
+#Add legend to dendrogram
+legend.labels.to.use <- levels(example.data[,"color"])
+col.to.use <- as.integer(levels(example.data[,"color"])) + 1
+pch.to.use <- rep(20, times = length(legend.labels.to.use))
+graphics::legend("topright",
+      legend = legend.labels.to.use,
+      col = col.to.use,
+      pch = pch.to.use, bty = "n",  pt.cex = 1.5, cex = 0.8 ,
+      text.col = "black", horiz = FALSE, inset = c(0, 0.1),
+      title = "Color")
+      
+#Display sample assignment
+labeled.samples
+      
+#Display stability of clusters
+gridExtra::grid.table(stability.table)
+
+#Display kcboot full output
+kcboot.res
+
 
 }
 \seealso{
