@@ -92,7 +92,9 @@ pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
                         "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 
-results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)
+sink("NUL")
+pkgcond::suppress_messages(try((invisible(utils::capture.output(results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)))), silent = TRUE))
+sink()
 
 #PC1 vs PC2
 print(results[[1]])
@@ -143,8 +145,8 @@ options(rgl.useNULL=TRUE)
 
 rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
-generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                             "Cluster results with actual group label", 0.5)
+pkgcond::suppress_messages(generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
+                                             "Cluster results with actual group label", 0.5))
 
 rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
