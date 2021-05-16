@@ -359,3 +359,518 @@ kcboot.res
     ## [1] 100 100 100
 
 ## Examples for classification
+
+### eval.classification.results()
+
+``` r
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
+       "3", "3", "3", "3", "3", "3"))
+
+example.data <- data.frame(id, x, y, a, b, actual)
+
+set.seed(2)
+rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")],
+y=example.data[,"actual"], proximity=TRUE)
+
+predicted <- rf.result$predicted
+actual <- example.data[,"actual"]
+
+eval.classification.results(actual, predicted, "Example")
+```
+
+    ## [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"
+    ## [1] 0.9331967
+    ## [1] "Example"
+    ## [1] "proportion of total classification correct:  95.4545454545455"
+    ## [1] 95.45455
+    ## [1] "proportion of classification correct for class 1 : 100"
+    ## [1] 100
+    ## [1] "proportion of classification correct for class 2 : 83.3333333333333"
+    ## [1] 83.33333
+    ## [1] "proportion of classification correct for class 3 : 100"
+    ## [1] 100
+
+    ## [1] "Color represents the actual class. Y-value represents predicted class"
+    ## [1] "Classes used by function"
+    ## [1] 1 2 3
+    ## [1] "Original classes in data"
+    ## [1] 1 2 3
+    ## Levels: 1 2 3
+
+### find.best.number.of.trees()
+
+``` r
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e",
+       "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46,
+47, 48, 49, 54)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21,
+30, 31, 23, 24)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2",
+"2", "2", "3", "3", "3",
+       "3", "3", "3", "3", "3", "3"))
+
+example.data <- data.frame(id, x, y, a, b, actual)
+
+set.seed(1)
+rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")],
+y=example.data[,"actual"], proximity=TRUE, ntree=50)
+
+error.oob <- rf.result[[4]][,1]
+
+best.tree <- find.best.number.of.trees(error.oob)
+
+trees <- 1:length(error.oob)
+
+plot(trees, error.oob, type = "l")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+``` r
+#dev.new()
+plot(example.data$x, example.data$y)
+text(example.data$x, example.data$y,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-10-2.png)<!-- -->
+
+### LOOCVPredictionsRandomForestAutomaticMtryAndNtree()
+
+``` r
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2",
+       "3", "3", "3",
+       "3", "3", "3", "3", "3", "3"))
+
+example.data <- data.frame(id, x, y, a, b, actual)
+
+result <- LOOCVPredictionsRandomForestAutomaticMtryAndNtree(example.data,
+                           predictors.that.PCA.can.be.done.on = c("x", "y", "a", "b"),
+                           predictors.that.should.not.PCA = NULL,
+                           should.PCA.be.used = FALSE,
+                           target.column.name = "actual",
+                           seed=2,
+                           percentile.threshold.to.keep = 0.5)
+```
+
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 4
+    ## [1] 5
+    ## [1] 6
+    ## [1] 7
+    ## [1] 8
+    ## [1] 9
+    ## [1] 10
+    ## [1] 11
+    ## [1] 12
+    ## [1] 13
+    ## [1] 14
+    ## [1] 15
+    ## [1] 16
+    ## [1] 17
+    ## [1] 18
+    ## [1] 19
+    ## [1] 20
+    ## [1] 21
+    ## [1] 22
+
+``` r
+predicted <- result[[1]]
+actual <- example.data[,"actual"]
+
+eval.classification.results(actual, predicted, "Example")
+```
+
+    ## [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"
+    ## [1] 0.9331967
+    ## [1] "Example"
+    ## [1] "proportion of total classification correct:  95.4545454545455"
+    ## [1] 95.45455
+    ## [1] "proportion of classification correct for class 1 : 100"
+    ## [1] 100
+    ## [1] "proportion of classification correct for class 2 : 83.3333333333333"
+    ## [1] 83.33333
+    ## [1] "proportion of classification correct for class 3 : 100"
+    ## [1] 100
+
+    ## [1] "Color represents the actual class. Y-value represents predicted class"
+    ## [1] "Classes used by function"
+    ## [1] 1 2 3
+    ## [1] "Original classes in data"
+    ## [1] 1 2 3
+    ## Levels: 1 2 3
+
+``` r
+result[[2]]
+```
+
+    ## variables.with.sig.contributions
+    ##   y   x 
+    ## 100 100
+
+### LOOCVRandomForestClassificationMatrixForPheatmap()
+
+``` r
+#Make example data where samples with 1, 2, and 3 in their ID names can be
+#predicted using features x and y, while samples with 4 and 5 in their ID names
+#can be predicted using features a and b.
+
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i",
+       "4a", "4b", "4c", "4d", "4e", "4f", "4g", "5a", "5b", "5c",
+       "5d", "5e", "5f", "5g")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+18, 21, 22, 24, 26, 26, 27, 40, 41, 42, 44, 46, 47, 48)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+10, 11, 22, 15, 12, 13, 14, 27, 29, 20, 28, 21, 30, 31)
+
+sep.xy.ab = c("1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5",
+"4/5", "4/5", "4/5")
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2",
+       "2", "2", "3", "3", "3",
+       "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5",
+       "5", "5", "5", "5", "5", "5"))
+
+example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
+
+#dev.new()
+plot(example.data$x, example.data$y)
+text(example.data$x, example.data$y,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+#dev.new()
+plot(example.data$a, example.data$b)
+text(example.data$a, example.data$b,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
+
+``` r
+matrix.for.pheatmap <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
+                                       factor.name.for.subsetting = "sep.xy.ab",
+                                       name.of.predictors.to.use = c("x", "y", "a", "b"),
+                                       target.column.name = "actual",
+                                       seed = 2,
+                                       should.mtry.and.ntree.be.optimized = FALSE,
+                                       percentile.threshold.to.keep = 0.5)
+```
+
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 4
+    ## [1] 5
+    ## [1] 6
+    ## [1] 7
+    ## [1] 8
+    ## [1] 9
+    ## [1] 10
+    ## [1] 11
+    ## [1] 12
+    ## [1] 13
+    ## [1] 14
+    ## [1] 15
+    ## [1] 16
+    ## [1] 17
+    ## [1] 18
+    ## [1] 19
+    ## [1] 20
+    ## [1] 21
+    ## [1] 22
+    ## [1] 1
+    ## [1] 2
+    ## [1] 3
+    ## [1] 4
+    ## [1] 5
+    ## [1] 6
+    ## [1] 7
+    ## [1] 8
+    ## [1] 9
+    ## [1] 10
+    ## [1] 11
+    ## [1] 12
+    ## [1] 13
+    ## [1] 14
+
+``` r
+pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
+
+
+#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted
+#with features x and y. While points in group 4 and 5 can be predicted with
+#features a and b.
+
+#dev.new()
+pheatmap_RF
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
+
+### RandomForestAutomaticMtryAndNtree()
+
+``` r
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2",
+       "2", "3", "3", "3",
+       "3", "3", "3", "3", "3", "3"))
+
+example.data <- data.frame(id, x, y, a, b, actual)
+
+rf.result <- RandomForestAutomaticMtryAndNtree(example.data, c("x", "y", "a", "b"),
+"actual", seed=2)
+
+predicted <- rf.result$predicted
+actual <- example.data[,"actual"]
+
+#Result is not perfect because RF model does not over fit to the training data.
+eval.classification.results(actual, predicted, "Example")
+```
+
+    ## [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"
+    ## [1] 0.9331967
+    ## [1] "Example"
+    ## [1] "proportion of total classification correct:  95.4545454545455"
+    ## [1] 95.45455
+    ## [1] "proportion of classification correct for class 1 : 100"
+    ## [1] 100
+    ## [1] "proportion of classification correct for class 2 : 83.3333333333333"
+    ## [1] 83.33333
+    ## [1] "proportion of classification correct for class 3 : 100"
+    ## [1] 100
+
+    ## [1] "Color represents the actual class. Y-value represents predicted class"
+    ## [1] "Classes used by function"
+    ## [1] 1 2 3
+    ## [1] "Original classes in data"
+    ## [1] 1 2 3
+    ## Levels: 1 2 3
+
+### RandomForestClassificationGiniMatrixForPheatmap()
+
+``` r
+#Make example data where samples with 1, 2, and 3 in their ID names can be
+#predicted using features x and y, while samples with 4 and 5 in their ID names
+#can be predicted using features a and b.
+
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i",
+       "4a", "4b", "4c", "4d", "4e", "4f", "4g", "5a", "5b", "5c",
+       "5d", "5e", "5f", "5g")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+18, 21, 22, 24, 26, 26, 27, 40, 41, 42, 44, 46, 47, 48)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+10, 11, 22, 15, 12, 13, 14, 27, 29, 20, 28, 21, 30, 31)
+
+sep.xy.ab = c("1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5",
+"4/5", "4/5", "4/5")
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2", "3", "3", "3",
+       "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5",
+       "5", "5"))
+
+example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
+
+#dev.new()
+plot(example.data$x, example.data$y)
+text(example.data$x, example.data$y,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+``` r
+#dev.new()
+plot(example.data$a, example.data$b)
+text(example.data$a, example.data$b,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-14-2.png)<!-- -->
+
+``` r
+matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+                                       factor.name.for.subsetting = "sep.xy.ab",
+                                       name.of.predictors.to.use = c("x", "y", "a", "b"),
+                                       target.column.name = "actual",
+                                       seed = 2)
+
+
+#Add MCC to column names
+for(i in 1:dim(matrix.for.pheatmap)[2])
+{
+   old.name <- colnames(matrix.for.pheatmap)[[i]]
+   MCC.val <- matrix.for.pheatmap[dim(matrix.for.pheatmap)[1],][[i]]
+   new.name <- paste(old.name, ", MCC: ", format(round(MCC.val, 2), nsmall = 2))
+   colnames(matrix.for.pheatmap)[[i]] <- new.name
+}
+
+#Remove MCC row from matrix
+matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
+
+pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap.MCC.row.removed, fontsize_col = 12,
+fontsize_row=12)
+
+
+#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted
+#with features x and y. While points in group 4 and 5 can be predicted with
+#features a and b.
+#dev.new()
+pheatmap_RF
+```
+
+![](README_files/figure-gfm/unnamed-chunk-14-3.png)<!-- -->
+
+``` r
+#Note that the 1/2/3 column is exactly the same as the random forest
+#model created in the example for eval.classification.results.
+#Since this pheatmap is using the number of LOOCV rounds
+#as the input matrix, the colors can be misleading. It looks
+#like features x and y are more important for 1/2/3 than features a and b
+#is for 4/5. However, this is not the case. The mean decrease
+#in gini index cannot be used to compare features between models. It
+#can only be used to compare features within a single model.
+```
+
+### RandomForestClassificationPercentileMatrixForPheatmap()
+
+``` r
+#Make example data where samples with 1, 2, and 3 in their ID names can be
+#predicted using features x and y, while samples with 4 and 5 in their ID names
+#can be predicted using features a and b.
+
+id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+       "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i",
+       "4a", "4b", "4c", "4d", "4e", "4f", "4g", "5a", "5b", "5c",
+       "5d", "5e", "5f", "5g")
+
+x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+18, 21, 22, 24, 26, 26, 27, 40, 41, 42, 44, 46, 47, 48)
+
+b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+10, 11, 22, 15, 12, 13, 14, 27, 29, 20, 28, 21, 30, 31)
+
+sep.xy.ab = c("1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+"4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5",
+"4/5", "4/5", "4/5")
+
+actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2",
+       "3", "3", "3",
+       "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5",
+       "5", "5", "5", "5"))
+
+example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
+
+#dev.new()
+plot(example.data$x, example.data$y)
+text(example.data$x, example.data$y,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+``` r
+#dev.new()
+plot(example.data$a, example.data$b)
+text(example.data$a, example.data$b,labels=example.data$id)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->
+
+``` r
+matrix.for.pheatmap <- RandomForestClassificationPercentileMatrixForPheatmap(
+                                       input.data = example.data,
+                                       factor.name.for.subsetting = "sep.xy.ab",
+                                       name.of.predictors.to.use = c("x", "y", "a", "b"),
+                                       target.column.name = "actual",
+                                       seed = 2)
+
+
+pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
+
+
+#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted
+#with features x and y. While points in group 4 and 5 can be predicted with
+#features a and b.
+
+#dev.new()
+pheatmap_RF
+```
+
+![](README_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->

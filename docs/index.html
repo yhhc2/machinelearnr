@@ -368,6 +368,482 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 <div id="examples-for-classification" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples-for-classification" class="anchor"></a>Examples for classification</h2>
+<div id="evalclassificationresults" class="section level3">
+<h3 class="hasAnchor">
+<a href="#evalclassificationresults" class="anchor"></a>eval.classification.results()</h3>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
+<span class="va">rf.result</span> <span class="op">&lt;-</span> <span class="fu">randomForest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">]</span>,
+y<span class="op">=</span><span class="va">example.data</span><span class="op">[</span>,<span class="st">"actual"</span><span class="op">]</span>, proximity<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">predicted</span> <span class="op">&lt;-</span> <span class="va">rf.result</span><span class="op">$</span><span class="va">predicted</span>
+<span class="va">actual</span> <span class="op">&lt;-</span> <span class="va">example.data</span><span class="op">[</span>,<span class="st">"actual"</span><span class="op">]</span>
+
+<span class="fu"><a href="reference/eval.classification.results.html">eval.classification.results</a></span><span class="op">(</span><span class="va">actual</span>, <span class="va">predicted</span>, <span class="st">"Example"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co">## [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="co">## [1] 0.9331967</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="co">## [1] "Example"</span></span>
+<span id="cb28-4"><a href="#cb28-4"></a><span class="co">## [1] "proportion of total classification correct:  95.4545454545455"</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a><span class="co">## [1] 95.45455</span></span>
+<span id="cb28-6"><a href="#cb28-6"></a><span class="co">## [1] "proportion of classification correct for class 1 : 100"</span></span>
+<span id="cb28-7"><a href="#cb28-7"></a><span class="co">## [1] 100</span></span>
+<span id="cb28-8"><a href="#cb28-8"></a><span class="co">## [1] "proportion of classification correct for class 2 : 83.3333333333333"</span></span>
+<span id="cb28-9"><a href="#cb28-9"></a><span class="co">## [1] 83.33333</span></span>
+<span id="cb28-10"><a href="#cb28-10"></a><span class="co">## [1] "proportion of classification correct for class 3 : 100"</span></span>
+<span id="cb28-11"><a href="#cb28-11"></a><span class="co">## [1] 100</span></span>
+<span id="cb28-12"><a href="#cb28-12"></a></span>
+<span id="cb28-13"><a href="#cb28-13"></a><span class="co">## [1] "Color represents the actual class. Y-value represents predicted class"</span></span>
+<span id="cb28-14"><a href="#cb28-14"></a><span class="co">## [1] "Classes used by function"</span></span>
+<span id="cb28-15"><a href="#cb28-15"></a><span class="co">## [1] 1 2 3</span></span>
+<span id="cb28-16"><a href="#cb28-16"></a><span class="co">## [1] "Original classes in data"</span></span>
+<span id="cb28-17"><a href="#cb28-17"></a><span class="co">## [1] 1 2 3</span></span>
+<span id="cb28-18"><a href="#cb28-18"></a><span class="co">## Levels: 1 2 3</span></span></code></pre></div>
+</div>
+<div id="findbestnumberoftrees" class="section level3">
+<h3 class="hasAnchor">
+<a href="#findbestnumberoftrees" class="anchor"></a>find.best.number.of.trees()</h3>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>,
+       <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>,
+<span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>,
+<span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>,
+<span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">rf.result</span> <span class="op">&lt;-</span> <span class="fu">randomForest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/randomForest/man/randomForest.html">randomForest</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">]</span>,
+y<span class="op">=</span><span class="va">example.data</span><span class="op">[</span>,<span class="st">"actual"</span><span class="op">]</span>, proximity<span class="op">=</span><span class="cn">TRUE</span>, ntree<span class="op">=</span><span class="fl">50</span><span class="op">)</span>
+
+<span class="va">error.oob</span> <span class="op">&lt;-</span> <span class="va">rf.result</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>
+
+<span class="va">best.tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/find.best.number.of.trees.html">find.best.number.of.trees</a></span><span class="op">(</span><span class="va">error.oob</span><span class="op">)</span>
+
+<span class="va">trees</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">error.oob</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">trees</span>, <span class="va">error.oob</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-10-1.png"><!-- --></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-10-2.png"><!-- --></p>
+</div>
+<div id="loocvpredictionsrandomforestautomaticmtryandntree" class="section level3">
+<h3 class="hasAnchor">
+<a href="#loocvpredictionsrandomforestautomaticmtryandntree" class="anchor"></a>LOOCVPredictionsRandomForestAutomaticMtryAndNtree()</h3>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/LOOCVPredictionsRandomForestAutomaticMtryAndNtree.html">LOOCVPredictionsRandomForestAutomaticMtryAndNtree</a></span><span class="op">(</span><span class="va">example.data</span>,
+                           predictors.that.PCA.can.be.done.on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
+                           predictors.that.should.not.PCA <span class="op">=</span> <span class="cn">NULL</span>,
+                           should.PCA.be.used <span class="op">=</span> <span class="cn">FALSE</span>,
+                           target.column.name <span class="op">=</span> <span class="st">"actual"</span>,
+                           seed<span class="op">=</span><span class="fl">2</span>,
+                           percentile.threshold.to.keep <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">## [1] 1</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="co">## [1] 2</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co">## [1] 3</span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">## [1] 4</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="co">## [1] 5</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="co">## [1] 6</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="co">## [1] 7</span></span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="co">## [1] 8</span></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="co">## [1] 9</span></span>
+<span id="cb32-10"><a href="#cb32-10"></a><span class="co">## [1] 10</span></span>
+<span id="cb32-11"><a href="#cb32-11"></a><span class="co">## [1] 11</span></span>
+<span id="cb32-12"><a href="#cb32-12"></a><span class="co">## [1] 12</span></span>
+<span id="cb32-13"><a href="#cb32-13"></a><span class="co">## [1] 13</span></span>
+<span id="cb32-14"><a href="#cb32-14"></a><span class="co">## [1] 14</span></span>
+<span id="cb32-15"><a href="#cb32-15"></a><span class="co">## [1] 15</span></span>
+<span id="cb32-16"><a href="#cb32-16"></a><span class="co">## [1] 16</span></span>
+<span id="cb32-17"><a href="#cb32-17"></a><span class="co">## [1] 17</span></span>
+<span id="cb32-18"><a href="#cb32-18"></a><span class="co">## [1] 18</span></span>
+<span id="cb32-19"><a href="#cb32-19"></a><span class="co">## [1] 19</span></span>
+<span id="cb32-20"><a href="#cb32-20"></a><span class="co">## [1] 20</span></span>
+<span id="cb32-21"><a href="#cb32-21"></a><span class="co">## [1] 21</span></span>
+<span id="cb32-22"><a href="#cb32-22"></a><span class="co">## [1] 22</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">predicted</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
+<span class="va">actual</span> <span class="op">&lt;-</span> <span class="va">example.data</span><span class="op">[</span>,<span class="st">"actual"</span><span class="op">]</span>
+
+<span class="fu"><a href="reference/eval.classification.results.html">eval.classification.results</a></span><span class="op">(</span><span class="va">actual</span>, <span class="va">predicted</span>, <span class="st">"Example"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co">## [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="co">## [1] 0.9331967</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="co">## [1] "Example"</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="co">## [1] "proportion of total classification correct:  95.4545454545455"</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="co">## [1] 95.45455</span></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="co">## [1] "proportion of classification correct for class 1 : 100"</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="co">## [1] 100</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a><span class="co">## [1] "proportion of classification correct for class 2 : 83.3333333333333"</span></span>
+<span id="cb34-9"><a href="#cb34-9"></a><span class="co">## [1] 83.33333</span></span>
+<span id="cb34-10"><a href="#cb34-10"></a><span class="co">## [1] "proportion of classification correct for class 3 : 100"</span></span>
+<span id="cb34-11"><a href="#cb34-11"></a><span class="co">## [1] 100</span></span>
+<span id="cb34-12"><a href="#cb34-12"></a></span>
+<span id="cb34-13"><a href="#cb34-13"></a><span class="co">## [1] "Color represents the actual class. Y-value represents predicted class"</span></span>
+<span id="cb34-14"><a href="#cb34-14"></a><span class="co">## [1] "Classes used by function"</span></span>
+<span id="cb34-15"><a href="#cb34-15"></a><span class="co">## [1] 1 2 3</span></span>
+<span id="cb34-16"><a href="#cb34-16"></a><span class="co">## [1] "Original classes in data"</span></span>
+<span id="cb34-17"><a href="#cb34-17"></a><span class="co">## [1] 1 2 3</span></span>
+<span id="cb34-18"><a href="#cb34-18"></a><span class="co">## Levels: 1 2 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">result</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co">## variables.with.sig.contributions</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="co">##   y   x </span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="co">## 100 100</span></span></code></pre></div>
+</div>
+<div id="loocvrandomforestclassificationmatrixforpheatmap" class="section level3">
+<h3 class="hasAnchor">
+<a href="#loocvrandomforestclassificationmatrixforpheatmap" class="anchor"></a>LOOCVRandomForestClassificationMatrixForPheatmap()</h3>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Make example data where samples with 1, 2, and 3 in their ID names can be</span>
+<span class="co">#predicted using features x and y, while samples with 4 and 5 in their ID names</span>
+<span class="co">#can be predicted using features a and b.</span>
+
+<span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span>,
+       <span class="st">"4a"</span>, <span class="st">"4b"</span>, <span class="st">"4c"</span>, <span class="st">"4d"</span>, <span class="st">"4e"</span>, <span class="st">"4f"</span>, <span class="st">"4g"</span>, <span class="st">"5a"</span>, <span class="st">"5b"</span>, <span class="st">"5c"</span>,
+       <span class="st">"5d"</span>, <span class="st">"5e"</span>, <span class="st">"5f"</span>, <span class="st">"5g"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>,
+<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>,
+<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span><span class="op">)</span>
+
+<span class="va">sep.xy.ab</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>,
+<span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span><span class="op">)</span>
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>,
+       <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>,
+       <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">sep.xy.ab</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-12-1.png"><!-- --></p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-12-2.png"><!-- --></p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/LOOCVRandomForestClassificationMatrixForPheatmap.html">LOOCVRandomForestClassificationMatrixForPheatmap</a></span><span class="op">(</span>input.data <span class="op">=</span> <span class="va">example.data</span>,
+                                       factor.name.for.subsetting <span class="op">=</span> <span class="st">"sep.xy.ab"</span>,
+                                       name.of.predictors.to.use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
+                                       target.column.name <span class="op">=</span> <span class="st">"actual"</span>,
+                                       seed <span class="op">=</span> <span class="fl">2</span>,
+                                       should.mtry.and.ntree.be.optimized <span class="op">=</span> <span class="cn">FALSE</span>,
+                                       percentile.threshold.to.keep <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="co">## [1] 1</span></span>
+<span id="cb40-2"><a href="#cb40-2"></a><span class="co">## [1] 2</span></span>
+<span id="cb40-3"><a href="#cb40-3"></a><span class="co">## [1] 3</span></span>
+<span id="cb40-4"><a href="#cb40-4"></a><span class="co">## [1] 4</span></span>
+<span id="cb40-5"><a href="#cb40-5"></a><span class="co">## [1] 5</span></span>
+<span id="cb40-6"><a href="#cb40-6"></a><span class="co">## [1] 6</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a><span class="co">## [1] 7</span></span>
+<span id="cb40-8"><a href="#cb40-8"></a><span class="co">## [1] 8</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a><span class="co">## [1] 9</span></span>
+<span id="cb40-10"><a href="#cb40-10"></a><span class="co">## [1] 10</span></span>
+<span id="cb40-11"><a href="#cb40-11"></a><span class="co">## [1] 11</span></span>
+<span id="cb40-12"><a href="#cb40-12"></a><span class="co">## [1] 12</span></span>
+<span id="cb40-13"><a href="#cb40-13"></a><span class="co">## [1] 13</span></span>
+<span id="cb40-14"><a href="#cb40-14"></a><span class="co">## [1] 14</span></span>
+<span id="cb40-15"><a href="#cb40-15"></a><span class="co">## [1] 15</span></span>
+<span id="cb40-16"><a href="#cb40-16"></a><span class="co">## [1] 16</span></span>
+<span id="cb40-17"><a href="#cb40-17"></a><span class="co">## [1] 17</span></span>
+<span id="cb40-18"><a href="#cb40-18"></a><span class="co">## [1] 18</span></span>
+<span id="cb40-19"><a href="#cb40-19"></a><span class="co">## [1] 19</span></span>
+<span id="cb40-20"><a href="#cb40-20"></a><span class="co">## [1] 20</span></span>
+<span id="cb40-21"><a href="#cb40-21"></a><span class="co">## [1] 21</span></span>
+<span id="cb40-22"><a href="#cb40-22"></a><span class="co">## [1] 22</span></span>
+<span id="cb40-23"><a href="#cb40-23"></a><span class="co">## [1] 1</span></span>
+<span id="cb40-24"><a href="#cb40-24"></a><span class="co">## [1] 2</span></span>
+<span id="cb40-25"><a href="#cb40-25"></a><span class="co">## [1] 3</span></span>
+<span id="cb40-26"><a href="#cb40-26"></a><span class="co">## [1] 4</span></span>
+<span id="cb40-27"><a href="#cb40-27"></a><span class="co">## [1] 5</span></span>
+<span id="cb40-28"><a href="#cb40-28"></a><span class="co">## [1] 6</span></span>
+<span id="cb40-29"><a href="#cb40-29"></a><span class="co">## [1] 7</span></span>
+<span id="cb40-30"><a href="#cb40-30"></a><span class="co">## [1] 8</span></span>
+<span id="cb40-31"><a href="#cb40-31"></a><span class="co">## [1] 9</span></span>
+<span id="cb40-32"><a href="#cb40-32"></a><span class="co">## [1] 10</span></span>
+<span id="cb40-33"><a href="#cb40-33"></a><span class="co">## [1] 11</span></span>
+<span id="cb40-34"><a href="#cb40-34"></a><span class="co">## [1] 12</span></span>
+<span id="cb40-35"><a href="#cb40-35"></a><span class="co">## [1] 13</span></span>
+<span id="cb40-36"><a href="#cb40-36"></a><span class="co">## [1] 14</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pheatmap_RF</span> <span class="op">&lt;-</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html">pheatmap</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span>, fontsize_col <span class="op">=</span> <span class="fl">12</span>, fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">)</span>
+
+
+<span class="co">#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted</span>
+<span class="co">#with features x and y. While points in group 4 and 5 can be predicted with</span>
+<span class="co">#features a and b.</span>
+
+<span class="co">#dev.new()</span>
+<span class="va">pheatmap_RF</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-12-3.png"><!-- --></p>
+</div>
+<div id="randomforestautomaticmtryandntree" class="section level3">
+<h3 class="hasAnchor">
+<a href="#randomforestautomaticmtryandntree" class="anchor"></a>RandomForestAutomaticMtryAndNtree()</h3>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>,
+       <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="va">rf.result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/RandomForestAutomaticMtryAndNtree.html">RandomForestAutomaticMtryAndNtree</a></span><span class="op">(</span><span class="va">example.data</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
+<span class="st">"actual"</span>, seed<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
+
+<span class="va">predicted</span> <span class="op">&lt;-</span> <span class="va">rf.result</span><span class="op">$</span><span class="va">predicted</span>
+<span class="va">actual</span> <span class="op">&lt;-</span> <span class="va">example.data</span><span class="op">[</span>,<span class="st">"actual"</span><span class="op">]</span>
+
+<span class="co">#Result is not perfect because RF model does not over fit to the training data.</span>
+<span class="fu"><a href="reference/eval.classification.results.html">eval.classification.results</a></span><span class="op">(</span><span class="va">actual</span>, <span class="va">predicted</span>, <span class="st">"Example"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co">## [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="co">## [1] 0.9331967</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="co">## [1] "Example"</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a><span class="co">## [1] "proportion of total classification correct:  95.4545454545455"</span></span>
+<span id="cb43-5"><a href="#cb43-5"></a><span class="co">## [1] 95.45455</span></span>
+<span id="cb43-6"><a href="#cb43-6"></a><span class="co">## [1] "proportion of classification correct for class 1 : 100"</span></span>
+<span id="cb43-7"><a href="#cb43-7"></a><span class="co">## [1] 100</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a><span class="co">## [1] "proportion of classification correct for class 2 : 83.3333333333333"</span></span>
+<span id="cb43-9"><a href="#cb43-9"></a><span class="co">## [1] 83.33333</span></span>
+<span id="cb43-10"><a href="#cb43-10"></a><span class="co">## [1] "proportion of classification correct for class 3 : 100"</span></span>
+<span id="cb43-11"><a href="#cb43-11"></a><span class="co">## [1] 100</span></span>
+<span id="cb43-12"><a href="#cb43-12"></a></span>
+<span id="cb43-13"><a href="#cb43-13"></a><span class="co">## [1] "Color represents the actual class. Y-value represents predicted class"</span></span>
+<span id="cb43-14"><a href="#cb43-14"></a><span class="co">## [1] "Classes used by function"</span></span>
+<span id="cb43-15"><a href="#cb43-15"></a><span class="co">## [1] 1 2 3</span></span>
+<span id="cb43-16"><a href="#cb43-16"></a><span class="co">## [1] "Original classes in data"</span></span>
+<span id="cb43-17"><a href="#cb43-17"></a><span class="co">## [1] 1 2 3</span></span>
+<span id="cb43-18"><a href="#cb43-18"></a><span class="co">## Levels: 1 2 3</span></span></code></pre></div>
+</div>
+<div id="randomforestclassificationginimatrixforpheatmap" class="section level3">
+<h3 class="hasAnchor">
+<a href="#randomforestclassificationginimatrixforpheatmap" class="anchor"></a>RandomForestClassificationGiniMatrixForPheatmap()</h3>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Make example data where samples with 1, 2, and 3 in their ID names can be</span>
+<span class="co">#predicted using features x and y, while samples with 4 and 5 in their ID names</span>
+<span class="co">#can be predicted using features a and b.</span>
+
+<span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span>,
+       <span class="st">"4a"</span>, <span class="st">"4b"</span>, <span class="st">"4c"</span>, <span class="st">"4d"</span>, <span class="st">"4e"</span>, <span class="st">"4f"</span>, <span class="st">"4g"</span>, <span class="st">"5a"</span>, <span class="st">"5b"</span>, <span class="st">"5c"</span>,
+       <span class="st">"5d"</span>, <span class="st">"5e"</span>, <span class="st">"5f"</span>, <span class="st">"5g"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>,
+<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>,
+<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span><span class="op">)</span>
+
+<span class="va">sep.xy.ab</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>,
+<span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span><span class="op">)</span>
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>,
+       <span class="st">"5"</span>, <span class="st">"5"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">sep.xy.ab</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-14-1.png"><!-- --></p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-14-2.png"><!-- --></p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/RandomForestClassificationGiniMatrixForPheatmap.html">RandomForestClassificationGiniMatrixForPheatmap</a></span><span class="op">(</span>input.data <span class="op">=</span> <span class="va">example.data</span>,
+                                       factor.name.for.subsetting <span class="op">=</span> <span class="st">"sep.xy.ab"</span>,
+                                       name.of.predictors.to.use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
+                                       target.column.name <span class="op">=</span> <span class="st">"actual"</span>,
+                                       seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+
+<span class="co">#Add MCC to column names</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>
+<span class="op">{</span>
+   <span class="va">old.name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span><span class="op">)</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>
+   <span class="va">MCC.val</span> <span class="op">&lt;-</span> <span class="va">matrix.for.pheatmap</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,<span class="op">]</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span>
+   <span class="va">new.name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">old.name</span>, <span class="st">", MCC: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">MCC.val</span>, <span class="fl">2</span><span class="op">)</span>, nsmall <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>
+   <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span><span class="op">)</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">new.name</span>
+<span class="op">}</span>
+
+<span class="co">#Remove MCC row from matrix</span>
+<span class="va">matrix.for.pheatmap.MCC.row.removed</span> <span class="op">&lt;-</span> <span class="va">matrix.for.pheatmap</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>,<span class="op">]</span>
+
+<span class="va">pheatmap_RF</span> <span class="op">&lt;-</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html">pheatmap</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap.MCC.row.removed</span>, fontsize_col <span class="op">=</span> <span class="fl">12</span>,
+fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">)</span>
+
+
+<span class="co">#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted</span>
+<span class="co">#with features x and y. While points in group 4 and 5 can be predicted with</span>
+<span class="co">#features a and b.</span>
+<span class="co">#dev.new()</span>
+<span class="va">pheatmap_RF</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-14-3.png"><!-- --></p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Note that the 1/2/3 column is exactly the same as the random forest</span>
+<span class="co">#model created in the example for eval.classification.results.</span>
+<span class="co">#Since this pheatmap is using the number of LOOCV rounds</span>
+<span class="co">#as the input matrix, the colors can be misleading. It looks</span>
+<span class="co">#like features x and y are more important for 1/2/3 than features a and b</span>
+<span class="co">#is for 4/5. However, this is not the case. The mean decrease</span>
+<span class="co">#in gini index cannot be used to compare features between models. It</span>
+<span class="co">#can only be used to compare features within a single model.</span></code></pre></div>
+</div>
+<div id="randomforestclassificationpercentilematrixforpheatmap" class="section level3">
+<h3 class="hasAnchor">
+<a href="#randomforestclassificationpercentilematrixforpheatmap" class="anchor"></a>RandomForestClassificationPercentileMatrixForPheatmap()</h3>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Make example data where samples with 1, 2, and 3 in their ID names can be</span>
+<span class="co">#predicted using features x and y, while samples with 4 and 5 in their ID names</span>
+<span class="co">#can be predicted using features a and b.</span>
+
+<span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
+       <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span>,
+       <span class="st">"4a"</span>, <span class="st">"4b"</span>, <span class="st">"4c"</span>, <span class="st">"4d"</span>, <span class="st">"4e"</span>, <span class="st">"4f"</span>, <span class="st">"4g"</span>, <span class="st">"5a"</span>, <span class="st">"5b"</span>, <span class="st">"5c"</span>,
+       <span class="st">"5d"</span>, <span class="st">"5e"</span>, <span class="st">"5f"</span>, <span class="st">"5g"</span><span class="op">)</span>
+
+<span class="va">x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">35</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>,
+<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>, <span class="fl">40</span>, <span class="fl">45</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span>, <span class="fl">23</span>, <span class="fl">24</span>,
+<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>
+
+<span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span><span class="op">)</span>
+
+<span class="va">b</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>,
+<span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">27</span>, <span class="fl">29</span>, <span class="fl">20</span>, <span class="fl">28</span>, <span class="fl">21</span>, <span class="fl">30</span>, <span class="fl">31</span><span class="op">)</span>
+
+<span class="va">sep.xy.ab</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>, <span class="st">"1/2/3"</span>,
+<span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span>,
+<span class="st">"4/5"</span>, <span class="st">"4/5"</span>, <span class="st">"4/5"</span><span class="op">)</span>
+
+<span class="va">actual</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>, <span class="st">"2"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>,
+       <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>,
+       <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span>, <span class="st">"5"</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">x</span>, <span class="va">y</span>, <span class="va">a</span>, <span class="va">b</span>, <span class="va">sep.xy.ab</span>, <span class="va">actual</span><span class="op">)</span>
+
+<span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-15-1.png"><!-- --></p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#dev.new()</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-15-2.png"><!-- --></p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/RandomForestClassificationPercentileMatrixForPheatmap.html">RandomForestClassificationPercentileMatrixForPheatmap</a></span><span class="op">(</span>
+                                       input.data <span class="op">=</span> <span class="va">example.data</span>,
+                                       factor.name.for.subsetting <span class="op">=</span> <span class="st">"sep.xy.ab"</span>,
+                                       name.of.predictors.to.use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
+                                       target.column.name <span class="op">=</span> <span class="st">"actual"</span>,
+                                       seed <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+
+<span class="va">pheatmap_RF</span> <span class="op">&lt;-</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html">pheatmap</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span>, fontsize_col <span class="op">=</span> <span class="fl">12</span>, fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">)</span>
+
+
+<span class="co">#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted</span>
+<span class="co">#with features x and y. While points in group 4 and 5 can be predicted with</span>
+<span class="co">#features a and b.</span>
+
+<span class="co">#dev.new()</span>
+<span class="va">pheatmap_RF</span></code></pre></div>
+<p><img src="README_files/figure-gfm/unnamed-chunk-15-3.png"><!-- --></p>
+</div>
 </div>
 
   </div>
