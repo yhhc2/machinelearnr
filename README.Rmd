@@ -113,15 +113,12 @@ print(results[[4]])
 
 ```{r setup,}
 knitr::opts_chunk$set(echo = TRUE)
+options(rgl.useNULL=TRUE)
 library(rgl)
 knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
 ```{r, webgl=TRUE, warning=FALSE, message=FALSE}
-
-knitr::opts_chunk$set(echo = TRUE)
-library(rgl)
-knitr::knit_hooks$set(webgl = hook_webgl)
 
 example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
                                  39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30),
@@ -157,6 +154,8 @@ rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
 xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
 
 rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
+
+rgl::rglwidget()
 
 
 ```
