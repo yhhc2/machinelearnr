@@ -74,9 +74,9 @@ CalcOptimalNumClustersForKMeans <- function(inputted.data, clustering.columns){
   crit.df <- reshape2::melt(crit.df, id.vars=c('k'), variable.name = "measure", value.name="score")
 
   #grDevices::dev.new()
-  ch.and.asw.plot <- ggplot2::ggplot(crit.df, ggplot2::aes(x=k, y=score, color=measure))+
-    ggplot2::geom_point(ggplot2::aes(shape=measure))+
-    ggplot2::geom_line(ggplot2::aes(linetype=measure))+
+  ch.and.asw.plot <- ggplot2::ggplot(crit.df, ggplot2::aes_string(x="k", y="score", color="measure"))+
+    ggplot2::geom_point(ggplot2::aes_string(shape="measure"))+
+    ggplot2::geom_line(ggplot2::aes_string(linetype="measure"))+
     ggplot2::scale_x_continuous(breaks = 1:10, labels=1:10)
 
   return(list(elbow.plot, ch.and.asw.plot))
@@ -221,7 +221,7 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 }
 
 
-#' Make a 2D scatter plot that shows the data as represented by PC1 and PC2 and color labels clusters.
+#' Make a 2D scatter plot that shows the data as represented by PC1 and PC2
 #'
 #' After clustering of a dataset with two or more dimensions, we often want to
 #' visualize the result of the clustering on a 2D plot. If there are more than
@@ -231,15 +231,22 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 #'
 #' This function plots PC1 vs PC2 as well as PC1 vs PC3. This function uses
 #' the output of stat::prcomp(). The input into prcomp() needs to have
-#' at least 3 dimensions.
+#' at least 3 dimensions. Points are colored by the cluster input and they are
+#' labeled by the subgroup input. 
+#' 
+#' Additionally, this function also calculates chi-square results
+#' to see if cluster.labels.input and subgroup.labels.input are associated.
 #'
 #' @param pca.results.input An object outputted by stats::prcomp(). The PCA of all the features used for clustering. There should be at least 3 features.
 #' @param cluster.labels.input A vector of integers that specify which cluster each observation belongs to
 #' (order of observations must match the data inputted to prcomp() to generate pca.results.input).
-#' @param subgroup.labels.input A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled.
-#' @param name A string that is used for the title of the plot.
+#' @param subgroup.labels.input A vector of strings that specify an additional label for each observations.
 #'
-#' @return No object is outputted, but a plot is outputted.
+#' @return A list of 4 objects:
+#' 1.ggplot objct for PC1 vs PC2.
+#' 2.ggplot object for PC1 vs PC3.
+#' 3.Chi-square results.
+#' 4.Table used for chi-square.
 #'
 #' @export
 #'
@@ -262,43 +269,76 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 #'
 #' pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 #'
-#' actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
+#' actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
+#'                         "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 #'
-#' generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-#'                                              "Cluster results with actual group label")
+#' results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)
+#'                                              
+#' #PC1 vs PC2
+#' results[[1]]
+#' 
+#' #PC1 vs PC3
+#' results[[2]]
+#' 
+#' #Chi-square results
+#' results[[3]]
+#' 
+#' #Table
+#' results[[4]]
 #'
-generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name){
+generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input){
 
+  #Outputs:
+  #tbl
+  #chisq.res
+  
   tbl <- table(subgroup.labels.input, cluster.labels.input)
   chisq.res <- stats::chisq.test(tbl)
-  main.text <- paste(as.character(name),"Chi-square p-value=", as.character(chisq.res$p.value))
 
   ##Plot
-  print(tbl)
-  utils::str(tbl)
+  #print(tbl)
+  #utils::str(tbl)
 
-  grDevices::dev.new()
-  graphics::par(mfrow=c(1,3), xpd=TRUE)
+  #grDevices::dev.new()
+  #graphics::par(mfrow=c(1,3), xpd=TRUE)
 
   totalvar <- (pca.results.input[[1]]^2)
   variancePer <- round(totalvar/sum(totalvar)*100,1)
 
-  xlab <- paste(c("Principal Component 1 (",variancePer[1],"%)"),collapse="")
-  ylab <- paste(c("Principal Component 2 (",variancePer[2],"%)"),collapse="")
-  zlab <- paste(c("Principal Component 3 (",variancePer[3],"%)"),collapse="")
+  xlab_string <- paste(c("Principal Component 1 (",variancePer[1],"%)"),collapse="")
+  ylab_string <- paste(c("Principal Component 2 (",variancePer[2],"%)"),collapse="")
+  zlab_string <- paste(c("Principal Component 3 (",variancePer[3],"%)"),collapse="")
+  
+  xdata <- pca.results.input$x[,c(1)]
+  ydata <- pca.results.input$x[,c(2)]
+  zdata <- pca.results.input$x[,c(3)]
+  cluster_color <- as.factor(cluster.labels.input)
+  subgroup_label <- subgroup.labels.input
+  
+  pca.data <- data.frame(xdata, ydata, zdata, cluster_color, subgroup_label)
+  
+  PC1vPC2 <- ggplot2::ggplot(pca.data, ggplot2::aes_string(x="xdata", y="ydata")) + 
+             ggplot2::geom_point(ggplot2::aes_string(color="cluster_color"), size=7) +
+             ggplot2::geom_text(ggplot2::aes_string(label="subgroup_label")) +
+             ggplot2::xlab(xlab_string) +
+             ggplot2::ylab(ylab_string)
+  
+  
+  PC1vPC3 <- ggplot2::ggplot(pca.data, ggplot2::aes_string(x="xdata", y="zdata")) + 
+             ggplot2::geom_point(ggplot2::aes_string(color="cluster_color"), size=7) +
+             ggplot2::geom_text(ggplot2::aes_string(label="subgroup_label")) +
+             ggplot2::xlab(xlab_string) +
+             ggplot2::ylab(zlab_string)
+  
+  output <- list()
+  
+  output[[1]] <- PC1vPC2
+  output[[2]] <- PC1vPC3
+  output[[3]] <- chisq.res
+  output[[4]] <- tbl
 
-  plot(pca.results.input$x[,c(1,2)], col=(cluster.labels.input+1), pch=20, cex=2, xlab=xlab, ylab=ylab, main=main.text)
-  graphics::symbols(pca.results.input$x[c((subgroup.labels.input==1)),c(1)], pca.results.input$x[c((subgroup.labels.input==1)),c(2)], circles=rep(1,sum(((subgroup.labels.input==1)))),add=T, inches=F)
-
-  plot(pca.results.input$x[,c(1,3)], col=(cluster.labels.input+1), pch=20, cex=2, xlab=xlab, ylab=zlab, main=main.text)
-  graphics::symbols(pca.results.input$x[c((subgroup.labels.input==1)),c(1)], pca.results.input$x[c((subgroup.labels.input==1)),c(3)], circles=rep(1,sum(((subgroup.labels.input==1)))),add=T, inches=F)
-
-  ##The padding (cell size) also depends on the padding used when creating original table.
-  ##table doesn't support row names.
-  plot(1, type="n")
-  plotrix::addtable2plot(x=0.7, y=1, xpad=0, ypad=1, table=tbl, cex=1.5,
-                title="Chi-Square Table", hlines=TRUE, vlines=TRUE, bty="o", lwd=1.5)
-
+  return(output)
+  
 }
 
 #' Make a 3D scatter plot that shows the data as represented by PC1, PC2, and PC3 and color labels clusters.

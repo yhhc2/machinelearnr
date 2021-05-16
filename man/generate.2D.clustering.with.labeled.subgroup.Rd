@@ -2,13 +2,12 @@
 % Please edit documentation in R/clustering.R
 \name{generate.2D.clustering.with.labeled.subgroup}
 \alias{generate.2D.clustering.with.labeled.subgroup}
-\title{Make a 2D scatter plot that shows the data as represented by PC1 and PC2 and color labels clusters.}
+\title{Make a 2D scatter plot that shows the data as represented by PC1 and PC2}
 \usage{
 generate.2D.clustering.with.labeled.subgroup(
   pca.results.input,
   cluster.labels.input,
-  subgroup.labels.input,
-  name
+  subgroup.labels.input
 )
 }
 \arguments{
@@ -17,12 +16,14 @@ generate.2D.clustering.with.labeled.subgroup(
 \item{cluster.labels.input}{A vector of integers that specify which cluster each observation belongs to
 (order of observations must match the data inputted to prcomp() to generate pca.results.input).}
 
-\item{subgroup.labels.input}{A vector of integers that specify an additional label for each observations. Should only have two levels (0 or 1). If observation has value of 1, then it will be circled.}
-
-\item{name}{A string that is used for the title of the plot.}
+\item{subgroup.labels.input}{A vector of strings that specify an additional label for each observations.}
 }
 \value{
-No object is outputted, but a plot is outputted.
+A list of 4 objects:
+1.ggplot objct for PC1 vs PC2.
+2.ggplot object for PC1 vs PC3.
+3.Chi-square results.
+4.Table used for chi-square.
 }
 \description{
 After clustering of a dataset with two or more dimensions, we often want to
@@ -34,7 +35,11 @@ with this function.
 \details{
 This function plots PC1 vs PC2 as well as PC1 vs PC3. This function uses
 the output of stat::prcomp(). The input into prcomp() needs to have
-at least 3 dimensions.
+at least 3 dimensions. Points are colored by the cluster input and they are
+labeled by the subgroup input.
+
+Additionally, this function also calculates chi-square results
+to see if cluster.labels.input and subgroup.labels.input are associated.
 }
 \examples{
 example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
@@ -53,10 +58,22 @@ grouped <- km.res$cluster
 
 pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
 
-actual.group.label <- c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2)
+actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
+                        "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 
-generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                             "Cluster results with actual group label")
+results <- generate.2D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)
+                                             
+#PC1 vs PC2
+results[[1]]
+
+#PC1 vs PC3
+results[[2]]
+
+#Chi-square results
+results[[3]]
+
+#Table
+results[[4]]
 
 }
 \seealso{
