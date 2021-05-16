@@ -361,7 +361,15 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' @param name A string used for the title of the plot.
 #' @param subgroup.text.size A number to set for cex of the text size for subgroup label of each point.
 #'
-#' @return No object is returned, but a rgl plot is displayed.
+#' @return A list with 8 objects:
+#'   1. String specifying x axis label with percent variance for PC1.
+#'   2. String specifying y axis label with percent variance for PC2.
+#'   3. String specifying z axis label with percent variance for PC3.
+#'   4. A vector specifying values for x coordinates of points. PC1 values.
+#'   5. A vector specifying values for y coordinates of points. PC2 values.
+#'   6. A vector specifying values for z coordinates of points. PC3 values
+#'   7. A chisq.test() result object.
+#'   8. A table used for chisq.test()
 #'
 #' @export
 #'
@@ -388,10 +396,23 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
 #' "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
 #' 
-#' generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-#'                                            "Cluster results with actual group label", 0.5)
+#' results <- generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label)
+#' 
+#' xlab.values <- results[[1]]
+#' ylab.values <- results[[2]]
+#' zlab.values <- results[[3]]
+#' xdata.values <- results[[4]]
+#' ydata.values <- results[[5]]
+#' zdata.values <- results[[6]]
+#' 
+#' rgl::rgl.bg(color = "white")
+#' 
+#' rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
+#' xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
+#' 
+#' rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
 #'
-generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input, name, subgroup.text.size){
+generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input){
 
   tbl <- table(subgroup.labels.input, cluster.labels.input)
   chisq.res <- stats::chisq.test(tbl)
@@ -404,13 +425,30 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
   ylab <- paste(c("PC 2 (",variancePer[2],"%)"),collapse="")
   zlab <- paste(c("PC 3 (",variancePer[3],"%)"),collapse="")
 
-  ##Plot
-  rgl::rgl.open()
-  rgl::rgl.bg(color = "white")
-  rgl::plot3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)],
-         xlab = xlab, ylab = ylab, zlab = zlab, col=(cluster.labels.input+1), pch=20, cex=2, main=main.text)
+  xdata <- pca.results.input$x[,c(1)]
+  ydata <- pca.results.input$x[,c(2)]
+  zdata <- pca.results.input$x[,c(3)]
   
-  rgl::text3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], text= subgroup.labels.input, cex=subgroup.text.size)
+  output <- list()
+  
+  output[[1]] <- xlab
+  output[[2]] <- ylab
+  output[[3]] <- zlab
+  output[[4]] <- xdata
+  output[[5]] <- ydata
+  output[[6]] <- zdata
+  output[[7]] <- chisq.res
+  output[[8]] <- tbl
+  
+  return(output)
+  
+  ##Plot
+  #rgl::rgl.open()
+  #rgl::rgl.bg(color = "white")
+  #rgl::plot3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)],
+  #       xlab = xlab, ylab = ylab, zlab = zlab, col=(cluster.labels.input+1), pch=20, cex=2, main=main.text)
+  
+  #rgl::text3d(x= pca.results.input$x[,c(1)], y= pca.results.input$x[,c(2)], z= pca.results.input$x[,c(3)], text= subgroup.labels.input, cex=subgroup.text.size)
   
   #Allow plot to be displayed on html file
   #rgl::rglwidget()

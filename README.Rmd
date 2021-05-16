@@ -118,39 +118,17 @@ knitr::knit_hooks$set(webgl = hook_webgl)
 
 ```{r, test-rgl, webgl=TRUE, warning=FALSE, message=FALSE}
 
-example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35,
-                                 39, 40, 41, 42, 44, 46, 47, 48, 49, 54, 35, 30),
-                           y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44,
-                                 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45),
-                           z = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3,
-                                 3, 3, 3, 3, 3, 3, 3, 3))
-
-#dev.new()
-plot(example.data[,"x"], example.data[,"y"])
-
-km.res <- stats::kmeans(example.data[,c("x", "y", "z")], 3, nstart = 25, iter.max=10)
-
-grouped <- km.res$cluster
-
-pca.results <- prcomp(example.data[,c("x", "y", "z")], scale=FALSE)
-
-actual.group.label <- c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", 
-                        "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B")
-
-generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                             "Cluster results with actual group label", 0.5)
-
-options(rgl.useNULL=TRUE)
-
-rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
-
-generate.3D.clustering.with.labeled.subgroup(pca.results, grouped, actual.group.label,
-                                             "Cluster results with actual group label", 0.5)
-
-rgl::rglwidget(width = 400, height = 800, reuse = FALSE)
 
 ```
 
+
+### testing
+```{r, webgl=TRUE}
+x <- sort(rnorm(1000))
+y <- rnorm(1000)
+z <- rnorm(1000) + atan2(x,y)
+rgl::plot3d(x, y, z, col = rainbow(1000))
+```
 
 ### generate.plots.comparing.clusters()
 ```{r}
