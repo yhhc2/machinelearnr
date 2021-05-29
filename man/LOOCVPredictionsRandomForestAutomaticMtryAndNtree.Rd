@@ -39,8 +39,8 @@ If the threshold is set at 0.75, then both x and y will be tallied for this sing
 \value{
 A list with two objects:
 \enumerate{
-\item running.pred: predicted values for each observation.
-\item var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile.
+\item running.pred: predicted values for each observation. A vector.
+\item var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile. A table.
 }
 }
 \description{
