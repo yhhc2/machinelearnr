@@ -1007,6 +1007,14 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
     #Convert the table that describes selected features into a dataframe so that
     #it can be combined with the dataframe for features not selected at all
     LOOCV.features.selected.dataframe <- as.data.frame(LOOCV.features.selected)
+    
+    #If only one feature was selected, then the results have to be formatted differently
+    if(length(LOOCV.features.selected.dataframe) == 1){
+      LOOCV.features.selected.dataframe <- data.frame(colone = row.names(LOOCV.features.selected.dataframe),
+                                                      coltwo = LOOCV.features.selected.dataframe[1,1])
+      
+      colnames(LOOCV.features.selected.dataframe) <- c("variables.with.sig.contributions", "Freq")
+    }
 
     #Combine the two dataframes above
     LOOCV.features.selected.dataframe.with.features.not.selected <- rbind(LOOCV.features.selected.dataframe,
