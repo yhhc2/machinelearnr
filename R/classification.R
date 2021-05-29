@@ -411,6 +411,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 
     } else{
 
+      set.seed(seed)
       final.model <- randomForest::randomForest(x=loo[,name.of.predictors.to.use], y=loo[,target.column.name], proximity=TRUE)
     }
 
@@ -663,6 +664,7 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 
     } else{
 
+      set.seed(seed)
       subset.data.rf.result <- randomForest::randomForest(x=subset.data[,name.of.predictors.to.use], y=subset.data[,target.column.name], proximity=TRUE)
     }
 
