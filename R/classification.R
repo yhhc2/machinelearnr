@@ -314,8 +314,8 @@ RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.
 #' If the threshold is set at 0.75, then both x and y will be tallied for this single LOOCV round.
 #'
 #' @return A list with two objects:
-#' 1. running.pred: predicted values for each observation.
-#' 2. var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile.
+#' 1. running.pred: predicted values for each observation. A vector. 
+#' 2. var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile. A table.
 #'
 #' @export
 #'
@@ -1059,3 +1059,49 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   return(matrix.for.pheatmap.MCC.row.removed)
 
 }
+
+
+
+#' Produce example data set for demonstrating package functions
+#'
+#' @return A dataframe.
+#' 
+#' @export
+#'
+GenerateExampleDataMachinelearnr <- function(){
+  
+  
+  id = c("1a", "1b", "1c", "1d", "1e", "1f", "1g", "2a", "2b", "2c", "2d", "2e", "2f", "3a",
+         "3b", "3c", "3d", "3e", "3f", "3g", "3h", "3i",
+         "4a", "4b", "4c", "4d", "4e", "4f", "4g", "5a", "5b", "5c",
+         "5d", "5e", "5f", "5g")
+  
+  x = c(18, 21, 22, 24, 26, 26, 27, 30, 31, 35, 39, 35, 30, 40, 41, 42, 44, 46, 47, 48, 49, 54,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+  
+  y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44, 40, 45, 27, 29, 20, 28, 21, 30, 31, 23, 24,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+  
+  a = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        18, 21, 22, 24, 26, 26, 27, 40, 41, 42, 44, 46, 47, 48)
+  
+  b = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        10, 11, 22, 15, 12, 13, 14, 27, 29, 20, 28, 21, 30, 31)
+  
+  sep.xy.ab = c("1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+                "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+                "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3", "1/2/3",
+                "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5", "4/5",
+                "4/5", "4/5", "4/5")
+  
+  actual = as.factor(c("1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2",
+                       "2", "2", "3", "3", "3",
+                       "3", "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "5",
+                       "5", "5", "5", "5", "5", "5"))
+  
+  example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
+  
+  return(example.data)
+  
+}
+
