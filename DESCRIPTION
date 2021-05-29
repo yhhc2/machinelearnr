@@ -40,3 +40,6 @@ Imports:
     stats (>= 4.0.2),
     utils (>= 4.0.2),
     webshot (>= 0.5.2)
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
