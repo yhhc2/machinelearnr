@@ -406,12 +406,12 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #' ydata.values <- results[[5]]
 #' zdata.values <- results[[6]]
 #' 
-#' rgl::rgl.bg(color = "white")
+#' #rgl::rgl.bg(color = "white")
 #' 
-#' rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
-#' xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
+#' #rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
+#' #xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
 #' 
-#' rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
+#' #rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
 #'
 generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, cluster.labels.input, subgroup.labels.input){
 

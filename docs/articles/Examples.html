@@ -76,8 +76,7 @@
 
       
 
-      </header><script src="Examples_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="Examples_files/htmlwidgets-1.5.3/htmlwidgets.js"></script><script src="Examples_files/rglWebGL-binding-0.106.8/rglWebGL.js"></script><link href="Examples_files/rglwidgetClass-0.106.8/rgl.css" rel="stylesheet">
-<script src="Examples_files/rglwidgetClass-0.106.8/rglClass.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/utils.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/subscenes.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/shaders.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/textures.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/projection.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/mouse.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/init.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/pieces.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/draw.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/controls.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/selection.src.js"></script><script src="Examples_files/rglwidgetClass-0.106.8/rglTimer.src.js"></script><script src="Examples_files/CanvasMatrix4-0.106.8/CanvasMatrix.src.js"></script><div class="row">
+      </header><script src="Examples_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Examples</h1>
@@ -221,15 +220,14 @@
 
 <span class="va">data.to.plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">xdata.values</span>, <span class="va">ydata.values</span>, <span class="va">zdata.values</span><span class="op">)</span>
 
-<span class="co">#Interactive 3d plot, but cannot display in html or md</span>
-<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/bg.html">rgl.bg</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>
-<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/plot3d.html">plot3d</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">xdata.values</span>, y<span class="op">=</span> <span class="va">ydata.values</span>, z<span class="op">=</span> <span class="va">zdata.values</span>,
-xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span class="op">=</span> <span class="va">ylab.values</span>, zlab <span class="op">=</span> <span class="va">zlab.values</span>, col<span class="op">=</span><span class="op">(</span><span class="va">grouped</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">20</span>, cex<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
-<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/texts.html">text3d</a></span><span class="op">(</span>x<span class="op">=</span> <span class="va">xdata.values</span>, y<span class="op">=</span> <span class="va">ydata.values</span>, z<span class="op">=</span> <span class="va">zdata.values</span>, text<span class="op">=</span> <span class="va">actual.group.label</span>, cex<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
-<span class="fu">rgl</span><span class="fu">::</span><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/rglwidget.html">rglwidget</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div id="rgl66482" style="width:700px;height:432.632880098888px;" class="rglWebGL html-widget"></div>
-<script type="application/json" data-for="rgl66482">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":7,"objects":{"13":{"id":13,"type":"points","material":{"lit":false},"vertices":[[-23.2899055480957,-2.37421154975891,0.356777250766754],[-20.5553455352783,-0.799898087978363,0.147689178586006],[-11.6802062988281,-7.36677503585815,-0.180972710251808],[-15.5810174942017,-1.22011077404022,-0.134233057498932],[-16.4954719543457,2.2671856880188,-0.184605613350868],[-15.7488822937012,1.60234367847443,-0.208883658051491],[-14.339635848999,1.68388676643372,-0.294765055179596],[1.89260971546173,-8.67905235290527,0.0569473877549171],[7.03480291366577,-11.9217185974121,-0.150324255228043],[8.19225215911865,-7.60649442672729,-0.348181545734406],[16.0690040588379,-9.27484798431396,-0.764541268348694],[4.03964328765869,2.77385187149048,-0.413417786359787],[6.19547891616821,2.1905529499054,-0.523577213287354],[0.19790880382061,8.95042037963867,0.631127238273621],[7.49593734741211,5.12445497512817,0.313696175813675],[3.59512591362,11.2711191177368,0.36043581366539],[10.977087020874,6.03392601013184,0.080330029129982],[12.3863334655762,6.11546945571899,-0.00555136753246188],[7.07627534866333,12.1805906295776,0.127069666981697],[11.1361494064331,15.2476749420166,-0.205225110054016],[10.4910974502563,-9.57111644744873,0.576789736747742],[10.910758972168,-16.6272525787354,0.763416230678558]],"colors":[[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.874509811401367,0.325490206480026,0.419607847929001,1],[0.133333340287209,0.592156887054443,0.901960790157318,1],[0.133333340287209,0.592156887054443,0.901960790157318,1],[0.133333340287209,0.592156887054443,0.901960790157318,1],[0.133333340287209,0.592156887054443,0.901960790157318,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.380392163991928,0.815686285495758,0.309803932905197,1],[0.133333340287209,0.592156887054443,0.901960790157318,1],[0.133333340287209,0.592156887054443,0.901960790157318,1]],"centers":[[-23.2899055480957,-2.37421154975891,0.356777250766754],[-20.5553455352783,-0.799898087978363,0.147689178586006],[-11.6802062988281,-7.36677503585815,-0.180972710251808],[-15.5810174942017,-1.22011077404022,-0.134233057498932],[-16.4954719543457,2.2671856880188,-0.184605613350868],[-15.7488822937012,1.60234367847443,-0.208883658051491],[-14.339635848999,1.68388676643372,-0.294765055179596],[1.89260971546173,-8.67905235290527,0.0569473877549171],[7.03480291366577,-11.9217185974121,-0.150324255228043],[8.19225215911865,-7.60649442672729,-0.348181545734406],[16.0690040588379,-9.27484798431396,-0.764541268348694],[4.03964328765869,2.77385187149048,-0.413417786359787],[6.19547891616821,2.1905529499054,-0.523577213287354],[0.19790880382061,8.95042037963867,0.631127238273621],[7.49593734741211,5.12445497512817,0.313696175813675],[3.59512591362,11.2711191177368,0.36043581366539],[10.977087020874,6.03392601013184,0.080330029129982],[12.3863334655762,6.11546945571899,-0.00555136753246188],[7.07627534866333,12.1805906295776,0.127069666981697],[11.1361494064331,15.2476749420166,-0.205225110054016],[10.4910974502563,-9.57111644744873,0.576789736747742],[10.910758972168,-16.6272525787354,0.763416230678558]],"ignoreExtent":false,"flags":34816},"15":{"id":15,"type":"text","material":{"lit":false},"vertices":[[-3.61045074462891,-22.0300521850586,-1.02353000640869]],"colors":[[0,0,0,1]],"texts":[["PC 1 (68.3%)"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-3.61045074462891,-22.0300521850586,-1.02353000640869]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false},"vertices":[[-29.9612407684326,-0.689788818359375,-1.02353000640869]],"colors":[[0,0,0,1]],"texts":[["PC 2 (31.6%)"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-29.9612407684326,-0.689788818359375,-1.02353000640869]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false},"vertices":[[-29.9612407684326,-22.0300521850586,-0.000562518835067749]],"colors":[[0,0,0,1]],"texts":[["PC 3 (0.1%)"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-29.9612407684326,-22.0300521850586,-0.000562518835067749]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"18":{"id":18,"type":"text","material":{"lit":false},"vertices":[[-23.2899055480957,-2.37421154975891,0.356777250766754],[-20.5553455352783,-0.799898087978363,0.147689178586006],[-11.6802062988281,-7.36677503585815,-0.180972710251808],[-15.5810174942017,-1.22011077404022,-0.134233057498932],[-16.4954719543457,2.2671856880188,-0.184605613350868],[-15.7488822937012,1.60234367847443,-0.208883658051491],[-14.339635848999,1.68388676643372,-0.294765055179596],[1.89260971546173,-8.67905235290527,0.0569473877549171],[7.03480291366577,-11.9217185974121,-0.150324255228043],[8.19225215911865,-7.60649442672729,-0.348181545734406],[16.0690040588379,-9.27484798431396,-0.764541268348694],[4.03964328765869,2.77385187149048,-0.413417786359787],[6.19547891616821,2.1905529499054,-0.523577213287354],[0.19790880382061,8.95042037963867,0.631127238273621],[7.49593734741211,5.12445497512817,0.313696175813675],[3.59512591362,11.2711191177368,0.36043581366539],[10.977087020874,6.03392601013184,0.080330029129982],[12.3863334655762,6.11546945571899,-0.00555136753246188],[7.07627534866333,12.1805906295776,0.127069666981697],[11.1361494064331,15.2476749420166,-0.205225110054016],[10.4910974502563,-9.57111644744873,0.576789736747742],[10.910758972168,-16.6272525787354,0.763416230678558]],"colors":[[0,0,0,1]],"texts":[["A"],["A"],["A"],["A"],["A"],["A"],["A"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"],["B"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-23.2899055480957,-2.37421154975891,0.356777250766754],[-20.5553455352783,-0.799898087978363,0.147689178586006],[-11.6802062988281,-7.36677503585815,-0.180972710251808],[-15.5810174942017,-1.22011077404022,-0.134233057498932],[-16.4954719543457,2.2671856880188,-0.184605613350868],[-15.7488822937012,1.60234367847443,-0.208883658051491],[-14.339635848999,1.68388676643372,-0.294765055179596],[1.89260971546173,-8.67905235290527,0.0569473877549171],[7.03480291366577,-11.9217185974121,-0.150324255228043],[8.19225215911865,-7.60649442672729,-0.348181545734406],[16.0690040588379,-9.27484798431396,-0.764541268348694],[4.03964328765869,2.77385187149048,-0.413417786359787],[6.19547891616821,2.1905529499054,-0.523577213287354],[0.19790880382061,8.95042037963867,0.631127238273621],[7.49593734741211,5.12445497512817,0.313696175813675],[3.59512591362,11.2711191177368,0.36043581366539],[10.977087020874,6.03392601013184,0.080330029129982],[12.3863334655762,6.11546945571899,-0.00555136753246188],[7.07627534866333,12.1805906295776,0.127069666981697],[11.1361494064331,15.2476749420166,-0.205225110054016],[10.4910974502563,-9.57111644744873,0.576789736747742],[10.910758972168,-16.6272525787354,0.763416230678558]],"family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"11":{"id":11,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"10":{"id":10,"type":"background","material":{},"colors":[[0.298039227724075,0.298039227724075,0.298039227724075,1]],"centers":[[0,0,0]],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"12":{"id":12,"type":"background","material":{"back":"lines"},"colors":[[1,1,1,1]],"centers":[[0,0,0]],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":[[-20,"NA","NA"],[-10,"NA","NA"],[0,"NA","NA"],[10,"NA","NA"],["NA",-15,"NA"],["NA",-10,"NA"],["NA",-5,"NA"],["NA",0,"NA"],["NA",5,"NA"],["NA",10,"NA"],["NA",15,"NA"],["NA","NA",-0.5],["NA","NA",0],["NA","NA",0.5]],"colors":[[0,0,0,1]],"draw_front":true,"newIds":[26,27,28,29,30,31,32]},"7":{"id":7,"type":"subscene","par3d":{"antialias":8,"FOV":90,"ignoreExtent":false,"listeners":7,"mouseMode":{"left":"polar","right":"fov","middle":"zoom","wheel":"none"},"observer":[0,0,45.3837127685547],"modelMatrix":[[0.743274033069611,0,0,2.68355417251587],[0,0.886516034603119,-4.95537996292114,0.608721375465393],[0,0.237541258335114,18.4937305450439,-45.2094573974609],[0,0,0,1]],"projMatrix":[[1,0,0,0],[0,1,0,0],[0,0,-1.41421377658844,-32.091136932373],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.965925812721252,-0.258819043636322,0],[0,0.258819043636322,0.965925812721252,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[0.743274033069611,0.917788922786713,19.1461181640625],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[-23.2899055480957,16.0690040588379,-16.6272525787354,15.2476749420166,-0.764541268348694,0.763416230678558],"windowRect":[164,187,420,443],"family":"sans","font":1,"cex":1,"useFreeType":true,"fontname":"C:/Users/hankc/Documents/R/win-library/4.0/rgl/fonts/FreeSans.ttf","maxClipPlanes":8,"glVersion":4.5,"activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[12,14,13,15,16,17,18,11,26,27,28,29,30,31,32],"subscenes":[],"flags":36176},"26":{"id":26,"type":"lines","material":{"lit":false},"vertices":[[-20,-17.1053771972656,-0.787460625171661],[10,-17.1053771972656,-0.787460625171661],[-20,-17.1053771972656,-0.787460625171661],[-20,-17.926155090332,-0.826805531978607],[-10,-17.1053771972656,-0.787460625171661],[-10,-17.926155090332,-0.826805531978607],[0,-17.1053771972656,-0.787460625171661],[0,-17.926155090332,-0.826805531978607],[10,-17.1053771972656,-0.787460625171661],[10,-17.926155090332,-0.826805531978607]],"colors":[[0,0,0,1]],"centers":[[-5,-17.1053771972656,-0.787460625171661],[-20,-17.5157661437988,-0.807133078575134],[-10,-17.5157661437988,-0.807133078575134],[0,-17.5157661437988,-0.807133078575134],[10,-17.5157661437988,-0.807133078575134]],"ignoreExtent":true,"origId":14,"flags":32832},"27":{"id":27,"type":"text","material":{"lit":false},"vertices":[[-20,-19.5677146911621,-0.905495345592499],[-10,-19.5677146911621,-0.905495345592499],[0,-19.5677146911621,-0.905495345592499],[10,-19.5677146911621,-0.905495345592499]],"colors":[[0,0,0,1]],"texts":[["-20"],["-10"],["0"],["10"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-20,-19.5677146911621,-0.905495345592499],[-10,-19.5677146911621,-0.905495345592499],[0,-19.5677146911621,-0.905495345592499],[10,-19.5677146911621,-0.905495345592499]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"origId":14,"flags":33808},"28":{"id":28,"type":"lines","material":{"lit":false},"vertices":[[-23.8802890777588,-15,-0.787460625171661],[-23.8802890777588,15,-0.787460625171661],[-23.8802890777588,-15,-0.787460625171661],[-24.8937816619873,-15,-0.826805531978607],[-23.8802890777588,-10,-0.787460625171661],[-24.8937816619873,-10,-0.826805531978607],[-23.8802890777588,-5,-0.787460625171661],[-24.8937816619873,-5,-0.826805531978607],[-23.8802890777588,0,-0.787460625171661],[-24.8937816619873,0,-0.826805531978607],[-23.8802890777588,5,-0.787460625171661],[-24.8937816619873,5,-0.826805531978607],[-23.8802890777588,10,-0.787460625171661],[-24.8937816619873,10,-0.826805531978607],[-23.8802890777588,15,-0.787460625171661],[-24.8937816619873,15,-0.826805531978607]],"colors":[[0,0,0,1]],"centers":[[-23.8802890777588,0,-0.787460625171661],[-24.387035369873,-15,-0.807133078575134],[-24.387035369873,-10,-0.807133078575134],[-24.387035369873,-5,-0.807133078575134],[-24.387035369873,0,-0.807133078575134],[-24.387035369873,5,-0.807133078575134],[-24.387035369873,10,-0.807133078575134],[-24.387035369873,15,-0.807133078575134]],"ignoreExtent":true,"origId":14,"flags":32832},"29":{"id":29,"type":"text","material":{"lit":false},"vertices":[[-26.9207649230957,-15,-0.905495345592499],[-26.9207649230957,-10,-0.905495345592499],[-26.9207649230957,-5,-0.905495345592499],[-26.9207649230957,0,-0.905495345592499],[-26.9207649230957,5,-0.905495345592499],[-26.9207649230957,10,-0.905495345592499],[-26.9207649230957,15,-0.905495345592499]],"colors":[[0,0,0,1]],"texts":[["-15"],["-10"],["-5"],["0"],["5"],["10"],["15"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-26.9207649230957,-15,-0.905495345592499],[-26.9207649230957,-10,-0.905495345592499],[-26.9207649230957,-5,-0.905495345592499],[-26.9207649230957,0,-0.905495345592499],[-26.9207649230957,5,-0.905495345592499],[-26.9207649230957,10,-0.905495345592499],[-26.9207649230957,15,-0.905495345592499]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"origId":14,"flags":33808},"30":{"id":30,"type":"lines","material":{"lit":false},"vertices":[[-23.8802890777588,-17.1053771972656,-0.5],[-23.8802890777588,-17.1053771972656,0.5],[-23.8802890777588,-17.1053771972656,-0.5],[-24.8937816619873,-17.926155090332,-0.5],[-23.8802890777588,-17.1053771972656,0],[-24.8937816619873,-17.926155090332,0],[-23.8802890777588,-17.1053771972656,0.5],[-24.8937816619873,-17.926155090332,0.5]],"colors":[[0,0,0,1]],"centers":[[-23.8802890777588,-17.1053771972656,0],[-24.387035369873,-17.5157661437988,-0.5],[-24.387035369873,-17.5157661437988,0],[-24.387035369873,-17.5157661437988,0.5]],"ignoreExtent":true,"origId":14,"flags":32832},"31":{"id":31,"type":"text","material":{"lit":false},"vertices":[[-26.9207649230957,-19.5677146911621,-0.5],[-26.9207649230957,-19.5677146911621,0],[-26.9207649230957,-19.5677146911621,0.5]],"colors":[[0,0,0,1]],"texts":[["-0.5"],["0"],["0.5"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[-26.9207649230957,-19.5677146911621,-0.5],[-26.9207649230957,-19.5677146911621,0],[-26.9207649230957,-19.5677146911621,0.5]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"origId":14,"flags":33808},"32":{"id":32,"type":"lines","material":{"lit":false},"vertices":[[-23.8802890777588,-17.1053771972656,-0.787460625171661],[-23.8802890777588,15.7257986068726,-0.787460625171661],[-23.8802890777588,-17.1053771972656,0.786335587501526],[-23.8802890777588,15.7257986068726,0.786335587501526],[-23.8802890777588,-17.1053771972656,-0.787460625171661],[-23.8802890777588,-17.1053771972656,0.786335587501526],[-23.8802890777588,15.7257986068726,-0.787460625171661],[-23.8802890777588,15.7257986068726,0.786335587501526],[-23.8802890777588,-17.1053771972656,-0.787460625171661],[16.659387588501,-17.1053771972656,-0.787460625171661],[-23.8802890777588,-17.1053771972656,0.786335587501526],[16.659387588501,-17.1053771972656,0.786335587501526],[-23.8802890777588,15.7257986068726,-0.787460625171661],[16.659387588501,15.7257986068726,-0.787460625171661],[-23.8802890777588,15.7257986068726,0.786335587501526],[16.659387588501,15.7257986068726,0.786335587501526],[16.659387588501,-17.1053771972656,-0.787460625171661],[16.659387588501,15.7257986068726,-0.787460625171661],[16.659387588501,-17.1053771972656,0.786335587501526],[16.659387588501,15.7257986068726,0.786335587501526],[16.659387588501,-17.1053771972656,-0.787460625171661],[16.659387588501,-17.1053771972656,0.786335587501526],[16.659387588501,15.7257986068726,-0.787460625171661],[16.659387588501,15.7257986068726,0.786335587501526]],"colors":[[0,0,0,1]],"centers":[[-23.8802890777588,-0.689789295196533,-0.787460625171661],[-23.8802890777588,-0.689789295196533,0.786335587501526],[-23.8802890777588,-17.1053771972656,-0.000562518835067749],[-23.8802890777588,15.7257986068726,-0.000562518835067749],[-3.61045074462891,-17.1053771972656,-0.787460625171661],[-3.61045074462891,-17.1053771972656,0.786335587501526],[-3.61045074462891,15.7257986068726,-0.787460625171661],[-3.61045074462891,15.7257986068726,0.786335587501526],[16.659387588501,-0.689789295196533,-0.787460625171661],[16.659387588501,-0.689789295196533,0.786335587501526],[16.659387588501,-17.1053771972656,-0.000562518835067749],[16.659387588501,15.7257986068726,-0.000562518835067749]],"ignoreExtent":true,"origId":14,"flags":32832}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":700,"height":432.632880098888,"context":{"shiny":false,"rmarkdown":"rmarkdown::html_vignette"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Non-interactive 3d plot</span>
+<span class="co"># #Interactive 3d plot, but cannot display in html or md</span>
+<span class="co"># rgl::rgl.bg(color = "white")</span>
+<span class="co"># rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,</span>
+<span class="co"># xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)</span>
+<span class="co"># rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)</span>
+<span class="co"># rgl::rglwidget()</span>
+
+<span class="co">#Non-interactive 3d plot</span>
 <span class="va">s3d</span> <span class="op">&lt;-</span> <span class="fu">scatterplot3d</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/scatterplot3d/man/scatterplot3d.html">scatterplot3d</a></span><span class="op">(</span><span class="va">data.to.plot</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, pch <span class="op">=</span> <span class="fl">16</span>, color<span class="op">=</span><span class="op">(</span><span class="va">grouped</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span>,
                                     xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span class="op">=</span> <span class="va">ylab.values</span>, 
                                     zlab <span class="op">=</span> <span class="va">zlab.values</span><span class="op">)</span>
@@ -239,12 +237,12 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">$</span><span class="fu">xyz.convert</span><span class="op">(</span><span class="va">data.to.plot</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>, labels <span class="op">=</span> <span class="va">actual.group.label</span>,
      cex<span class="op">=</span> <span class="fl">0.7</span>, col <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span></code></pre></div>
-<p><img src="Examples_files/figure-html/unnamed-chunk-4-3.png" width="700"></p>
+<p><img src="Examples_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
 </div>
 <div id="generate-plots-comparing-clusters" class="section level3">
 <h3 class="hasAnchor">
 <a href="#generate-plots-comparing-clusters" class="anchor"></a>generate.plots.comparing.clusters()</h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>,
                                  <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
                           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>,
@@ -262,7 +260,7 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 <div id="generateparcoordforclusters" class="section level3">
 <h3 class="hasAnchor">
 <a href="#generateparcoordforclusters" class="anchor"></a>GenerateParcoordForClusters()</h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">21</span>, <span class="fl">22</span>, <span class="fl">24</span>, <span class="fl">26</span>, <span class="fl">26</span>, <span class="fl">27</span>, <span class="fl">30</span>, <span class="fl">31</span>,
                                  <span class="fl">35</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">41</span>, <span class="fl">42</span>, <span class="fl">44</span>, <span class="fl">46</span>, <span class="fl">47</span>, <span class="fl">48</span>, <span class="fl">49</span>, <span class="fl">54</span>, <span class="fl">35</span>, <span class="fl">30</span><span class="op">)</span>,
                           y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">33</span>, <span class="fl">39</span>, <span class="fl">37</span>, <span class="fl">44</span>,
@@ -270,7 +268,7 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">km.res</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span>, nstart <span class="op">=</span> <span class="fl">25</span>, iter.max<span class="op">=</span><span class="fl">10</span><span class="op">)</span>
 
 <span class="va">grouped</span> <span class="op">&lt;-</span> <span class="va">km.res</span><span class="op">$</span><span class="va">cluster</span>
@@ -303,7 +301,7 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 <div id="hierarchicalclustering" class="section level3">
 <h3 class="hasAnchor">
 <a href="#hierarchicalclustering" class="anchor"></a>HierarchicalClustering()</h3>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span>, <span class="st">"3a"</span>,
        <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"2g"</span>, <span class="st">"2h"</span><span class="op">)</span>
 
@@ -319,7 +317,7 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>, labels <span class="op">=</span> <span class="va">id</span>, cex<span class="op">=</span><span class="fl">0.9</span>, font<span class="op">=</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/HierarchicalClustering.html">HierarchicalClustering</a></span><span class="op">(</span>working.data <span class="op">=</span> <span class="va">example.data</span>,
                        clustering.columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>,
                        label.column.name <span class="op">=</span> <span class="st">"id"</span>,
@@ -353,17 +351,17 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
       text.col <span class="op">=</span> <span class="st">"black"</span>, horiz <span class="op">=</span> <span class="cn">FALSE</span>, inset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span><span class="op">)</span>,
       title <span class="op">=</span> <span class="st">"Color"</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-7-2.png" width="700"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Display sample assignment</span>
 <span class="va">labeled.samples</span></code></pre></div>
 <pre><code>## 1a 1b 1c 1d 1g 1e 1f 2a 2b 2c 2g 2d 2h 3g 3a 3c 3f 3d 3e 3b 3h 3i 
 ##  1  1  1  1  1  1  1  2  2  2  2  2  2  3  3  3  3  3  3  3  3  3</code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Display stability of clusters</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>
 <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/tableGrob.html">grid.table</a></span><span class="op">(</span><span class="va">stability.table</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-7-3.png" width="700"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Display kcboot full output</span>
 <span class="va">kcboot.res</span></code></pre></div>
 <pre><code>## * Cluster stability assessment *
@@ -389,7 +387,7 @@ xlab <span class="op">=</span> <span class="va">xlab.values</span>, ylab <span c
 <div id="eval-classification-results" class="section level3">
 <h3 class="hasAnchor">
 <a href="#eval-classification-results" class="anchor"></a>eval.classification.results()</h3>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
        <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
 
@@ -436,7 +434,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <div id="find-best-number-of-trees" class="section level3">
 <h3 class="hasAnchor">
 <a href="#find-best-number-of-trees" class="anchor"></a>find.best.number.of.trees()</h3>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>,
        <span class="st">"2f"</span>, <span class="st">"3a"</span>,
        <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
@@ -470,7 +468,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">trees</span>, <span class="va">error.oob</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dev.new()</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
@@ -479,7 +477,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <div id="loocvpredictionsrandomforestautomaticmtryandntree" class="section level3">
 <h3 class="hasAnchor">
 <a href="#loocvpredictionsrandomforestautomaticmtryandntree" class="anchor"></a>LOOCVPredictionsRandomForestAutomaticMtryAndNtree()</h3>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
        <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
 
@@ -527,7 +525,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 ## [1] 20
 ## [1] 21
 ## [1] 22</code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">predicted</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">actual</span> <span class="op">&lt;-</span> <span class="va">example.data</span><span class="op">[</span>,<span class="st">"actual"</span><span class="op">]</span>
 
@@ -549,7 +547,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 ## [1] "Original classes in data"
 ## [1] 1 2 3
 ## Levels: 1 2 3</code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## variables.with.sig.contributions
 ##   y   x 
@@ -558,7 +556,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <div id="loocvrandomforestclassificationmatrixforpheatmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#loocvrandomforestclassificationmatrixforpheatmap" class="anchor"></a>LOOCVRandomForestClassificationMatrixForPheatmap()</h3>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Make example data where samples with 1, 2, and 3 in their ID names can be</span>
 <span class="co">#predicted using features x and y, while samples with 4 and 5 in their ID names</span>
 <span class="co">#can be predicted using features a and b.</span>
@@ -597,12 +595,12 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dev.new()</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-11-2.png" width="700"></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/LOOCVRandomForestClassificationMatrixForPheatmap.html">LOOCVRandomForestClassificationMatrixForPheatmap</a></span><span class="op">(</span>input.data <span class="op">=</span> <span class="va">example.data</span>,
                                        factor.name.for.subsetting <span class="op">=</span> <span class="st">"sep.xy.ab"</span>,
                                        name.of.predictors.to.use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
@@ -646,7 +644,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 ## [1] 12
 ## [1] 13
 ## [1] 14</code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="va">result</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">pheatmap_RF</span> <span class="op">&lt;-</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html">pheatmap</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span>, fontsize_col <span class="op">=</span> <span class="fl">12</span>, fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">)</span>
@@ -663,7 +661,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <div id="randomforestautomaticmtryandntree" class="section level3">
 <h3 class="hasAnchor">
 <a href="#randomforestautomaticmtryandntree" class="anchor"></a>RandomForestAutomaticMtryAndNtree()</h3>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">id</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1a"</span>, <span class="st">"1b"</span>, <span class="st">"1c"</span>, <span class="st">"1d"</span>, <span class="st">"1e"</span>, <span class="st">"1f"</span>, <span class="st">"1g"</span>, <span class="st">"2a"</span>, <span class="st">"2b"</span>, <span class="st">"2c"</span>, <span class="st">"2d"</span>, <span class="st">"2e"</span>, <span class="st">"2f"</span>, <span class="st">"3a"</span>,
        <span class="st">"3b"</span>, <span class="st">"3c"</span>, <span class="st">"3d"</span>, <span class="st">"3e"</span>, <span class="st">"3f"</span>, <span class="st">"3g"</span>, <span class="st">"3h"</span>, <span class="st">"3i"</span><span class="op">)</span>
 
@@ -711,7 +709,7 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <div id="randomforestclassificationginimatrixforpheatmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#randomforestclassificationginimatrixforpheatmap" class="anchor"></a>RandomForestClassificationGiniMatrixForPheatmap()</h3>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Make example data where samples with 1, 2, and 3 in their ID names can be</span>
 <span class="co">#predicted using features x and y, while samples with 4 and 5 in their ID names</span>
 <span class="co">#can be predicted using features a and b.</span>
@@ -749,12 +747,12 @@ y<span class="op">=</span><span class="va">example.data</span><span class="op">[
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dev.new()</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-13-2.png" width="700"></p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RandomForestClassificationGiniMatrixForPheatmap.html">RandomForestClassificationGiniMatrixForPheatmap</a></span><span class="op">(</span>input.data <span class="op">=</span> <span class="va">example.data</span>,
                                        factor.name.for.subsetting <span class="op">=</span> <span class="st">"sep.xy.ab"</span>,
                                        name.of.predictors.to.use <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>,
@@ -784,7 +782,7 @@ fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">
 <span class="co">#dev.new()</span>
 <span class="va">pheatmap_RF</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-13-3.png" width="700"></p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Note that the 1/2/3 column is exactly the same as the random forest</span>
 <span class="co">#model created in the example for eval.classification.results.</span>
 <span class="co">#Since this pheatmap is using the number of LOOCV rounds</span>
@@ -797,7 +795,7 @@ fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">
 <div id="randomforestclassificationpercentilematrixforpheatmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#randomforestclassificationpercentilematrixforpheatmap" class="anchor"></a>RandomForestClassificationPercentileMatrixForPheatmap()</h3>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Make example data where samples with 1, 2, and 3 in their ID names can be</span>
 <span class="co">#predicted using features x and y, while samples with 4 and 5 in their ID names</span>
 <span class="co">#can be predicted using features a and b.</span>
@@ -836,12 +834,12 @@ fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">x</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">y</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#dev.new()</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span><span class="op">(</span><span class="va">example.data</span><span class="op">$</span><span class="va">a</span>, <span class="va">example.data</span><span class="op">$</span><span class="va">b</span>,labels<span class="op">=</span><span class="va">example.data</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 <p><img src="Examples_files/figure-html/unnamed-chunk-14-2.png" width="700"></p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RandomForestClassificationPercentileMatrixForPheatmap.html">RandomForestClassificationPercentileMatrixForPheatmap</a></span><span class="op">(</span>
                                        input.data <span class="op">=</span> <span class="va">example.data</span>,
                                        factor.name.for.subsetting <span class="op">=</span> <span class="st">"sep.xy.ab"</span>,
@@ -864,7 +862,7 @@ fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">
 <div id="cvpredictionsrandomforest" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cvpredictionsrandomforest" class="anchor"></a>CVPredictionsRandomForest()</h3>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GenerateExampleDataMachinelearnr.html">GenerateExampleDataMachinelearnr</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
@@ -912,14 +910,14 @@ number.of.folds <span class="op">=</span> <span class="fu"><a href="https://rdrr
 ## [1] 34
 ## [1] 35
 ## [1] 36</code></pre>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Predicted</span>
 <span class="va">result.CV</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>##  4  1 34 23 11 14 18 27 19 35 21 26 10 22 31 24  7  9 15  5 28 16 33 17 13  2 
 ##  1  1  5  4  3  3  3  4  3  5  3  4  2  3  5  4  1  2  3  1  4  3  5  3  2  1 
 ## 25 30 36 20 29  8  3 32 12  6 
 ##  5  5  5  3  4  2  1  5  2  1</code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#Feature importance</span>
 <span class="va">result.CV</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## variables.with.sig.contributions
@@ -929,7 +927,7 @@ number.of.folds <span class="op">=</span> <span class="fu"><a href="https://rdrr
 <div id="cvrandomforestclassificationmatrixforpheatmap" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cvrandomforestclassificationmatrixforpheatmap" class="anchor"></a>CVRandomForestClassificationMatrixForPheatmap()</h3>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GenerateExampleDataMachinelearnr.html">GenerateExampleDataMachinelearnr</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
@@ -947,7 +945,7 @@ number.of.folds <span class="op">=</span> <span class="fl">2</span><span class="
 ## [1] 2
 ## [1] 1
 ## [1] 2</code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">matrix.for.pheatmap</span> <span class="op">&lt;-</span> <span class="va">result.two.fold.CV</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
 <span class="va">pheatmap_RF</span> <span class="op">&lt;-</span> <span class="fu">pheatmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html">pheatmap</a></span><span class="op">(</span><span class="va">matrix.for.pheatmap</span>, fontsize_col <span class="op">=</span> <span class="fl">12</span>, fontsize_row<span class="op">=</span><span class="fl">12</span><span class="op">)</span></code></pre></div>

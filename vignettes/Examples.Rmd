@@ -131,12 +131,12 @@ zdata.values <- results[[6]]
 
 data.to.plot <- data.frame(xdata.values, ydata.values, zdata.values)
 
-#Interactive 3d plot, but cannot display in html or md
-rgl::rgl.bg(color = "white")
-rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
-xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
-rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
-rgl::rglwidget()
+# #Interactive 3d plot, but cannot display in html or md
+# rgl::rgl.bg(color = "white")
+# rgl::plot3d(x= xdata.values, y= ydata.values, z= zdata.values,
+# xlab = xlab.values, ylab = ylab.values, zlab = zlab.values, col=(grouped+1), pch=20, cex=2)
+# rgl::text3d(x= xdata.values, y= ydata.values, z= zdata.values, text= actual.group.label, cex=1)
+# rgl::rglwidget()
 
 #Non-interactive 3d plot
 s3d <- scatterplot3d::scatterplot3d(data.to.plot[,1:3], pch = 16, color=(grouped+1),
