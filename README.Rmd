@@ -69,7 +69,7 @@ library("machinelearnr")
 
 ## Usage
 
-Source code: <https://github.com/yhhc2/psdr>
+Source code: <https://github.com/yhhc2/machinelearnr>
 
 Visit the package's website: <https://yhhc2.github.io/machinelearnr/>
 
