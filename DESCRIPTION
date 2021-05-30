@@ -8,7 +8,7 @@ Authors@R:
            email = "yhhc@uw.edu",
            comment = c(ORCID = "0000-0001-7686-0697"))
 Description: What the package does (one paragraph).
-License: MIT + file LICENSE
+License: GPL (>= 3) | file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
