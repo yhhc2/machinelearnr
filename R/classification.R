@@ -858,7 +858,9 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #' @param should.mtry.and.ntree.be.optimized A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.
 #' @param percentile.threshold.to.keep A number from 0-1 indicating the percentile to use for feature selection. This is used by the LOOCVPredictionsRandomForestAutomaticMtryAndNtree() function.
 #'
-#' @return A numerical matrix that can be used for pheatmap generation.
+#' @return A list with two objects:
+#' 1. A numerical matrix that can be used for pheatmap generation.
+#' 2. The subset data sets for each column in the heatmap matrix.
 #'
 #'
 #' @export
@@ -1066,7 +1068,9 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   #Remove MCC row from matrix
   matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
 
-  return(matrix.for.pheatmap.MCC.row.removed)
+  output <- list(matrix.for.pheatmap.MCC.row.removed, subsets.of.data)
+  
+  return(output)
 
 }
 
@@ -1170,6 +1174,9 @@ CVPredictionsRandomForest <- function(inputted.data,
 # and substituted out LOOCVPredictionsRandomForestAutomaticMtryAndNtree() for
 #CVPredictionsRandomForest()
 #If number.of.folds == -1, then this means LOOCV should be used for each subset.
+##' @return A list with two objects:
+#' 1. A numerical matrix that can be used for pheatmap generation.
+#' 2. The subset data sets for each column in the heatmap matrix.
 CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
                                                              factor.name.for.subsetting,
                                                              name.of.predictors.to.use,
@@ -1312,7 +1319,9 @@ CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   #Remove MCC row from matrix
   matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
   
-  return(matrix.for.pheatmap.MCC.row.removed)
+  output <- list(matrix.for.pheatmap.MCC.row.removed, subsets.of.data)
+  
+  return(output)
   
 }
 
