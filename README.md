@@ -23,13 +23,13 @@ The main functions for clustering are:
     calculated. The name of the observations are displayed at the leaves
     and additional coloring can be added to the leaves in addition to
     the cluster coloring.
-    ![Dendrogram](README_files\\figure-gfm\\unnamed-chunk-8-2.png)
+    ![Dendrogram](README_files/figure-gfm/unnamed-chunk-8-2.png)
   - generate.3D.clustering.with.labeled.subgroup(): After kmeans
     clustering is performed, it is often helpful to visualize what the
     clusters look like. If 3 or more variables were used for clustering,
     PCA can be performed and the points can be plotted with the top 3
     components to visualize what clusters look like in 3D. ![3D
-    plot](README_files\\figure-gfm\\unnamed-chunk-5-3.png)
+    plot](README_files/figure-gfm/unnamed-chunk-5-3.png)
 
 The main functions for classification are:
 
@@ -52,8 +52,7 @@ The main functions for classification are:
     CVPredictionsRandomForest() on several smaller subset data sets of a
     larger data set and outputs results in the form of a pheatmap so
     that the random forest performance can be compared between each
-    subset.
-    ![pheatmap](README_files\\figure-gfm\\unnamed-chunk-15-3.png)
+    subset. ![pheatmap](README_files/figure-gfm/unnamed-chunk-15-3.png)
 
 ## Installation
 
