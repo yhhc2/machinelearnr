@@ -18,6 +18,7 @@ Imports:
     caret (>= 6.0.86),
     clValid (>= 0.6.9),
     dendextend (>= 1.14.0),
+    devtools (>= 2.4.1),
     factoextra (>= 1.0.7),
     forecast (>= 8.13),
     fpc (>= 2.2.8),

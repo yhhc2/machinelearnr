@@ -9,6 +9,13 @@
 <title>Generate a random forest model under leave-one-out-cross-validation (LOOCV) for different
 subsets of the data and display results in a pheatmap to easily compare the different subsets — LOOCVRandomForestClassificationMatrixForPheatmap • machinelearnr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -46,6 +53,7 @@ subsets of the data and display results in a pheatmap to easily compare the diff
 each subset of the data: A random forest model with LOOCV is generated. This random forest
 model is used to make a single column in the final matrix which can be
 used to generate a pheatmap." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -85,12 +93,24 @@ used to generate a pheatmap." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -166,7 +186,11 @@ used to generate a pheatmap.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numerical matrix that can be used for pheatmap generation.</p>
+    <p>A list with two objects:</p><ol>
+<li><p>A numerical matrix that can be used for pheatmap generation.</p></li>
+<li><p>The subset data sets for each column in the heatmap matrix.</p></li>
+</ol>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In each column of the final matrix, the Matthew's Correlation Coefficient (MCC)
@@ -181,6 +205,9 @@ had importance values above the percentile.threshold.to.keep percentile.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Classification functions: 
+<code><a href='CVPredictionsRandomForest.html'>CVPredictionsRandomForest</a>()</code>,
+<code><a href='CVRandomForestClassificationMatrixForPheatmap.html'>CVRandomForestClassificationMatrixForPheatmap</a>()</code>,
+<code><a href='GenerateExampleDataMachinelearnr.html'>GenerateExampleDataMachinelearnr</a>()</code>,
 <code><a href='LOOCVPredictionsRandomForestAutomaticMtryAndNtree.html'>LOOCVPredictionsRandomForestAutomaticMtryAndNtree</a>()</code>,
 <code><a href='RandomForestAutomaticMtryAndNtree.html'>RandomForestAutomaticMtryAndNtree</a>()</code>,
 <code><a href='RandomForestClassificationGiniMatrixForPheatmap.html'>RandomForestClassificationGiniMatrixForPheatmap</a>()</code>,
@@ -232,7 +259,7 @@ had importance values above the percentile.threshold.to.keep percentile.</p>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span>,labels<span class='op'>=</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
 
-<span class='va'>matrix.for.pheatmap</span> <span class='op'>&lt;-</span> <span class='fu'>LOOCVRandomForestClassificationMatrixForPheatmap</span><span class='op'>(</span>input.data <span class='op'>=</span> <span class='va'>example.data</span>,
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>LOOCVRandomForestClassificationMatrixForPheatmap</span><span class='op'>(</span>input.data <span class='op'>=</span> <span class='va'>example.data</span>,
                                        factor.name.for.subsetting <span class='op'>=</span> <span class='st'>"sep.xy.ab"</span>,
                                        name.of.predictors.to.use <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>,
                                        target.column.name <span class='op'>=</span> <span class='st'>"actual"</span>,
@@ -275,6 +302,7 @@ had importance values above the percentile.threshold.to.keep percentile.</p>
 #&gt; [1] 12
 #&gt; [1] 13
 #&gt; [1] 14</div><div class='input'>
+<span class='va'>matrix.for.pheatmap</span> <span class='op'>&lt;-</span> <span class='va'>result</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
 
 <span class='va'>pheatmap_RF</span> <span class='op'>&lt;-</span> <span class='fu'>pheatmap</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pheatmap/man/pheatmap.html'>pheatmap</a></span><span class='op'>(</span><span class='va'>matrix.for.pheatmap</span>, fontsize_col <span class='op'>=</span> <span class='fl'>12</span>, fontsize_row<span class='op'>=</span><span class='fl'>12</span><span class='op'>)</span>
 

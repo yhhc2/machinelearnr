@@ -6,8 +6,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create random forest cross-validated model — LOOCVPredictionsRandomForestAutomaticMtryAndNtree • machinelearnr</title>
+<title>Create random forest leave-one-out-cross-validated model — LOOCVPredictionsRandomForestAutomaticMtryAndNtree • machinelearnr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -39,12 +46,13 @@
 
 
 
-<meta property="og:title" content="Create random forest cross-validated model — LOOCVPredictionsRandomForestAutomaticMtryAndNtree" />
+<meta property="og:title" content="Create random forest leave-one-out-cross-validated model — LOOCVPredictionsRandomForestAutomaticMtryAndNtree" />
 <meta property="og:description" content="For a single input dataset with N observations, each observation is removed one at a time.
 This creates N sub-datasets Using each sub-dataset, we can build a RF model and predict the one observation
 that's left out. We can also determine the features in each round that was deemed to be important.
 At the end, we get a list of predictions for every observation (because every observation was left out exactly one time)
 and we get a list of variables that were considered important." />
+<meta property="og:image" content="/logo.png" />
 
 
 
@@ -84,12 +92,24 @@ and we get a list of variables that were considered important." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Examples.html">Examples</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -107,7 +127,7 @@ and we get a list of variables that were considered important." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create random forest cross-validated model</h1>
+    <h1>Create random forest leave-one-out-cross-validated model</h1>
     
     <div class="hidden name"><code>LOOCVPredictionsRandomForestAutomaticMtryAndNtree.Rd</code></div>
     </div>
@@ -175,8 +195,8 @@ If the threshold is set at 0.75, then both x and y will be tallied for this sing
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with two objects:</p><ol>
-<li><p>running.pred: predicted values for each observation.</p></li>
-<li><p>var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile.</p></li>
+<li><p>running.pred: predicted values for each observation. A vector.</p></li>
+<li><p>var.tally: the percentage of LOOCV rounds that the features had importance values above the percentile.threshold.to.keep percentile. A table.</p></li>
 </ol>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -191,6 +211,9 @@ overfit.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Classification functions: 
+<code><a href='CVPredictionsRandomForest.html'>CVPredictionsRandomForest</a>()</code>,
+<code><a href='CVRandomForestClassificationMatrixForPheatmap.html'>CVRandomForestClassificationMatrixForPheatmap</a>()</code>,
+<code><a href='GenerateExampleDataMachinelearnr.html'>GenerateExampleDataMachinelearnr</a>()</code>,
 <code><a href='LOOCVRandomForestClassificationMatrixForPheatmap.html'>LOOCVRandomForestClassificationMatrixForPheatmap</a>()</code>,
 <code><a href='RandomForestAutomaticMtryAndNtree.html'>RandomForestAutomaticMtryAndNtree</a>()</code>,
 <code><a href='RandomForestClassificationGiniMatrixForPheatmap.html'>RandomForestClassificationGiniMatrixForPheatmap</a>()</code>,
