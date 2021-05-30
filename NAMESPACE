@@ -3,6 +3,8 @@
 export(AddColBinnedToBinary)
 export(AddColBinnedToQuartiles)
 export(AddPCsToEnd)
+export(CVPredictionsRandomForest)
+export(CVRandomForestClassificationMatrixForPheatmap)
 export(CalcOptimalNumClustersForKMeans)
 export(ConvertDataToPercentiles)
 export(CorAssoTestMultipleWithErrorHandling)

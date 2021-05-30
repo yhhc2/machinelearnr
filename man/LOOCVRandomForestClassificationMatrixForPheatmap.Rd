@@ -31,7 +31,11 @@ LOOCVRandomForestClassificationMatrixForPheatmap(
 \item{percentile.threshold.to.keep}{A number from 0-1 indicating the percentile to use for feature selection. This is used by the LOOCVPredictionsRandomForestAutomaticMtryAndNtree() function.}
 }
 \value{
-A numerical matrix that can be used for pheatmap generation.
+A list with two objects:
+\enumerate{
+\item A numerical matrix that can be used for pheatmap generation.
+\item The subset data sets for each column in the heatmap matrix.
+}
 }
 \description{
 LOOCVPredictionsRandomForestAutomaticMtryAndNtree() is used on each subset of the data. For
@@ -95,7 +99,7 @@ dev.new()
 plot(example.data$a, example.data$b)
 text(example.data$a, example.data$b,labels=example.data$id)
 
-matrix.for.pheatmap <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
+result <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
                                        factor.name.for.subsetting = "sep.xy.ab",
                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
                                        target.column.name = "actual",
@@ -103,6 +107,7 @@ matrix.for.pheatmap <- LOOCVRandomForestClassificationMatrixForPheatmap(input.da
                                        should.mtry.and.ntree.be.optimized = FALSE,
                                        percentile.threshold.to.keep = 0.5)
 
+matrix.for.pheatmap <- result[[1]]
 
 pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
 
@@ -117,6 +122,9 @@ pheatmap_RF
 }
 \seealso{
 Other Classification functions: 
+\code{\link{CVPredictionsRandomForest}()},
+\code{\link{CVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{GenerateExampleDataMachinelearnr}()},
 \code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
 \code{\link{RandomForestAutomaticMtryAndNtree}()},
 \code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},

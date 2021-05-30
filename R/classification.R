@@ -911,7 +911,7 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
-#' matrix.for.pheatmap <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
+#' result <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
 #'                                        factor.name.for.subsetting = "sep.xy.ab",
 #'                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
 #'                                        target.column.name = "actual",
@@ -919,6 +919,7 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #'                                        should.mtry.and.ntree.be.optimized = FALSE,
 #'                                        percentile.threshold.to.keep = 0.5)
 #'
+#' matrix.for.pheatmap <- result[[1]]
 #'
 #' pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
 #'
@@ -1099,9 +1100,31 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
 #' running.pred: predicted values for each observation. A vector.
 #' var.tally: the percentage of CV rounds that the features had importance values above the percentile.threshold.to.keep percentile. A table.
 #' 
+#' @family Classification functions
+#' 
 #' @export
 #'
 #' @examples
+#' 
+#' example.data <- GenerateExampleDataMachinelearnr()
+#' 
+#' set.seed(1)
+#' example.data.shuffled <- example.data[sample(nrow(example.data)),]
+#' 
+#' result.CV <- CVPredictionsRandomForest(inputted.data = example.data.shuffled,
+#' name.of.predictors.to.use = c("x", "y", "a", "b"),
+#' target.column.name = "actual",
+#' seed = 2,
+#' percentile.threshold.to.keep = 0.5,
+#' number.of.folds = nrow(example.data))
+#' 
+#' #Predicted
+#' result.CV[[1]]
+#' 
+#' #Feature importance
+#' result.CV[[2]]
+#' 
+#' 
 CVPredictionsRandomForest <- function(inputted.data,
                                       name.of.predictors.to.use,
                                       target.column.name,
@@ -1199,9 +1222,33 @@ CVPredictionsRandomForest <- function(inputted.data,
 #' 1. A numerical matrix that can be used for pheatmap generation.
 #' 2. The subset data sets for each column in the heatmap matrix.
 #' 
+#' @family Classification functions
+#' 
 #' @export
 #'
 #' @examples
+#' 
+#' example.data <- GenerateExampleDataMachinelearnr()
+#' 
+#' set.seed(1)
+#' example.data.shuffled <- example.data[sample(nrow(example.data)),]
+#' 
+#' result.two.fold.CV <- CVRandomForestClassificationMatrixForPheatmap(
+#' input.data = example.data.shuffled,
+#' factor.name.for.subsetting = "sep.xy.ab",
+#' name.of.predictors.to.use = c("x", "y", "a", "b"),
+#' target.column.name = "actual",
+#' seed = 2,
+#' percentile.threshold.to.keep = 0.5,
+#' number.of.folds = 2)
+#' 
+#' matrix.for.pheatmap <- result.two.fold.CV[[1]]
+#' 
+#' pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
+#'
+#' 
+#' 
+#' 
 CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
                                                              factor.name.for.subsetting,
                                                              name.of.predictors.to.use,
@@ -1356,6 +1403,8 @@ CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
 #' Produce example data set for demonstrating package functions
 #'
 #' @return A dataframe.
+#' 
+#' @family Classification functions
 #' 
 #' @export
 #'

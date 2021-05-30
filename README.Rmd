@@ -437,13 +437,15 @@ text(example.data$x, example.data$y,labels=example.data$id)
 plot(example.data$a, example.data$b)
 text(example.data$a, example.data$b,labels=example.data$id)
 
-matrix.for.pheatmap <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
+result <- LOOCVRandomForestClassificationMatrixForPheatmap(input.data = example.data,
                                        factor.name.for.subsetting = "sep.xy.ab",
                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
                                        target.column.name = "actual",
                                        seed = 2,
                                        should.mtry.and.ntree.be.optimized = FALSE,
                                        percentile.threshold.to.keep = 0.5)
+
+matrix.for.pheatmap <- result[[1]]
 
 pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
 

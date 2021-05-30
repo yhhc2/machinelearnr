@@ -66,6 +66,9 @@ text(example.data$x, example.data$y,labels=example.data$id)
 }
 \seealso{
 Other Classification functions: 
+\code{\link{CVPredictionsRandomForest}()},
+\code{\link{CVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{GenerateExampleDataMachinelearnr}()},
 \code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
 \code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
 \code{\link{RandomForestAutomaticMtryAndNtree}()},

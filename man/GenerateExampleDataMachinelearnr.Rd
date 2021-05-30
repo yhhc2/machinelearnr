@@ -12,3 +12,16 @@ A dataframe.
 \description{
 Produce example data set for demonstrating package functions
 }
+\seealso{
+Other Classification functions: 
+\code{\link{CVPredictionsRandomForest}()},
+\code{\link{CVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}()},
+\code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{RandomForestAutomaticMtryAndNtree}()},
+\code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
+\code{\link{RandomForestClassificationPercentileMatrixForPheatmap}()},
+\code{\link{eval.classification.results}()},
+\code{\link{find.best.number.of.trees}()}
+}
+\concept{Classification functions}

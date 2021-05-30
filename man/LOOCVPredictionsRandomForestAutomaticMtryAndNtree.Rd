@@ -2,7 +2,7 @@
 % Please edit documentation in R/classification.R
 \name{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}
 \alias{LOOCVPredictionsRandomForestAutomaticMtryAndNtree}
-\title{Create random forest cross-validated model}
+\title{Create random forest leave-one-out-cross-validated model}
 \usage{
 LOOCVPredictionsRandomForestAutomaticMtryAndNtree(
   inputted.data,
@@ -101,6 +101,9 @@ result[[2]]
 }
 \seealso{
 Other Classification functions: 
+\code{\link{CVPredictionsRandomForest}()},
+\code{\link{CVRandomForestClassificationMatrixForPheatmap}()},
+\code{\link{GenerateExampleDataMachinelearnr}()},
 \code{\link{LOOCVRandomForestClassificationMatrixForPheatmap}()},
 \code{\link{RandomForestAutomaticMtryAndNtree}()},
 \code{\link{RandomForestClassificationGiniMatrixForPheatmap}()},
