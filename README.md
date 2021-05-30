@@ -38,15 +38,16 @@ The main functions for classification are:
     classifier. Additional code is included for optimizing mtry and
     ntree. Importantly, the default values for mtry and ntree are
     sensible values and actually is not required to be adjusted. For
-    more rigorous explanation hyperparameter tuning, use this paper and
-    the R package provided by the authors:
+    more rigorous explanations on hyperparameter tuning, use this paper
+    and the R package provided by the authors:
     <https://doi.org/10.1002/widm.1301>, “Hyperparameters and tuning
-    strategies for random forest” by Probst et al.
+    strategies for random forest” by Probst et al, 2019.
 
   - CVPredictionsRandomForest(): This performs random forest
     classification using default hyperparameters and also uses
     cross-validation. The cross-validation fold can be specified by the
-    user.
+    user.The performance (predictions and feature importance
+    determination) of the model are outputted.
 
   - CVRandomForestClassificationMatrixForPheatmap(): This uses
     CVPredictionsRandomForest() on several smaller subset data sets of a
