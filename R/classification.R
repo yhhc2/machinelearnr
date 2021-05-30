@@ -283,7 +283,7 @@ RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.
 }
 
 
-#' Create random forest cross-validated model
+#' Create random forest leave-one-out-cross-validated model
 #'
 #' For a single input dataset with N observations, each observation is removed one at a time.
 #' This creates N sub-datasets Using each sub-dataset, we can build a RF model and predict the one observation
@@ -1069,6 +1069,253 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   return(matrix.for.pheatmap.MCC.row.removed)
 
 }
+
+
+#' Create random forest cross-validated model
+#' 
+#' For a single input dataset, the dataset is divided
+#' sequentially into number.of.folds specified subsets. Each subset is left out as 
+#' testing data while the remaining subsets are used to train a random forest model
+#' with default mtry and ntree. The left out data is then predicted by
+#' the model. 
+#' 
+#' This function assumes that the data is already randomly shuffled. This 
+#' function is based off of the LOOCVPredictionsRandomForestAutomaticMtryAndNtree()
+#' function, but this function does not have the ability to do PCA or
+#' optimize for mtry and ntree. 
+#'
+#' @param inputted.data A dataframe that should already have the rows randomly shuffled.
+#' @param name.of.predictors.to.use A vector of strings that specify the name of columns to use as predictors. Each column should be numerical. 
+#' @param target.column.name A string that specifies the column with values that we want to predict for. This column should be a factor.
+#' @param seed A integer that specifies the seed to use for random number generation.
+#' @param percentile.threshold.to.keep A number from 0-1 indicating the percentile to use for feature selection. The percentage of CV rounds that the feature has importance values above the percentile.threshold.to.keep will be counted in the var.tally of the output. Example: If there are 4 features (x, y, a, b) and the mean decrease in gini index in one LOOCV round are 4, 3, 2, 1 respectively, then this means feature x is in the 100th percentile (percentile value of 1), y is in the 75th percentile (percentile value of 0.75), etc. If the threshold is set at 0.75, then both x and y will be tallied for this single CV round.
+#' @param number.of.folds An integer from 1 to nrow(inputted.data) to specify the fold for CV. If This number is set to nrow(inputted.data), then the function will be LOOCV. 
+#'
+#' @return A list with two objects:
+#' running.pred: predicted values for each observation. A vector.
+#' var.tally: the percentage of CV rounds that the features had importance values above the percentile.threshold.to.keep percentile. A table.
+#' 
+#' @export
+#'
+#' @examples
+CVPredictionsRandomForest <- function(inputted.data,
+                                      name.of.predictors.to.use,
+                                      target.column.name,
+                                      seed,
+                                      percentile.threshold.to.keep = 0.8,
+                                      number.of.folds) {
+  
+  
+  test.data <- inputted.data
+  running.pred <- NULL
+  variables.with.sig.contributions <- NULL
+  
+  #Create equally sized folds
+  folds <- cut(seq(1,nrow(inputted.data)),breaks=number.of.folds,labels=FALSE)
+  
+  ##Go through each fold of CV
+  for (l in 1:number.of.folds) {
+    
+    print(l)
+    
+    #Segment your data by fold using the which() function 
+    testIndexes <- which(folds==l,arr.ind=TRUE)
+    train.data <- inputted.data[-testIndexes, ]
+    train.data[,target.column.name] <- as.factor(as.character(train.data[,target.column.name]))
+    
+    set.seed(seed)
+    final.model <- randomForest::randomForest(x=train.data[,name.of.predictors.to.use], y=train.data[,target.column.name], proximity=TRUE)
+    
+    #------------------------------------------------------------------------------
+    # Predict left out sample
+    #------------------------------------------------------------------------------
+    
+    #We now want to predict the samples we left out. So we use the model on the entire dataset and then only get the predicted
+    #values corresponding to the samples we left out. 
+    predictions_loo <- stats::predict(final.model, newdata = test.data[,name.of.predictors.to.use])
+    running.pred <- c(running.pred, predictions_loo[c(testIndexes)])
+    
+    #------------------------------------------------------------------------------
+    # Record which features were important for this round of LOOCV
+    #------------------------------------------------------------------------------
+    
+    importance.of.variables <- randomForest::importance(final.model)
+    importance.of.variables.sorted <- importance.of.variables[order(importance.of.variables[,1], decreasing=TRUE), ]
+    
+    #calculate percentile
+    features.2.keep <- stats::ecdf(importance.of.variables.sorted)(importance.of.variables.sorted)
+    
+    #add names back to the features
+    names(features.2.keep) <- names(importance.of.variables.sorted)
+    
+    #Only include the features in the top percentiles
+    percentile.threshold.to.keep <- percentile.threshold.to.keep
+    features.2.keep <- names(features.2.keep[features.2.keep>percentile.threshold.to.keep])
+    
+    variables.with.sig.contributions <- c(variables.with.sig.contributions, features.2.keep)
+  }
+  
+  #Calculate the percentage of LOOCV rounds that the features had importance
+  #values above a certain percentile
+  var.tally <- round((rev(sort(table(variables.with.sig.contributions)))/number.of.folds)*100,2)
+  
+  output <- list(running.pred, var.tally)
+  
+  return(output)
+  
+}
+
+
+#I just copied the LOOCVRandomForestClassificationMatrixForPheatmap() function
+# and substituted out LOOCVPredictionsRandomForestAutomaticMtryAndNtree() for
+#CVPredictionsRandomForest()
+#If number.of.folds == -1, then this means LOOCV should be used for each subset.
+CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
+                                                             factor.name.for.subsetting,
+                                                             name.of.predictors.to.use,
+                                                             target.column.name, 
+                                                             seed,
+                                                             percentile.threshold.to.keep,
+                                                             number.of.folds){
+  
+  
+  #For classification, the target column needs to be a factor, but
+  #when the data is subsetted, an error will occur if levels in the factor
+  #are not represented, so the target column has to be converted to a factor
+  #after subsetting
+  input.data[,target.column.name] <- as.character(input.data[,target.column.name])
+  
+  #Converting factor column to factor is the easiest way to identify the levels.
+  vector_recoded123 <- as.factor(input.data[,factor.name.for.subsetting])
+  levels.in.column <- levels(vector_recoded123)
+  
+  #Captures all the subsets of data
+  subsets.of.data <- list()
+  
+  #Captures all the importance values
+  captured.importance.values <- NULL
+  
+  #For each level of the factor, subset the data and add the subsetted data into
+  #a list.
+  for(i in 1:length(levels.in.column)){
+    
+    subset.data <- subset(input.data, input.data[,factor.name.for.subsetting]==levels.in.column[i])
+    
+    subset.data[,target.column.name] <- as.factor(subset.data[,target.column.name])
+    
+    subsets.of.data[[i]] <- subset.data
+    
+    ##-------------------------------------**
+    
+    #If LOOCV should be used for each subset, then do this
+    if(number.of.folds == -1){
+      
+      #For each subset data, do random forest
+      CV.results <- CVPredictionsRandomForest(inputted.data = subset.data,
+                                              name.of.predictors.to.use = name.of.predictors.to.use,
+                                              target.column.name = target.column.name,
+                                              seed = seed,
+                                              percentile.threshold.to.keep = percentile.threshold.to.keep,
+                                              number.of.folds = nrow(subset.data))
+      
+    } else{
+      
+      #For each subset data, do random forest
+      CV.results <- CVPredictionsRandomForest(inputted.data = subset.data,
+                                              name.of.predictors.to.use = name.of.predictors.to.use,
+                                              target.column.name = target.column.name,
+                                              seed = seed,
+                                              percentile.threshold.to.keep = percentile.threshold.to.keep,
+                                              number.of.folds = number.of.folds)
+      
+    }
+    
+    
+    CV.predictions <- CV.results[[1]]
+    
+    CV.features.selected <- CV.results[[2]]
+    
+    ##MCC
+    predicted <- as.integer(CV.predictions)
+    actual <- as.integer(subset.data[,target.column.name])
+    MCC.val <- mltools::mcc(preds=predicted, actuals=actual)
+    
+    #Importance of features
+    #1. If feature is not selected at all, then assign it a value of 0 in a new dataframe.
+    names.of.features.selected <- names(CV.features.selected)
+    names.of.features.not.selected.at.all <- setdiff(name.of.predictors.to.use, names.of.features.selected)
+    
+    #Create data frame for features not selected at all
+    variables.with.sig.contributions <- names.of.features.not.selected.at.all
+    Freq <- rep(0, length(names.of.features.not.selected.at.all))
+    features.not.selected.dataframe <- data.frame(variables.with.sig.contributions, Freq)
+    
+    #Convert the table that describes selected features into a dataframe so that
+    #it can be combined with the dataframe for features not selected at all
+    CV.features.selected.dataframe <- as.data.frame(CV.features.selected)
+    
+    #If only one feature was selected, then the results have to be formatted differently
+    if(length(CV.features.selected.dataframe) == 1){
+      CV.features.selected.dataframe <- data.frame(colone = row.names(CV.features.selected.dataframe),
+                                                      coltwo = CV.features.selected.dataframe[1,1])
+      
+      colnames(CV.features.selected.dataframe) <- c("variables.with.sig.contributions", "Freq")
+    }
+    
+    #Combine the two dataframes above
+    CV.features.selected.dataframe.with.features.not.selected <- rbind(CV.features.selected.dataframe,
+                                                                          features.not.selected.dataframe)
+    
+    #2. Sort so that for each subset the features are in the same order. This is necessary
+    #because for the pheatmap, we need all features in each column to be in the same order.
+    target.order.of.features <- name.of.predictors.to.use
+    sorted.dataframe <- CV.features.selected.dataframe.with.features.not.selected[match(target.order.of.features,
+                                                                                           CV.features.selected.dataframe.with.features.not.selected$variables.with.sig.contributions),]
+    
+    
+    #3. Use first column as row names, then delete first column.
+    row.names(sorted.dataframe) <- sorted.dataframe$variables.with.sig.contributions
+    subset.importance.values <- sorted.dataframe[2]
+    
+    #Combine importance values and MCC into one column.
+    subset.importance.values <- rbind(subset.importance.values, MCC.val = MCC.val)
+    
+    #Convert dataframe to matrix first then...
+    #Capture result for each subset
+    subset.importance.values <- as.matrix(subset.importance.values)
+    captured.importance.values <- cbind(captured.importance.values, subset.importance.values)
+    
+    #Add name to column
+    col.name.for.subset <- paste(factor.name.for.subsetting, levels.in.column[i])
+    colnames(captured.importance.values)[i] <- col.name.for.subset
+    
+  }
+  
+  ##Just make the pheatmap matrix in this command. When doing RF without LOOCV,
+  #the gini index function is used first before another command converts
+  #values to percentiles. For LOOCV pheatmap, the importance of features
+  #is the percentage of time it occurs in the top percentile of importance values,
+  #taking all rounds of LOOCV into consideration, want to use this directly without
+  #needing to convert to percentile.
+  
+  matrix.for.pheatmap <- captured.importance.values
+  
+  #Add MCC to column names
+  for(i in 1:dim(matrix.for.pheatmap)[2])
+  {
+    old.name <- colnames(matrix.for.pheatmap)[[i]]
+    MCC.val <- matrix.for.pheatmap[dim(matrix.for.pheatmap)[1],][[i]]
+    new.name <- paste(old.name, ", MCC: ", format(round(MCC.val, 2), nsmall = 2))
+    colnames(matrix.for.pheatmap)[[i]] <- new.name
+  }
+  
+  #Remove MCC row from matrix
+  matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
+  
+  return(matrix.for.pheatmap.MCC.row.removed)
+  
+}
+
 
 
 
