@@ -1171,12 +1171,37 @@ CVPredictionsRandomForest <- function(inputted.data,
 
 
 #I just copied the LOOCVRandomForestClassificationMatrixForPheatmap() function
-# and substituted out LOOCVPredictionsRandomForestAutomaticMtryAndNtree() for
+#and substituted out LOOCVPredictionsRandomForestAutomaticMtryAndNtree() for
 #CVPredictionsRandomForest()
 #If number.of.folds == -1, then this means LOOCV should be used for each subset.
-##' @return A list with two objects:
+## 
+
+
+#' Generate a random forest model under cross validation (CV) for different subsets of the data and display results in a pheatmap to easily compare the different subsets
+#'
+#' CVPredictionsRandomForest() is used on each subset of the data. 
+#' For each subset of the data: A random forest model with a specified fold CV is generated. 
+#' This random forest model is used to make a single column in the final matrix 
+#' which can be used to generate a pheatmap. The inputted data should already
+#' have the rows shuffled. If LOOCV should be done on each subsetted data,
+#' then this can be indicated by using -1 for the number.of.folds.
+#' 
+#' 
+#' @param input.data A dataframe which should already have the rows shuffled.
+#' @param factor.name.for.subsetting String to specify name of column to use for subsetting. The column should be a factor. Each column of the generated pheatmap will correspond to a level in the factor.
+#' @param name.of.predictors.to.use A vector of strings to specify name of columns to use as predictors for random forest model. Each column should be numeric.
+#' @param target.column.name A string to specify the column with values the random forest model is trying to predict for. The column should be a factor.
+#' @param seed A number to set for random number generation.
+#' @param percentile.threshold.to.keep A number from 0-1 indicating the percentile to use for feature selection. This is used by the CVPredictionsRandomForest() function.
+#' @param number.of.folds An integer to specify the fold for CV. If This number is set to -1, then the function will use LOOCV for each subset data set. 
+#'
+#' @return A list with two objects:
 #' 1. A numerical matrix that can be used for pheatmap generation.
 #' 2. The subset data sets for each column in the heatmap matrix.
+#' 
+#' @export
+#'
+#' @examples
 CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
                                                              factor.name.for.subsetting,
                                                              name.of.predictors.to.use,
