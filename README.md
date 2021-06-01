@@ -81,7 +81,7 @@ Visit this vignette for example output for each function usage:
 
 ## License
 
-The psdr package is licensed under the GPL (\>=3) license. The logo is
-licensed under the
+The machinelearnr package is licensed under the GPL (\>=3) license. The
+logo is licensed under the
 <a href='https://creativecommons.org/licenses/by/4.0/'> CC BY 4.0
 license</a>.
