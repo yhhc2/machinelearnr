@@ -528,12 +528,13 @@ text(example.data$x, example.data$y,labels=example.data$id)
 plot(example.data$a, example.data$b)
 text(example.data$a, example.data$b,labels=example.data$id)
 
-matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
                                        factor.name.for.subsetting = "sep.xy.ab",
                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
                                        target.column.name = "actual",
                                        seed = 2)
 
+matrix.for.pheatmap <- results[[1]]
 
 #Add MCC to column names
 for(i in 1:dim(matrix.for.pheatmap)[2])
@@ -614,13 +615,14 @@ text(example.data$x, example.data$y,labels=example.data$id)
 plot(example.data$a, example.data$b)
 text(example.data$a, example.data$b,labels=example.data$id)
 
-matrix.for.pheatmap <- RandomForestClassificationPercentileMatrixForPheatmap(
+results <- RandomForestClassificationPercentileMatrixForPheatmap(
                                        input.data = example.data,
                                        factor.name.for.subsetting = "sep.xy.ab",
                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
                                        target.column.name = "actual",
                                        seed = 2)
 
+matrix.for.pheatmap <- results[[1]]
 
 pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
 

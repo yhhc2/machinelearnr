@@ -98,8 +98,8 @@
 </ul>
 <p>The main functions for classification are:</p>
 <ul>
-<li><p>RandomForestAutomaticMtryAndNtree(): This uses the randomForest::randomForest function to create a random forest classifier. Additional code is included for optimizing mtry and ntree. Importantly, the default values for mtry and ntree are sensible values and actually is not required to be adjusted. For more rigorous explanation hyperparameter tuning, use this paper and the R package provided by the authors: <a href="https://doi.org/10.1002/widm.1301" class="uri">https://doi.org/10.1002/widm.1301</a>, “Hyperparameters and tuning strategies for random forest” by Probst et al.</p></li>
-<li><p>CVPredictionsRandomForest(): This performs random forest classification using default hyperparameters and also uses cross-validation. The cross-validation fold can be specified by the user.</p></li>
+<li><p>RandomForestAutomaticMtryAndNtree(): This uses the randomForest::randomForest function to create a random forest classifier. Additional code is included for optimizing mtry and ntree. Importantly, the default values for mtry and ntree are sensible values and actually is not required to be adjusted. For more rigorous explanations on hyperparameter tuning, use this paper and the R package provided by the authors: <a href="https://doi.org/10.1002/widm.1301" class="uri">https://doi.org/10.1002/widm.1301</a>, “Hyperparameters and tuning strategies for random forest” by Probst et al, 2019.</p></li>
+<li><p>CVPredictionsRandomForest(): This performs random forest classification using default hyperparameters and also uses cross-validation. The cross-validation fold can be specified by the user.The performance (predictions and feature importance determination) of the model are outputted.</p></li>
 <li><p>CVRandomForestClassificationMatrixForPheatmap(): This uses CVPredictionsRandomForest() on several smaller subset data sets of a larger data set and outputs results in the form of a pheatmap so that the random forest performance can be compared between each subset. <img src="README_files/figure-gfm/unnamed-chunk-15-3.png" alt="pheatmap"></p></li>
 </ul>
 </div>
@@ -124,7 +124,7 @@
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
 <a href="#license" class="anchor"></a>License</h2>
-<p>The psdr package is licensed under the GPL (&gt;=3) license. The logo is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 license</a>.</p>
+<p>The machinelearnr package is licensed under the GPL (&gt;=3) license. The logo is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 license</a>.</p>
 </div>
 </div>
   </div>

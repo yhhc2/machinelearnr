@@ -42,7 +42,11 @@ the model.
 This function assumes that the data is already randomly shuffled. This
 function is based off of the LOOCVPredictionsRandomForestAutomaticMtryAndNtree()
 function, but this function does not have the ability to do PCA or
-optimize for mtry and ntree.
+optimize for mtry and ntree. If the target classes are imbalanced, then
+stratified cross-validation should be used. Stratification is not automatically
+performed by this function. For stratification to occur, samples will need
+to be shuffled so that each fold has proportional representation from each
+class before inputting into this function.
 }
 \examples{
 

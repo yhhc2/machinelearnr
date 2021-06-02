@@ -30,10 +30,11 @@ CVRandomForestClassificationMatrixForPheatmap(
 \item{number.of.folds}{An integer to specify the fold for CV. If This number is set to -1, then the function will use LOOCV for each subset data set.}
 }
 \value{
-A list with two objects:
+A list with three objects:
 \enumerate{
 \item A numerical matrix that can be used for pheatmap generation.
-\item The subset data sets for each column in the heatmap matrix.
+\item A list of subset data sets for each column in the heatmap matrix.
+\item A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC.
 }
 }
 \description{

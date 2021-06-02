@@ -34,7 +34,8 @@ LOOCVRandomForestClassificationMatrixForPheatmap(
 A list with two objects:
 \enumerate{
 \item A numerical matrix that can be used for pheatmap generation.
-\item The subset data sets for each column in the heatmap matrix.
+\item A list of subset data sets for each column in the heatmap matrix.
+\item A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC.
 }
 }
 \description{

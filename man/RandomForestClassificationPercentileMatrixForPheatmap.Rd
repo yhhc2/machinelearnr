@@ -28,7 +28,11 @@ RandomForestClassificationPercentileMatrixForPheatmap(
 \item{should.mtry.and.ntree.be.optimized}{A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.}
 }
 \value{
-A numerical matrix that can be used for pheatmap generation.
+A list with two objects
+\enumerate{
+\item A numerical matrix that can be used for pheatmap generation.
+\item A list where each vector is the predicted values.
+}
 }
 \description{
 RandomForestAutomaticMtryAndNtree() or randomForest() is used on each subset of the data. For
@@ -90,13 +94,14 @@ dev.new()
 plot(example.data$a, example.data$b)
 text(example.data$a, example.data$b,labels=example.data$id)
 
-matrix.for.pheatmap <- RandomForestClassificationPercentileMatrixForPheatmap(
+results <- RandomForestClassificationPercentileMatrixForPheatmap(
                                        input.data = example.data,
                                        factor.name.for.subsetting = "sep.xy.ab",
                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
                                        target.column.name = "actual",
                                        seed = 2)
 
+matrix.for.pheatmap <- results[[1]]
 
 pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
 

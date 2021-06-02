@@ -28,7 +28,11 @@ RandomForestClassificationGiniMatrixForPheatmap(
 \item{should.mtry.and.ntree.be.optimized}{A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.}
 }
 \value{
-A numerical matrix that can be used for pheatmap generation.
+A list with two objects
+\enumerate{
+\item A numerical matrix that can be used for pheatmap generation.
+\item A list where each vector is the predicted values.
+}
 }
 \description{
 RandomForestAutomaticMtryAndNtree() or randomForest() is used on each subset of the data. For
@@ -92,12 +96,13 @@ dev.new()
 plot(example.data$a, example.data$b)
 text(example.data$a, example.data$b,labels=example.data$id)
 
-matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
                                        factor.name.for.subsetting = "sep.xy.ab",
                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
                                        target.column.name = "actual",
                                        seed = 2)
 
+matrix.for.pheatmap <- results[[1]]
 
 #Add MCC to column names
 for(i in 1:dim(matrix.for.pheatmap)[2])

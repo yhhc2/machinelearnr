@@ -529,7 +529,9 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' @param seed A number to set for random number generation.
 #' @param should.mtry.and.ntree.be.optimized A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.
 #'
-#' @return A numerical matrix that can be used for pheatmap generation.
+#' @return A list with two objects
+#' 1. A numerical matrix that can be used for pheatmap generation.
+#' 2. A list where each vector is the predicted values. 
 #'
 #' @export
 #'
@@ -578,12 +580,13 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
-#' matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+#' results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
 #'                                        factor.name.for.subsetting = "sep.xy.ab",
 #'                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
 #'                                        target.column.name = "actual",
 #'                                        seed = 2)
 #'
+#' matrix.for.pheatmap <- results[[1]]
 #'
 #' #Add MCC to column names
 #' for(i in 1:dim(matrix.for.pheatmap)[2])
@@ -645,6 +648,9 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 
   #Captures all the importance values
   captured.importance.values <- NULL
+  
+  #Capture the predicted values
+  captured.predictions <- list()
 
   #For each level of the factor, subset the data and add the subsetted data into
   #a list.
@@ -673,6 +679,9 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
     #Importance values
     subset.importance.values <- subset.data.rf.result$importance
 
+    #Capture predictions
+    captured.predictions[[i]] <- subset.data.rf.result$predicted
+    
     #MCC
     predicted <- subset.data.rf.result$predicted
     actual <- subset.data[,target.column.name]
@@ -690,7 +699,9 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 
   }
 
-  return(captured.importance.values)
+  output <- list(captured.importance.values, captured.predictions)
+  
+  return(output)
 
 }
 
@@ -722,8 +733,9 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' @param should.mtry.and.ntree.be.optimized A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.
 #'
 #'
-#' @return A numerical matrix that can be used for pheatmap generation.
-#'
+#' @return A list with two objects
+#' 1. A numerical matrix that can be used for pheatmap generation.
+#' 2. A list where each vector is the predicted values. 
 #'
 #' @export
 #'
@@ -773,13 +785,14 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
-#' matrix.for.pheatmap <- RandomForestClassificationPercentileMatrixForPheatmap(
+#' results <- RandomForestClassificationPercentileMatrixForPheatmap(
 #'                                        input.data = example.data,
 #'                                        factor.name.for.subsetting = "sep.xy.ab",
 #'                                        name.of.predictors.to.use = c("x", "y", "a", "b"),
 #'                                        target.column.name = "actual",
 #'                                        seed = 2)
 #'
+#' matrix.for.pheatmap <- results[[1]]
 #'
 #' pheatmap_RF <- pheatmap::pheatmap(matrix.for.pheatmap, fontsize_col = 12, fontsize_row=12)
 #'
@@ -799,11 +812,13 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 
   #The values are the mean decrease in gini index. Do percentile within each column
   #using the lines of code below.
-  matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data,
+   results <- RandomForestClassificationGiniMatrixForPheatmap(input.data,
                                                                          factor.name.for.subsetting,
                                                                          name.of.predictors.to.use, target.column.name, seed,
                                                                          should.mtry.and.ntree.be.optimized )
 
+  matrix.for.pheatmap <- results[[1]]
+                                                                                                                                
   #Add MCC to column names
   for(i in 1:dim(matrix.for.pheatmap)[2])
   {
@@ -825,7 +840,9 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
   #Remove tally column
   matrix.for.pheatmap.percentile <- matrix.for.pheatmap.percentile[,1:(dim(matrix.for.pheatmap.percentile)[2]-1)]
 
-  return(matrix.for.pheatmap.percentile)
+  output <- list(matrix.for.pheatmap.percentile, results[[2]])
+  
+  return(output)
 
 }
 
