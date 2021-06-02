@@ -427,6 +427,31 @@ test_that("CVPredictionsRandomForest works", {
   
   expect_equal(two.fold.mcc.shuffled > two.fold.mcc, TRUE)
   
+  #---------------------------------
+  # Add test to illustrate stratified cross-validation
+  #--------------------------------
+  
+  #What happens if the training (first fold) doesn't contain the same target classes as the testing (second fold)
+  #Make example data set perfectly halved by the target.
+  example.data.halved <- example.data[-c(1,2,3,8,9,10,14,15),]
+  
+  #The first fold only has targets 1/2/3, the second fold only has targets 4/5. 
+  invisible(capture.output(
+    result.CV.two.fold <- CVPredictionsRandomForest(inputted.data = example.data.halved,
+                                                    name.of.predictors.to.use = c("x", "y", "a", "b"),
+                                                    target.column.name = "actual",
+                                                    seed = 2,
+                                                    percentile.threshold.to.keep = 0.5,
+                                                    number.of.folds = 2)
+  ))
+  
+  #The MCC should be very bad
+  two.fold.predicted <- as.numeric(result.CV.two.fold[[1]])
+  two.fold.actual <- as.numeric(example.data.halved[,"actual"])
+  two.fold.mcc.stratified.imbalanced <- mltools::mcc(preds = two.fold.predicted, actuals = two.fold.actual)
+  
+  expect_equal(two.fold.mcc.stratified.imbalanced < 0.2, TRUE)
+  
 })
 
 
@@ -528,7 +553,17 @@ test_that("CVRandomForestClassificationMatrixForPheatmap works", {
   ))
 
   
-  #Check if the function outputs a list of two dataframes as its other output
+  #Check if the function outputs a list of two data frames as its second output
   expect_equal(length(result.two.fold.CV[[2]]), 2)
+  
+  #Check if the function outputs a list of two vectors as its third output.
+  expect_equal(length(result.two.fold.CV[[2]]), 2)
+  
+  #Check if the predicted values can be used to calculate the same MCC values.
+  predicted_vecs <- result.two.fold.CV[[3]]
+  
+  MCC_for_first_column <- predicted_vecs[[1]]
+  
+  MCC_for_second_column <- predicted_vecs[[2]]
   
 })

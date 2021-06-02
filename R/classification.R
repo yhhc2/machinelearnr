@@ -860,7 +860,8 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #'
 #' @return A list with two objects:
 #' 1. A numerical matrix that can be used for pheatmap generation.
-#' 2. The subset data sets for each column in the heatmap matrix.
+#' 2. A list of subset data sets for each column in the heatmap matrix.
+#' 3. A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC. 
 #'
 #'
 #' @export
@@ -960,6 +961,9 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
 
   #Captures all the subsets of data
   subsets.of.data <- list()
+  
+  #Captured the predicted values
+  captured.predictions <- list()
 
   #Captures all the importance values
   captured.importance.values <- NULL
@@ -991,6 +995,8 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
     LOOCV.predictions <- LOOCV.results[[1]]
 
     LOOCV.features.selected <- LOOCV.results[[2]]
+    
+    captured.predictions[[i]] <- LOOCV.predictions
 
     ##MCC
     predicted <- as.integer(LOOCV.predictions)
@@ -1069,7 +1075,7 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   #Remove MCC row from matrix
   matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
 
-  output <- list(matrix.for.pheatmap.MCC.row.removed, subsets.of.data)
+  output <- list(matrix.for.pheatmap.MCC.row.removed, subsets.of.data, captured.predictions)
   
   return(output)
 
@@ -1087,7 +1093,11 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
 #' This function assumes that the data is already randomly shuffled. This 
 #' function is based off of the LOOCVPredictionsRandomForestAutomaticMtryAndNtree()
 #' function, but this function does not have the ability to do PCA or
-#' optimize for mtry and ntree. 
+#' optimize for mtry and ntree. If the target classes are imbalanced, then
+#' stratified cross-validation should be used. Stratification is not automatically
+#' performed by this function. For stratification to occur, samples will need 
+#' to be shuffled so that each fold has proportional representation from each
+#' class before inputting into this function. 
 #'
 #' @param inputted.data A dataframe that should already have the rows randomly shuffled.
 #' @param name.of.predictors.to.use A vector of strings that specify the name of columns to use as predictors. Each column should be numerical. 
@@ -1218,9 +1228,10 @@ CVPredictionsRandomForest <- function(inputted.data,
 #' @param percentile.threshold.to.keep A number from 0-1 indicating the percentile to use for feature selection. This is used by the CVPredictionsRandomForest() function.
 #' @param number.of.folds An integer to specify the fold for CV. If This number is set to -1, then the function will use LOOCV for each subset data set. 
 #'
-#' @return A list with two objects:
+#' @return A list with three objects:
 #' 1. A numerical matrix that can be used for pheatmap generation.
-#' 2. The subset data sets for each column in the heatmap matrix.
+#' 2. A list of subset data sets for each column in the heatmap matrix.
+#' 3. A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC. 
 #' 
 #' @family Classification functions
 #' 
@@ -1271,6 +1282,9 @@ CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   #Captures all the subsets of data
   subsets.of.data <- list()
   
+  #Captured the predicted values
+  captured.predictions <- list()
+  
   #Captures all the importance values
   captured.importance.values <- NULL
   
@@ -1313,6 +1327,8 @@ CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
     CV.predictions <- CV.results[[1]]
     
     CV.features.selected <- CV.results[[2]]
+    
+    captured.predictions[[i]] <- CV.predictions
     
     ##MCC
     predicted <- as.integer(CV.predictions)
@@ -1391,7 +1407,7 @@ CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
   #Remove MCC row from matrix
   matrix.for.pheatmap.MCC.row.removed <- matrix.for.pheatmap[1:(dim(matrix.for.pheatmap)[1]-1),]
   
-  output <- list(matrix.for.pheatmap.MCC.row.removed, subsets.of.data)
+  output <- list(matrix.for.pheatmap.MCC.row.removed, subsets.of.data, captured.predictions)
   
   return(output)
   
