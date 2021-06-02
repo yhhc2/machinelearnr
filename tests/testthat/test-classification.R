@@ -114,12 +114,14 @@ test_that("RandomForestClassificationGiniMatrixForPheatmap works", {
   example.data <- GenerateExampleDataMachinelearnr()
   
   invisible(capture.output(
-    matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+    results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
                                             factor.name.for.subsetting = "sep.xy.ab",
                                             name.of.predictors.to.use = c("x", "y", "a", "b"),
                                             target.column.name = "actual",
                                             seed = 2)
   ))
+  
+  matrix.for.pheatmap <- results[[1]]
   
   #The resulting matrix should have 5 rows (4 rows for features and 1 row for MCC)
   expect_equal(dim(matrix.for.pheatmap)[1], 5)
@@ -225,7 +227,7 @@ test_that("RandomForestClassificationGiniMatrixForPheatmap works", {
   
   #Toggle TRUE for mtry and ntree optimization
   invisible(capture.output(
-    matrix.for.pheatmap <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+    results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
                                                                            factor.name.for.subsetting = "sep.xy.ab",
                                                                            name.of.predictors.to.use = c("x", "y", "a", "b"),
                                                                            target.column.name = "actual",
@@ -233,9 +235,45 @@ test_that("RandomForestClassificationGiniMatrixForPheatmap works", {
                                                                            should.mtry.and.ntree.be.optimized = TRUE)
   ))
   
+  matrix.for.pheatmap <- results[[1]]
+  
   expect_equal(matrix.for.pheatmap, combined.result)
   
+  #-------------------------------------------------------------------------
+  # See if the predicted values make sense. 
+  #-------------------------------------------------------------------------
   
+  invisible(capture.output(
+    results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+                                                               factor.name.for.subsetting = "sep.xy.ab",
+                                                               name.of.predictors.to.use = c("x", "y", "a", "b"),
+                                                               target.column.name = "actual",
+                                                               seed = 2)
+  ))
+  
+  matrix.for.pheatmap <- results[[1]]
+  predicted.values <- results[[2]]
+  
+  #Should have two vectors of predicted values
+  expect_equal(length(predicted.values), 2)
+  
+  #The first vector should have values 1, 2, 3 as levels
+  expect_equal(levels(predicted.values[[1]]), c("1", "2", "3"))
+  
+  #The second vector should have values 4 and 5 as levels
+  expect_equal(levels(predicted.values[[2]]), c("4", "5"))
+  
+  #The MCC values should be equivalent
+  first.vec.actual <- as.character(example.data$actual[1:22])
+  first.vec.predicted <- as.character(predicted.values[[1]])
+  first.vec.MCC <- mltools::mcc(preds = first.vec.predicted, actuals = first.vec.actual)
+  
+  second.vec.actual <- as.character(example.data$actual[23:36])
+  second.vec.predicted <- as.character(predicted.values[[2]])
+  second.vec.MCC <- mltools::mcc(preds = second.vec.predicted, actuals = second.vec.actual)
+  
+  expect_equal(first.vec.MCC, matrix.for.pheatmap[5, 1])
+  expect_equal(second.vec.MCC, matrix.for.pheatmap[5, 2])
 
 })
 
@@ -245,7 +283,7 @@ test_that("RandomForestClassificationPercentileMatrixForPheatmap works", {
   example.data <- GenerateExampleDataMachinelearnr()
   
   invisible(capture.output(
-    percentile.result <- RandomForestClassificationPercentileMatrixForPheatmap(input.data = example.data,
+     results <- RandomForestClassificationPercentileMatrixForPheatmap(input.data = example.data,
                                                                     factor.name.for.subsetting = "sep.xy.ab",
                                                                     name.of.predictors.to.use = c("x", "y", "a", "b"),
                                                                     target.column.name = "actual",
@@ -253,14 +291,18 @@ test_that("RandomForestClassificationPercentileMatrixForPheatmap works", {
                                                                     should.mtry.and.ntree.be.optimized = FALSE)
   ))
   
+  percentile.result <- results[[1]]
+  
   invisible(capture.output(
-    gini.result <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
+    results <- RandomForestClassificationGiniMatrixForPheatmap(input.data = example.data,
                                                                                factor.name.for.subsetting = "sep.xy.ab",
                                                                                name.of.predictors.to.use = c("x", "y", "a", "b"),
                                                                                target.column.name = "actual",
                                                                                seed = 2,
                                                                                should.mtry.and.ntree.be.optimized = FALSE)
   ))
+  
+  gini.result <- results[[1]]
   
   #Check if MCC is placed in column name.
   MCC.val.in.col1.name <- as.numeric(strsplit(colnames(percentile.result)[[1]], " ")[[1]][[6]])
