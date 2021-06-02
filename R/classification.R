@@ -1016,8 +1016,8 @@ LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,
     captured.predictions[[i]] <- LOOCV.predictions
 
     ##MCC
-    predicted <- as.integer(LOOCV.predictions)
-    actual <- as.integer(subset.data[,target.column.name])
+    predicted <- as.character(LOOCV.predictions)
+    actual <- as.character(subset.data[,target.column.name])
     MCC.val <- mltools::mcc(preds=predicted, actuals=actual)
 
     #Importance of features
@@ -1348,8 +1348,8 @@ CVRandomForestClassificationMatrixForPheatmap <- function(input.data,
     captured.predictions[[i]] <- CV.predictions
     
     ##MCC
-    predicted <- as.integer(CV.predictions)
-    actual <- as.integer(subset.data[,target.column.name])
+    predicted <- as.character(CV.predictions)
+    actual <- as.character(subset.data[,target.column.name])
     MCC.val <- mltools::mcc(preds=predicted, actuals=actual)
     
     #Importance of features
