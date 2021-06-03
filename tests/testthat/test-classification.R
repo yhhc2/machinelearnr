@@ -240,7 +240,7 @@ test_that("RandomForestClassificationGiniMatrixForPheatmap works", {
   expect_equal(matrix.for.pheatmap, combined.result)
   
   #-------------------------------------------------------------------------
-  # See if the predicted values make sense. 
+  # See if the subsetted output data frames are outputted
   #-------------------------------------------------------------------------
   
   invisible(capture.output(
@@ -248,11 +248,27 @@ test_that("RandomForestClassificationGiniMatrixForPheatmap works", {
                                                                factor.name.for.subsetting = "sep.xy.ab",
                                                                name.of.predictors.to.use = c("x", "y", "a", "b"),
                                                                target.column.name = "actual",
-                                                               seed = 2)
+                                                               seed = 2,
+                                                               should.mtry.and.ntree.be.optimized = FALSE)
   ))
   
+  subsetted.dataframes <- results[[2]]
+  
+  #Should contain two dataframes
+  expect_equal(length(subsetted.dataframes), 2)
+  
+  #First dataframe should be subset 123
+  expect_equal(subsetted.dataframes[[1]], subset.123)
+  
+  #Second dataframe should be subset 45
+  expect_equal(subsetted.dataframes[[2]], subset.45)
+  
+  #-------------------------------------------------------------------------
+  # See if the predicted values make sense. 
+  #-------------------------------------------------------------------------
+  
   matrix.for.pheatmap <- results[[1]]
-  predicted.values <- results[[2]]
+  predicted.values <- results[[3]]
   
   #Should have two vectors of predicted values
   expect_equal(length(predicted.values), 2)

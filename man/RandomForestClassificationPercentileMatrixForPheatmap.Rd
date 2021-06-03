@@ -28,10 +28,11 @@ RandomForestClassificationPercentileMatrixForPheatmap(
 \item{should.mtry.and.ntree.be.optimized}{A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.}
 }
 \value{
-A list with two objects
+A list with three objects:
 \enumerate{
 \item A numerical matrix that can be used for pheatmap generation.
-\item A list where each vector is the predicted values.
+\item A list of subset data sets for each column in the heatmap matrix.
+\item A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC.
 }
 }
 \description{
