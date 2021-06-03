@@ -164,7 +164,7 @@ find.best.number.of.trees <- function(error.oob) {
 #' predicted <- rf.result$predicted
 #' actual <- example.data[,"actual"]
 #'
-#' results <- eval.classification.results(actual, predicted, "Example")
+#' results <- eval.classification.results(as.character(actual), as.character(predicted), "Example")
 #'
 #'
 eval.classification.results <- function(actual, predicted, name = "") {
@@ -236,7 +236,7 @@ eval.classification.results <- function(actual, predicted, name = "") {
 #' actual <- example.data[,"actual"]
 #'
 #' #Result is not perfect because RF model does not over fit to the training data.
-#' eval.classification.results(actual, predicted, "Example")
+#' eval.classification.results(as.character(actual), as.character(predicted), "Example")
 #'
 RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.to.use,
                                               target.column.name, seed) {
@@ -339,7 +339,7 @@ RandomForestAutomaticMtryAndNtree <- function(inputted.data, name.of.predictors.
 #' predicted <- result[[1]]
 #' actual <- example.data[,"actual"]
 #'
-#' eval.classification.results(actual, predicted, "Example")
+#' eval.classification.results(as.character(actual), as.character(predicted), "Example")
 #'
 #' #Feature selection
 #' #As expected, only features x and y are indicated as important.
@@ -478,7 +478,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
   # actual <- target.response
   #
   #
-  # eval.classification.results(actual,predicted,"Performance with LOOCV")
+  # eval.classification.results(as.character(actual), as.character(predicted),"Performance with LOOCV")
   #
   #
   # #------------------------------------------------------------------------------

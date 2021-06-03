@@ -293,7 +293,7 @@ y=example.data[,"actual"], proximity=TRUE)
 predicted <- rf.result$predicted
 actual <- example.data[,"actual"]
 
-eval.classification.results(actual, predicted, "Example")
+eval.classification.results(as.character(actual), as.character(predicted), "Example")
 
 ```
 
@@ -373,7 +373,7 @@ result <- LOOCVPredictionsRandomForestAutomaticMtryAndNtree(example.data,
 predicted <- result[[1]]
 actual <- example.data[,"actual"]
 
-eval.classification.results(actual, predicted, "Example")
+eval.classification.results(as.character(actual), as.character(predicted), "Example")
 
 result[[2]]
 
@@ -478,7 +478,7 @@ predicted <- rf.result$predicted
 actual <- example.data[,"actual"]
 
 #Result is not perfect because RF model does not over fit to the training data.
-eval.classification.results(actual, predicted, "Example")
+eval.classification.results(as.character(actual), as.character(predicted), "Example")
 
 
 ```
