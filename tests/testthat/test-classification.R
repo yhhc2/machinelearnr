@@ -258,10 +258,10 @@ test_that("RandomForestClassificationGiniMatrixForPheatmap works", {
   expect_equal(length(predicted.values), 2)
   
   #The first vector should have values 1, 2, 3 as levels
-  expect_equal(levels(predicted.values[[1]]), c("1", "2", "3"))
+  expect_equal(unique(predicted.values[[1]]), c("1", "2", "3"))
   
   #The second vector should have values 4 and 5 as levels
-  expect_equal(levels(predicted.values[[2]]), c("4", "5"))
+  expect_equal(unique(predicted.values[[2]]), c("4", "5"))
   
   #The MCC values should be equivalent
   first.vec.actual <- as.character(example.data$actual[1:22])
@@ -366,6 +366,17 @@ test_that("LOOCVRandomForestClassificationMatrixForPheatmap works", {
   #Are there two subsetted dataframes
   subset.result <- result[[2]]
   expect_equal(length(subset.result), 2)
+  
+  
+  #Should have two vectors of predicted values
+  predicted.values <- result[[3]]
+  expect_equal(length(predicted.values), 2)
+  
+  #The first vector should have values 1, 2, 3 as levels
+  expect_equal(unique(predicted.values[[1]]), c("1", "2", "3"))
+  
+  #The second vector should have values 4 and 5 as levels
+  expect_equal(unique(predicted.values[[2]]), c("4", "5"))
   
   
 })

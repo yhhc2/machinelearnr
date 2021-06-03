@@ -684,8 +684,8 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
     #Importance values
     subset.importance.values <- subset.data.rf.result$importance
 
-    #Capture predictions
-    captured.predictions[[i]] <- subset.data.rf.result$predicted
+    #Capture predictions. Can leave as factor, but will turn into character for consistency.
+    captured.predictions[[i]] <- as.character(subset.data.rf.result$predicted)
     
     #MCC
     predicted <- subset.data.rf.result$predicted
