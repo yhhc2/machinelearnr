@@ -181,7 +181,11 @@ used to generate a pheatmap.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A numerical matrix that can be used for pheatmap generation.</p>
+    <p>A list with two objects</p><ol>
+<li><p>A numerical matrix that can be used for pheatmap generation.</p></li>
+<li><p>A list where each vector is the predicted values.</p></li>
+</ol>
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In each column of the final matrix, the Matthew's Correlation Coefficient (MCC)
@@ -249,13 +253,14 @@ percentile.</p>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span>,labels<span class='op'>=</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
 
-<span class='va'>matrix.for.pheatmap</span> <span class='op'>&lt;-</span> <span class='fu'>RandomForestClassificationPercentileMatrixForPheatmap</span><span class='op'>(</span>
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>RandomForestClassificationPercentileMatrixForPheatmap</span><span class='op'>(</span>
                                        input.data <span class='op'>=</span> <span class='va'>example.data</span>,
                                        factor.name.for.subsetting <span class='op'>=</span> <span class='st'>"sep.xy.ab"</span>,
                                        name.of.predictors.to.use <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>,
                                        target.column.name <span class='op'>=</span> <span class='st'>"actual"</span>,
                                        seed <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
+<span class='va'>matrix.for.pheatmap</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
 
 <span class='va'>pheatmap_RF</span> <span class='op'>&lt;-</span> <span class='fu'>pheatmap</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pheatmap/man/pheatmap.html'>pheatmap</a></span><span class='op'>(</span><span class='va'>matrix.for.pheatmap</span>, fontsize_col <span class='op'>=</span> <span class='fl'>12</span>, fontsize_row<span class='op'>=</span><span class='fl'>12</span><span class='op'>)</span>
 

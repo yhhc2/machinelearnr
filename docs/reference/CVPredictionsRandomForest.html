@@ -188,7 +188,11 @@ var.tally: the percentage of CV rounds that the features had importance values a
     <p>This function assumes that the data is already randomly shuffled. This
 function is based off of the LOOCVPredictionsRandomForestAutomaticMtryAndNtree()
 function, but this function does not have the ability to do PCA or
-optimize for mtry and ntree.</p>
+optimize for mtry and ntree. If the target classes are imbalanced, then
+stratified cross-validation should be used. Stratification is not automatically
+performed by this function. For stratification to occur, samples will need
+to be shuffled so that each fold has proportional representation from each
+class before inputting into this function.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Classification functions: 
@@ -253,10 +257,8 @@ number.of.folds <span class='op'>=</span> <span class='fu'><a href='https://rdrr
 #&gt; [1] 36</div><div class='input'>
 <span class='co'>#Predicted</span>
 <span class='va'>result.CV</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt;  4  1 34 23 11 14 18 27 19 35 21 26 10 22 31 24  7  9 15  5 28 16 33 17 13  2 
-#&gt;  1  1  5  4  3  3  3  4  3  5  3  4  2  3  5  4  1  2  3  1  4  3  5  3  2  1 
-#&gt; 25 30 36 20 29  8  3 32 12  6 
-#&gt;  5  5  5  3  4  2  1  5  2  1 </div><div class='input'>
+</div><div class='output co'>#&gt;  [1] "1" "1" "5" "4" "3" "3" "3" "4" "3" "5" "3" "4" "2" "3" "5" "4" "1" "2" "3"
+#&gt; [20] "1" "4" "3" "5" "3" "2" "1" "5" "5" "5" "3" "4" "2" "1" "5" "2" "1"</div><div class='input'>
 <span class='co'>#Feature importance</span>
 <span class='va'>result.CV</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>
 </div><div class='output co'>#&gt; variables.with.sig.contributions
