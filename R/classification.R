@@ -116,21 +116,22 @@ find.best.number.of.trees <- function(error.oob) {
 
 #' Determine the performance of classification
 #'
-#' The Matthew's Correlation Coefficient, proportion of total classifications
-#' that are correct, and proportions of classifications correct for each
-#' class are all displayed by this function. Plots are also displayed
-#' to show performance of classification.
+#' The Momocs::classification_metrics() function as well as the 
+#' mltools::mcc() fucntion are used to generate metrics to evaluate
+#' the performance of classification. 
 #' 
-#' capture.output() can be used to capture the output from this function
-#' and write the results into a text file. 
-#' 
-#' This is probably easier than using this function: https://rdrr.io/cran/Momocs/man/classification_metrics.html
+#' Helpful for reference: 
+#' https://rdrr.io/cran/Momocs/man/classification_metrics.html
 #'
-#' @param actual A vector that indicates the actual class for each observation.
-#' @param predicted A vector that indicates the predicted class for each observation.
-#' @param name A string that specifies the title to be used for plotting.
+#' @param actual A character vector that indicates the actual class for each observation.
+#' @param predicted A character vector that indicates the predicted class for each observation.
+#' @param name A string that specifies a name to assign to this iteration of the function. Default is blank. 
 #'
-#' @return No objects are created, but numbers and plots will be displayed.
+#' @return A list with 4 objects:
+#' 1. Name. Helpful if this function is put into a loop and the output is meant to be written into a separate text file. Otherwise, just leave blank.
+#' 2. Contingency table used for calculating classification metrics by Momocs.
+#' 3. Metrics calculated by Momocs. 
+#' 4. MCC value calcualted by mltools.
 #'
 #' @export
 #'
@@ -163,45 +164,23 @@ find.best.number.of.trees <- function(error.oob) {
 #' predicted <- rf.result$predicted
 #' actual <- example.data[,"actual"]
 #'
-#' eval.classification.results(actual, predicted, "Example")
+#' results <- eval.classification.results(actual, predicted, "Example")
 #'
 #'
-eval.classification.results <- function(actual, predicted, name) {
-
-
-  #print(paste("The MCC (Matthews Correlation Coefficient is: ", mltools::mcc(preds=predicted, actuals=actual)))
-  #print(mltools::mcc(preds=predicted, actuals=actual))
-
-  print(name)
-  print(paste("proportion of total classification correct: (accuracy) ", ((sum(predicted==actual))/length(actual))))
-  print(((sum(predicted==actual))/length(actual)))
-
-  for(class in unique(actual))
-  {
-    print(paste("proportion of classification correct (accuracy) for class", class, ":", ((sum(predicted[actual==class]==class))/sum(actual==class))))
-    print(((sum(predicted[actual==class]==class))/sum(actual==class)))
-  }
+eval.classification.results <- function(actual, predicted, name = "") {
   
-  print(as.matrix(table(actual, predicted, dnn = c("actual", "predicted"))))
+  contingency.table.labeled <- table(actual, predicted, dnn = c("actual", "predicted"))
+  
+  contingency.table <- table(actual, predicted)
+  
+  Momocs.metrics <- Momocs::classification_metrics(contingency.table)
+  
+  MCC <- mltools::mcc(preds = predicted, actuals = actual)
 
-  #Make a plot. The color represents the actual class of sample. The y-axis is the
-  #predicted value of the sample. Red = 1, blue = 2.
-  #grDevices::dev.new()
-  #cx  <- cbind(actual,predicted)
-  #ccc <- c(actual)
-  #plot(cx[,2],type='p',col=ccc*2,pch=19,cex=2, main=name, ylab="Predicted") ##red=1, blue=2
-  #graphics::points(cx[,2],type='p',col=1,pch=21,cex=2)
+  output <- list(name, contingency.table.labeled, Momocs.metrics, MCC)
 
-  #graphics::legend("right", legend = unique(actual),
-  #       col=unique(ccc*2), pch=(rep(19,length(unique(actual)))), cex=0.8, title="Actual")
 
-  #print("Color represents the actual class. Y-value represents predicted class")
-
-  #print the keys for classes.
-  #print("Classes used by function")
-  #print(unique(actual))
-  #print("Original classes in data")
-  #print(unique(actual_input))
+  return(output)
 
 }
 

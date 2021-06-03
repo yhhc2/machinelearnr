@@ -29,6 +29,7 @@ Imports:
     MASS (>= 7.3.53),
     mltools (>= 0.3.5),
     moments (>= 0.14),
+    Momocs (>= 1.3.2),
     papeR (>= 1.0.5),
     pheatmap (>= 1.0.12),
     pkgcond (>= 0.1.1),

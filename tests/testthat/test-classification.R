@@ -636,3 +636,25 @@ test_that("CVRandomForestClassificationMatrixForPheatmap works", {
   MCC_for_second_column <- predicted_vecs[[2]]
   
 })
+
+
+test_that("eval.classification.results works", {
+  
+  example.data <- GenerateExampleDataMachinelearnr()
+  
+  rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")], y=example.data[,"actual"])
+  
+  metric_results <- eval.classification.results(actual = as.character(example.data$actual), predicted = as.character(rf.result$predicted))
+  
+  #The output should be a list with four objects
+  expect_equal(length(metric_results), 4)
+  
+  #The second object should be a table
+  expect_equal(class(metric_results[[2]]), "table")
+  
+  #The third object should be a Momocs:,:classification_metrics() object with $accuracy equivalent to the OOB err.rate
+  #of rf.results after using set number of trees in the forest
+  expect_equal(metric_results[[3]]$accuracy, rf.result$err.rate[nrow(rf.result$err.rate),1])
+  
+  
+})
