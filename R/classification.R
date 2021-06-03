@@ -534,9 +534,10 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' @param seed A number to set for random number generation.
 #' @param should.mtry.and.ntree.be.optimized A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.
 #'
-#' @return A list with two objects
+#' @return A list with three objects:
 #' 1. A numerical matrix that can be used for pheatmap generation.
-#' 2. A list where each vector is the predicted values. 
+#' 2. A list of subset data sets for each column in the heatmap matrix.
+#' 3. A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC. 
 #'
 #' @export
 #'
@@ -704,7 +705,7 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 
   }
 
-  output <- list(captured.importance.values, captured.predictions)
+  output <- list(captured.importance.values, subsets.of.data, captured.predictions)
   
   return(output)
 
@@ -738,9 +739,10 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' @param should.mtry.and.ntree.be.optimized A boolean to indicate if RandomForestAutomaticMtryAndNtree() should be used to optimize ntree and mtry. Default is FALSE.
 #'
 #'
-#' @return A list with two objects
+#' @return A list with three objects:
 #' 1. A numerical matrix that can be used for pheatmap generation.
-#' 2. A list where each vector is the predicted values. 
+#' 2. A list of subset data sets for each column in the heatmap matrix.
+#' 3. A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC. 
 #'
 #' @export
 #'
@@ -845,7 +847,7 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
   #Remove tally column
   matrix.for.pheatmap.percentile <- matrix.for.pheatmap.percentile[,1:(dim(matrix.for.pheatmap.percentile)[2]-1)]
 
-  output <- list(matrix.for.pheatmap.percentile, results[[2]])
+  output <- list(matrix.for.pheatmap.percentile, results[[2]], results[[3]])
   
   return(output)
 
