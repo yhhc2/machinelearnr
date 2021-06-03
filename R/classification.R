@@ -377,8 +377,11 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
   #seed <- 1
   #
 
-  train <- inputted.data
+  test <- inputted.data
   #volume.column.nums <- name.of.predictors.to.use
+  
+  
+  
 
   min.pc.percent.to.use <- 1
   running.pred <- NULL
@@ -387,10 +390,12 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
   variables.with.sig.contributions <- NULL
 
   ##Go through each row of the dataset
-  for (l in 1:dim(train)[1]) {
+  for (l in 1:dim(test)[1]) {
 
     print(l)
-    loo <- train[-c(l),] ##Select all rows other than one
+    loo <- test[-c(l),] ##Select all rows other than one
+    
+    loo[,target.column.name] <- as.factor(as.character(loo[,target.column.name]))
 
     #If PCA is to be used, then we need to remove the sample and then calculate the PC
     if(should.PCA.be.used == FALSE){
@@ -423,11 +428,11 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
     #We now want to predict the sample we left out.
     #If PCA is used as predictors, then we need to first calculate the PC values for left out sample
     if(should.PCA.be.used == FALSE){
-      predictions_loo <- stats::predict(final.model, newdata = train[,name.of.predictors.to.use])
+      predictions_loo <- stats::predict(final.model, newdata = test[,name.of.predictors.to.use])
     } else{
       #Calculate PC values for left out sample
-      non.PC.values <- train[,predictors.that.should.not.PCA]
-      predicted.PC.values <- stats::predict(pca.results, newdata=train)
+      non.PC.values <- test[,predictors.that.should.not.PCA]
+      predicted.PC.values <- stats::predict(pca.results, newdata=test)
 
       temp3 <- cbind(non.PC.values, predicted.PC.values)
       #I did not do feature selection, but if I did, then I would need to use this commented out code
@@ -436,7 +441,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
       predictions_loo <- stats::predict(final.model, newdata = temp3)
     }
 
-    running.pred <- c(running.pred, predictions_loo[c(l)])
+    running.pred <- c(running.pred, as.character(predictions_loo[c(l)]))
 
     #------------------------------------------------------------------------------
     # Record which features were important for this round of LOOCV
@@ -460,7 +465,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 
   #Calculate the percentage of LOOCV rounds that the features had importance
   #values above a certain percentile
-  var.tally <- round((rev(sort(table(variables.with.sig.contributions)))/dim(train)[1])*100,2)
+  var.tally <- round((rev(sort(table(variables.with.sig.contributions)))/dim(test)[1])*100,2)
 
   output <- list(running.pred, var.tally)
 
@@ -1187,7 +1192,7 @@ CVPredictionsRandomForest <- function(inputted.data,
     #We now want to predict the samples we left out. So we use the model on the entire dataset and then only get the predicted
     #values corresponding to the samples we left out. 
     predictions_loo <- stats::predict(final.model, newdata = test.data[,name.of.predictors.to.use])
-    running.pred <- c(running.pred, predictions_loo[c(testIndexes)])
+    running.pred <- c(running.pred, as.character(predictions_loo[c(testIndexes)]))
     
     #------------------------------------------------------------------------------
     # Record which features were important for this round of LOOCV
