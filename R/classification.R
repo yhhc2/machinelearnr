@@ -169,13 +169,16 @@ find.best.number.of.trees <- function(error.oob) {
 #'
 eval.classification.results <- function(actual, predicted, name = "") {
   
-  contingency.table.labeled <- table(actual, predicted, dnn = c("actual", "predicted"))
+  actual.char <- as.character(actual)
+  predicted.char <- as.character(predicted)
   
-  contingency.table <- table(actual, predicted)
+  contingency.table.labeled <- table(actual.char, predicted.char, dnn = c("actual", "predicted"))
+  
+  contingency.table <- table(actual.char, predicted.char)
   
   Momocs.metrics <- Momocs::classification_metrics(contingency.table)
   
-  MCC <- mltools::mcc(preds = predicted, actuals = actual)
+  MCC <- mltools::mcc(preds = predicted.char, actuals = actual.char)
 
   output <- list(name, contingency.table.labeled, Momocs.metrics, MCC)
 

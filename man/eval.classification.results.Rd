@@ -4,29 +4,32 @@
 \alias{eval.classification.results}
 \title{Determine the performance of classification}
 \usage{
-eval.classification.results(actual, predicted, name)
+eval.classification.results(actual, predicted, name = "")
 }
 \arguments{
-\item{actual}{A vector that indicates the actual class for each observation.}
+\item{actual}{A character vector that indicates the actual class for each observation.}
 
-\item{predicted}{A vector that indicates the predicted class for each observation.}
+\item{predicted}{A character vector that indicates the predicted class for each observation.}
 
-\item{name}{A string that specifies the title to be used for plotting.}
+\item{name}{A string that specifies a name to assign to this iteration of the function. Default is blank.}
 }
 \value{
-No objects are created, but numbers and plots will be displayed.
+A list with 4 objects:
+\enumerate{
+\item Name. Helpful if this function is put into a loop and the output is meant to be written into a separate text file. Otherwise, just leave blank.
+\item Contingency table used for calculating classification metrics by Momocs.
+\item Metrics calculated by Momocs.
+\item MCC value calcualted by mltools.
+}
 }
 \description{
-The Matthew's Correlation Coefficient, proportion of total classifications
-that are correct, and proportions of classifications correct for each
-class are all displayed by this function. Plots are also displayed
-to show performance of classification.
+The Momocs::classification_metrics() function as well as the
+mltools::mcc() fucntion are used to generate metrics to evaluate
+the performance of classification.
 }
 \details{
-capture.output() can be used to capture the output from this function
-and write the results into a text file.
-
-This is probably easier than using this function: https://rdrr.io/cran/Momocs/man/classification_metrics.html
+Helpful for reference:
+https://rdrr.io/cran/Momocs/man/classification_metrics.html
 }
 \examples{
 
@@ -55,7 +58,7 @@ y=example.data[,"actual"], proximity=TRUE)
 predicted <- rf.result$predicted
 actual <- example.data[,"actual"]
 
-eval.classification.results(actual, predicted, "Example")
+results <- eval.classification.results(actual, predicted, "Example")
 
 
 }
