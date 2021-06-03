@@ -642,6 +642,7 @@ test_that("eval.classification.results works", {
   
   example.data <- GenerateExampleDataMachinelearnr()
   
+  set.seed(1)
   rf.result <- randomForest::randomForest(x=example.data[,c("x", "y", "a", "b")], y=example.data[,"actual"])
   
   metric_results <- eval.classification.results(actual = as.character(example.data$actual), predicted = as.character(rf.result$predicted))
@@ -654,7 +655,7 @@ test_that("eval.classification.results works", {
   
   #The third object should be a Momocs:,:classification_metrics() object with $accuracy equivalent to the OOB err.rate
   #of rf.results after using set number of trees in the forest
-  expect_equal(metric_results[[3]]$accuracy, rf.result$err.rate[nrow(rf.result$err.rate),1])
+  expect_equal(metric_results[[3]]$accuracy, 1-as.numeric(rf.result$err.rate[nrow(rf.result$err.rate),1]))
   
   
 })

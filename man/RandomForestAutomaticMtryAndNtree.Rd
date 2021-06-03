@@ -60,7 +60,7 @@ predicted <- rf.result$predicted
 actual <- example.data[,"actual"]
 
 #Result is not perfect because RF model does not over fit to the training data.
-eval.classification.results(actual, predicted, "Example")
+eval.classification.results(as.character(actual), as.character(predicted), "Example")
 
 }
 \seealso{

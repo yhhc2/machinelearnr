@@ -91,7 +91,7 @@ result <- LOOCVPredictionsRandomForestAutomaticMtryAndNtree(example.data,
 predicted <- result[[1]]
 actual <- example.data[,"actual"]
 
-eval.classification.results(actual, predicted, "Example")
+eval.classification.results(as.character(actual), as.character(predicted), "Example")
 
 #Feature selection
 #As expected, only features x and y are indicated as important.

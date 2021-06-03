@@ -58,7 +58,7 @@ y=example.data[,"actual"], proximity=TRUE)
 predicted <- rf.result$predicted
 actual <- example.data[,"actual"]
 
-results <- eval.classification.results(actual, predicted, "Example")
+results <- eval.classification.results(as.character(actual), as.character(predicted), "Example")
 
 
 }
