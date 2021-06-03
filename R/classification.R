@@ -120,9 +120,14 @@ find.best.number.of.trees <- function(error.oob) {
 #' that are correct, and proportions of classifications correct for each
 #' class are all displayed by this function. Plots are also displayed
 #' to show performance of classification.
+#' 
+#' capture.output() can be used to capture the output from this function
+#' and write the results into a text file. 
+#' 
+#' This is probably easier than using this function: https://rdrr.io/cran/Momocs/man/classification_metrics.html
 #'
-#' @param actual_input A vector that indicates the actual class for each observation.
-#' @param predicted_input A vector that indicates the predicted class for each observation.
+#' @param actual A vector that indicates the actual class for each observation.
+#' @param predicted A vector that indicates the predicted class for each observation.
 #' @param name A string that specifies the title to be used for plotting.
 #'
 #' @return No objects are created, but numbers and plots will be displayed.
@@ -161,42 +166,42 @@ find.best.number.of.trees <- function(error.oob) {
 #' eval.classification.results(actual, predicted, "Example")
 #'
 #'
-eval.classification.results <- function(actual_input, predicted_input, name) {
+eval.classification.results <- function(actual, predicted, name) {
 
-  actual <- as.numeric(actual_input)
-  predicted <- as.numeric(predicted_input)
 
-  print(paste("The MCC (Matthews Correlation Coefficient is: ", mltools::mcc(preds=predicted, actuals=actual)))
-  print(mltools::mcc(preds=predicted, actuals=actual))
+  #print(paste("The MCC (Matthews Correlation Coefficient is: ", mltools::mcc(preds=predicted, actuals=actual)))
+  #print(mltools::mcc(preds=predicted, actuals=actual))
 
   print(name)
-  print(paste("proportion of total classification correct: ", ((sum(predicted==actual))/length(actual))*100))
-  print(((sum(predicted==actual))/length(actual))*100)
+  print(paste("proportion of total classification correct: (accuracy) ", ((sum(predicted==actual))/length(actual))))
+  print(((sum(predicted==actual))/length(actual)))
 
   for(class in unique(actual))
   {
-    print(paste("proportion of classification correct for class", class, ":", ((sum(predicted[actual==class]==class))/sum(actual==class))*100))
-    print(((sum(predicted[actual==class]==class))/sum(actual==class))*100)
+    print(paste("proportion of classification correct (accuracy) for class", class, ":", ((sum(predicted[actual==class]==class))/sum(actual==class))))
+    print(((sum(predicted[actual==class]==class))/sum(actual==class)))
   }
+  
+  print(as.matrix(table(actual, predicted, dnn = c("actual", "predicted"))))
 
   #Make a plot. The color represents the actual class of sample. The y-axis is the
   #predicted value of the sample. Red = 1, blue = 2.
-  grDevices::dev.new()
-  cx  <- cbind(actual,predicted)
-  ccc <- c(actual)
-  plot(cx[,2],type='p',col=ccc*2,pch=19,cex=2, main=name, ylab="Predicted") ##red=1, blue=2
-  graphics::points(cx[,2],type='p',col=1,pch=21,cex=2)
+  #grDevices::dev.new()
+  #cx  <- cbind(actual,predicted)
+  #ccc <- c(actual)
+  #plot(cx[,2],type='p',col=ccc*2,pch=19,cex=2, main=name, ylab="Predicted") ##red=1, blue=2
+  #graphics::points(cx[,2],type='p',col=1,pch=21,cex=2)
 
-  graphics::legend("right", legend = unique(actual),
-         col=unique(ccc*2), pch=(rep(19,length(unique(actual)))), cex=0.8, title="Actual")
+  #graphics::legend("right", legend = unique(actual),
+  #       col=unique(ccc*2), pch=(rep(19,length(unique(actual)))), cex=0.8, title="Actual")
 
-  print("Color represents the actual class. Y-value represents predicted class")
+  #print("Color represents the actual class. Y-value represents predicted class")
 
   #print the keys for classes.
-  print("Classes used by function")
-  print(unique(actual))
-  print("Original classes in data")
-  print(unique(actual_input))
+  #print("Classes used by function")
+  #print(unique(actual))
+  #print("Original classes in data")
+  #print(unique(actual_input))
 
 }
 
@@ -538,6 +543,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' 1. A numerical matrix that can be used for pheatmap generation.
 #' 2. A list of subset data sets for each column in the heatmap matrix.
 #' 3. A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC. 
+#' 4. A list of RF objects, each object corresponding to one column in the heatmap matrix.
 #'
 #' @export
 #'
@@ -657,6 +663,9 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
   
   #Capture the predicted values
   captured.predictions <- list()
+  
+  #Captured rf.results
+  captured.RF <- list()
 
   #For each level of the factor, subset the data and add the subsetted data into
   #a list.
@@ -680,6 +689,7 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
       subset.data.rf.result <- randomForest::randomForest(x=subset.data[,name.of.predictors.to.use], y=subset.data[,target.column.name], proximity=TRUE)
     }
 
+    captured.RF[[i]] <- subset.data.rf.result
 
 
     #Importance values
@@ -705,7 +715,7 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 
   }
 
-  output <- list(captured.importance.values, subsets.of.data, captured.predictions)
+  output <- list(captured.importance.values, subsets.of.data, captured.predictions, captured.RF)
   
   return(output)
 
@@ -743,6 +753,7 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' 1. A numerical matrix that can be used for pheatmap generation.
 #' 2. A list of subset data sets for each column in the heatmap matrix.
 #' 3. A list of vectors containing the predictions for each column in the heatmap matrix. These values are used to calculate the MCC. 
+#' 4. A list of RF objects, each object corresponding to one column in the heatmap matrix.
 #'
 #' @export
 #'
@@ -847,7 +858,7 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
   #Remove tally column
   matrix.for.pheatmap.percentile <- matrix.for.pheatmap.percentile[,1:(dim(matrix.for.pheatmap.percentile)[2]-1)]
 
-  output <- list(matrix.for.pheatmap.percentile, results[[2]], results[[3]])
+  output <- list(matrix.for.pheatmap.percentile, results[[2]], results[[3]], results[[4]])
   
   return(output)
 

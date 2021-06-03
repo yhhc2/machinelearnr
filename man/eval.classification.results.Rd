@@ -4,12 +4,12 @@
 \alias{eval.classification.results}
 \title{Determine the performance of classification}
 \usage{
-eval.classification.results(actual_input, predicted_input, name)
+eval.classification.results(actual, predicted, name)
 }
 \arguments{
-\item{actual_input}{A vector that indicates the actual class for each observation.}
+\item{actual}{A vector that indicates the actual class for each observation.}
 
-\item{predicted_input}{A vector that indicates the predicted class for each observation.}
+\item{predicted}{A vector that indicates the predicted class for each observation.}
 
 \item{name}{A string that specifies the title to be used for plotting.}
 }
@@ -21,6 +21,12 @@ The Matthew's Correlation Coefficient, proportion of total classifications
 that are correct, and proportions of classifications correct for each
 class are all displayed by this function. Plots are also displayed
 to show performance of classification.
+}
+\details{
+capture.output() can be used to capture the output from this function
+and write the results into a text file.
+
+This is probably easier than using this function: https://rdrr.io/cran/Momocs/man/classification_metrics.html
 }
 \examples{
 
