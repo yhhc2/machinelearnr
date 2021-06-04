@@ -189,9 +189,11 @@ eval.classification.results <- function(actual, predicted, name = "") {
   
   MCC <- mltools::mcc(preds = predicted.char, actuals = actual.char)
   
-  MCC.val <- list("Matthew's Correlation Coefficient (MCC)", MCC)
+  MCC <- c(MCC)
+  
+  names(MCC) <- "Matthew's Correlation Coefficient (MCC)"
 
-  output <- list(name, contingency.table.labeled, Momocs.metrics, MCC.val)
+  output <- list(name, contingency.table.labeled, Momocs.metrics, MCC)
 
 
   return(output)
