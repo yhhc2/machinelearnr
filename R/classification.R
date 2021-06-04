@@ -122,6 +122,11 @@ find.best.number.of.trees <- function(error.oob) {
 #' 
 #' Helpful for reference: 
 #' https://rdrr.io/cran/Momocs/man/classification_metrics.html
+#' 
+#' https://blog.revolutionanalytics.com/2016/03/com_class_eval_metrics_r.html
+#' 
+#' https://github.com/saidbleik/Evaluation
+#' 
 #'
 #' @param actual A character vector that indicates the actual class for each observation.
 #' @param predicted A character vector that indicates the predicted class for each observation.
@@ -131,7 +136,7 @@ find.best.number.of.trees <- function(error.oob) {
 #' 1. Name. Helpful if this function is put into a loop and the output is meant to be written into a separate text file. Otherwise, just leave blank.
 #' 2. Contingency table used for calculating classification metrics by Momocs.
 #' 3. Metrics calculated by Momocs. 
-#' 4. MCC value calcualted by mltools.
+#' 4. MCC value calculated by mltools labeled. 
 #'
 #' @export
 #'
@@ -178,9 +183,15 @@ eval.classification.results <- function(actual, predicted, name = "") {
   
   Momocs.metrics <- Momocs::classification_metrics(contingency.table)
   
+  #Convert tibbles to dataframes
+  Momocs.metrics$macro_prf <- as.data.frame(Momocs.metrics$macro_prf)
+  Momocs.metrics$macro_avg <- as.data.frame(Momocs.metrics$macro_avg)
+  
   MCC <- mltools::mcc(preds = predicted.char, actuals = actual.char)
+  
+  MCC.val <- list("Matthew's Correlation Coefficient (MCC)", MCC)
 
-  output <- list(name, contingency.table.labeled, Momocs.metrics, MCC)
+  output <- list(name, contingency.table.labeled, Momocs.metrics, MCC.val)
 
 
   return(output)

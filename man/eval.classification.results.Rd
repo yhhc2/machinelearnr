@@ -19,7 +19,7 @@ A list with 4 objects:
 \item Name. Helpful if this function is put into a loop and the output is meant to be written into a separate text file. Otherwise, just leave blank.
 \item Contingency table used for calculating classification metrics by Momocs.
 \item Metrics calculated by Momocs.
-\item MCC value calcualted by mltools.
+\item MCC value calculated by mltools labeled.
 }
 }
 \description{
@@ -30,6 +30,10 @@ the performance of classification.
 \details{
 Helpful for reference:
 https://rdrr.io/cran/Momocs/man/classification_metrics.html
+
+https://blog.revolutionanalytics.com/2016/03/com_class_eval_metrics_r.html
+
+https://github.com/saidbleik/Evaluation
 }
 \examples{
 
