@@ -213,24 +213,69 @@ preferred in most cases.</p>
 <span class='va'>actual</span> <span class='op'>&lt;-</span> <span class='va'>example.data</span><span class='op'>[</span>,<span class='st'>"actual"</span><span class='op'>]</span>
 
 <span class='co'>#Result is not perfect because RF model does not over fit to the training data.</span>
-<span class='fu'><a href='eval.classification.results.html'>eval.classification.results</a></span><span class='op'>(</span><span class='va'>actual</span>, <span class='va'>predicted</span>, <span class='st'>"Example"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "The MCC (Matthews Correlation Coefficient is:  0.93319674101209"
-#&gt; [1] 0.9331967
+<span class='fu'><a href='eval.classification.results.html'>eval.classification.results</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>actual</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>predicted</span><span class='op'>)</span>, <span class='st'>"Example"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] "Example"
-#&gt; [1] "proportion of total classification correct:  95.4545454545455"
-#&gt; [1] 95.45455
-#&gt; [1] "proportion of classification correct for class 1 : 100"
-#&gt; [1] 100
-#&gt; [1] "proportion of classification correct for class 2 : 83.3333333333333"
-#&gt; [1] 83.33333
-#&gt; [1] "proportion of classification correct for class 3 : 100"
-#&gt; [1] 100</div><div class='output co'>#&gt; [1] "Color represents the actual class. Y-value represents predicted class"
-#&gt; [1] "Classes used by function"
-#&gt; [1] 1 2 3
-#&gt; [1] "Original classes in data"
-#&gt; [1] 1 2 3
-#&gt; Levels: 1 2 3</div><div class='input'>
-</div></pre>
+#&gt; 
+#&gt; [[2]]
+#&gt;       predicted
+#&gt; actual 1 2 3
+#&gt;      1 7 0 0
+#&gt;      2 0 5 1
+#&gt;      3 0 0 9
+#&gt; 
+#&gt; [[3]]
+#&gt; [[3]]$accuracy
+#&gt; [1] 0.9545455
+#&gt; 
+#&gt; [[3]]$macro_prf
+#&gt; <span style='color: #949494;'># A tibble: 3 x 3</span><span>
+#&gt;   precision recall    f1
+#&gt;       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>       1    1     1    
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>       1    0.833 0.909
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>       0.9  1     0.947
+#&gt; 
+#&gt; [[3]]$macro_avg
+#&gt; </span><span style='color: #949494;'># A tibble: 1 x 3</span><span>
+#&gt;   avg_precision avg_recall avg_f1
+#&gt;           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>         0.967      0.944  0.952
+#&gt; 
+#&gt; [[3]]$ova
+#&gt; [[3]]$ova$`1`
+#&gt;         classified
+#&gt; actual   1 others
+#&gt;   1      7      0
+#&gt;   others 0     15
+#&gt; 
+#&gt; [[3]]$ova$`2`
+#&gt;         classified
+#&gt; actual   2 others
+#&gt;   2      5      1
+#&gt;   others 0     16
+#&gt; 
+#&gt; [[3]]$ova$`3`
+#&gt;         classified
+#&gt; actual   3 others
+#&gt;   3      9      0
+#&gt;   others 1     12
+#&gt; 
+#&gt; 
+#&gt; [[3]]$ova_sum
+#&gt;           classified
+#&gt; actual     relevant others
+#&gt;   relevant       21      1
+#&gt;   others          1     43
+#&gt; 
+#&gt; [[3]]$kappa
+#&gt; [1] 0.9301587
+#&gt; 
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 0.9331967
+#&gt; </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -177,9 +177,14 @@ eval.classification.results <- function(actual, predicted, name = "") {
   actual.char <- as.character(actual)
   predicted.char <- as.character(predicted)
   
-  contingency.table.labeled <- table(actual.char, predicted.char, dnn = c("actual", "predicted"))
+  #This step is necessary because the table has to be square for the metric functions
+  #to work. 
+  x <- factor(actual.char, levels = union(actual.char, predicted.char))
+  y <- factor(predicted.char, levels = union(actual.char, predicted.char))
+
+  contingency.table.labeled <- table(x, y, dnn = c("actual", "predicted"))
   
-  contingency.table <- table(actual.char, predicted.char)
+  contingency.table <- table(x, y)
   
   Momocs.metrics <- Momocs::classification_metrics(contingency.table)
   
