@@ -30,7 +30,7 @@ example.data <- data.frame(x = c(18, 21, 22, 24, 26, 26, 27, 30, 31,
                           y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44,
                                 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45))
 
-dev.new()
+#dev.new()
 plot(example.data$x, example.data$y)
 
 km.res <- stats::kmeans(example.data[,c("x", "y")], 3, nstart = 25, iter.max=10)

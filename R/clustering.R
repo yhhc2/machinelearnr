@@ -37,7 +37,7 @@
 #'                           y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44,
 #'                                 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45))
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #'
 #' #Results should say that 3 clusters is optimal
@@ -47,10 +47,10 @@
 #'
 #' ch.and.asw.plot <- output[[2]]
 #'
-#' dev.new()
+#' #dev.new()
 #' elbow.plot
 #'
-#' dev.new()
+#' #dev.new()
 #' ch.and.asw.plot
 #'
 CalcOptimalNumClustersForKMeans <- function(inputted.data, clustering.columns){
@@ -107,7 +107,7 @@ CalcOptimalNumClustersForKMeans <- function(inputted.data, clustering.columns){
 #'                           y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44,
 #'                                 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45))
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #'
 #' km.res <- stats::kmeans(example.data[,c("x", "y")], 3, nstart = 25, iter.max=10)
@@ -161,7 +161,7 @@ generate.plots.comparing.clusters <- function(data.input, rows.for.each.cluster,
 #'                           y = c(10, 11, 22, 15, 12, 13, 14, 33, 39, 37, 44,
 #'                                 27, 29, 20, 28, 21, 30, 31, 23, 24, 40, 45))
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #'
 #' km.res <- stats::kmeans(example.data[,c("x", "y")], 3, nstart = 25, iter.max=10)
@@ -260,7 +260,7 @@ GenerateParcoordForClusters <- function(inputted.data, cluster.assignment.column
 #'                            z = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 #'                                  1, 1, 1, 1, 1, 1, 1, 1, 1))
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #'
 #' km.res <- stats::kmeans(example.data[,c("x", "y", "z")], 3, nstart = 25, iter.max=10)
@@ -385,7 +385,7 @@ generate.2D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'                            z = c(1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3,
 #'                                  3, 3, 3, 3, 3, 3, 3, 3))
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #'
 #' km.res <- stats::kmeans(example.data[,c("x", "y", "z")], 3, nstart = 25, iter.max=10)
@@ -508,7 +508,7 @@ generate.3D.clustering.with.labeled.subgroup <- function(pca.results.input, clus
 #'
 #' example.data <- data.frame(id, x, y, color)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #' text(example.data$x, example.data$y, labels = id, cex=0.9, font=2)
 #'

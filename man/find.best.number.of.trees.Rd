@@ -58,7 +58,7 @@ trees <- 1:length(error.oob)
 
 plot(trees, error.oob, type = "l")
 
-dev.new()
+#dev.new()
 plot(example.data$x, example.data$y)
 text(example.data$x, example.data$y,labels=example.data$id)
 

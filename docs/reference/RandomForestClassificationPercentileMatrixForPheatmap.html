@@ -197,7 +197,8 @@ of the final matrix also has rows, with each row specifying a single predictor
 used. The mean decrease in gini index for each feature is inputted this function.
 Within each column the mean decrease in gini index is converted to a percentile,
 with the feature with the highest mean decrease in gini index receiving a 100th
-percentile.</p>
+percentile. The RandomForestClassificationGiniMatrixForPheatmap() function
+is used for this function.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Classification functions: 
@@ -247,14 +248,14 @@ percentile.</p>
 
 <span class='va'>example.data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>a</span>, <span class='va'>b</span>, <span class='va'>sep.xy.ab</span>, <span class='va'>actual</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#dev.new()</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>y</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>y</span>,labels<span class='op'>=</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>x</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>y</span>,labels<span class='op'>=</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
+</div><div class='img'><img src='RandomForestClassificationPercentileMatrixForPheatmap-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>#dev.new()</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span>,labels<span class='op'>=</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
-
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/text.html'>text</a></span><span class='op'>(</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>a</span>, <span class='va'>example.data</span><span class='op'>$</span><span class='va'>b</span>,labels<span class='op'>=</span><span class='va'>example.data</span><span class='op'>$</span><span class='va'>id</span><span class='op'>)</span>
+</div><div class='img'><img src='RandomForestClassificationPercentileMatrixForPheatmap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'>RandomForestClassificationPercentileMatrixForPheatmap</span><span class='op'>(</span>
                                        input.data <span class='op'>=</span> <span class='va'>example.data</span>,
                                        factor.name.for.subsetting <span class='op'>=</span> <span class='st'>"sep.xy.ab"</span>,
@@ -265,15 +266,15 @@ percentile.</p>
 <span class='va'>matrix.for.pheatmap</span> <span class='op'>&lt;-</span> <span class='va'>results</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
 
 <span class='va'>pheatmap_RF</span> <span class='op'>&lt;-</span> <span class='fu'>pheatmap</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/pheatmap/man/pheatmap.html'>pheatmap</a></span><span class='op'>(</span><span class='va'>matrix.for.pheatmap</span>, fontsize_col <span class='op'>=</span> <span class='fl'>12</span>, fontsize_row<span class='op'>=</span><span class='fl'>12</span><span class='op'>)</span>
-
+</div><div class='input'>
 
 <span class='co'>#The pheatmap shows that the points in groups 1, 2, and 3 can be predicted</span>
 <span class='co'>#with features x and y. While points in group 4 and 5 can be predicted with</span>
 <span class='co'>#features a and b.</span>
 
-<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.new</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>#dev.new()</span>
 <span class='va'>pheatmap_RF</span>
-
+</div><div class='img'><img src='RandomForestClassificationPercentileMatrixForPheatmap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

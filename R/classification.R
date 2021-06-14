@@ -54,7 +54,7 @@
 #'
 #' plot(trees, error.oob, type = "l")
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #' text(example.data$x, example.data$y,labels=example.data$id)
 #'
@@ -584,11 +584,11 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #'
 #' example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #' text(example.data$x, example.data$y,labels=example.data$id)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
@@ -619,7 +619,7 @@ LOOCVPredictionsRandomForestAutomaticMtryAndNtree <- function(inputted.data,
 #' #The pheatmap shows that the points in groups 1, 2, and 3 can be predicted
 #' #with features x and y. While points in group 4 and 5 can be predicted with
 #' #features a and b.
-#' dev.new()
+#' #dev.new()
 #' pheatmap_RF
 #'
 #' #Note that the 1/2/3 column is exactly the same as the random forest
@@ -738,7 +738,8 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' used. The mean decrease in gini index for each feature is inputted this function.
 #' Within each column the mean decrease in gini index is converted to a percentile,
 #' with the feature with the highest mean decrease in gini index receiving a 100th
-#' percentile.
+#' percentile. The RandomForestClassificationGiniMatrixForPheatmap() function
+#' is used for this function. 
 #'
 #'
 #' @param input.data A dataframe.
@@ -795,11 +796,11 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #'
 #' example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #' text(example.data$x, example.data$y,labels=example.data$id)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
@@ -819,7 +820,7 @@ RandomForestClassificationGiniMatrixForPheatmap <- function(input.data,
 #' #with features x and y. While points in group 4 and 5 can be predicted with
 #' #features a and b.
 #'
-#' dev.new()
+#' #dev.new()
 #' pheatmap_RF
 #'
 RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
@@ -939,11 +940,11 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #'
 #' example.data <- data.frame(id, x, y, a, b, sep.xy.ab, actual)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$x, example.data$y)
 #' text(example.data$x, example.data$y,labels=example.data$id)
 #'
-#' dev.new()
+#' #dev.new()
 #' plot(example.data$a, example.data$b)
 #' text(example.data$a, example.data$b,labels=example.data$id)
 #'
@@ -964,7 +965,7 @@ RandomForestClassificationPercentileMatrixForPheatmap <- function(input.data,
 #' #with features x and y. While points in group 4 and 5 can be predicted with
 #' #features a and b.
 #'
-#' dev.new()
+#' #dev.new()
 #' pheatmap_RF
 #'
 LOOCVRandomForestClassificationMatrixForPheatmap <- function(input.data,

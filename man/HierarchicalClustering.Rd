@@ -75,7 +75,7 @@ color = as.factor(c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 
 
 example.data <- data.frame(id, x, y, color)
 
-dev.new()
+#dev.new()
 plot(example.data$x, example.data$y)
 text(example.data$x, example.data$y, labels = id, cex=0.9, font=2)
 

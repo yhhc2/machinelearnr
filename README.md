@@ -43,6 +43,13 @@ The main functions for classification are:
     <https://doi.org/10.1002/widm.1301>, “Hyperparameters and tuning
     strategies for random forest” by Probst et al, 2019.
 
+  - RandomForestClassificationPercentileMatrixForPheatmap(): This
+    creates random forest model on several smaller subset data sets of a
+    larger data set and outputs results in the form of a pheatmap so
+    that the random forest performance in terms of prediction accuracy
+    and feature importance can be compared between each subset.
+    ![pheatmap2](README_files/figure-gfm/unnamed-chunk-15-3.png)
+
   - CVPredictionsRandomForest(): This performs random forest
     classification using default hyperparameters and also uses
     cross-validation. The cross-validation fold can be specified by the
@@ -52,8 +59,9 @@ The main functions for classification are:
   - CVRandomForestClassificationMatrixForPheatmap(): This uses
     CVPredictionsRandomForest() on several smaller subset data sets of a
     larger data set and outputs results in the form of a pheatmap so
-    that the random forest performance can be compared between each
-    subset. ![pheatmap](README_files/figure-gfm/unnamed-chunk-15-3.png)
+    that the random forest performance in terms of prediction accuracy
+    and feature importance can be compared between each subset.
+    ![pheatmap1](README_files/figure-gfm/unnamed-chunk-12-3.png)
 
 ## Installation
 
