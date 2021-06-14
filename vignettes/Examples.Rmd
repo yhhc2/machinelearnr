@@ -9,7 +9,7 @@ vignette: >
 
 ## Installation
 
-```{r, r, warning=FALSE, message=FALSE, results = FALSE}
+```{r, r, warning=FALSE, message=FALSE, results = FALSE, eval=FALSE}
 # Install the package from GitHub
 devtools::install_github("yhhc2/machinelearnr")
 ```
