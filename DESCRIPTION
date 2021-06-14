@@ -1,6 +1,6 @@
 Package: machinelearnr
 Title: Package with various functions for preprocessing, clustering, and classification 
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     person(given = "Yong-Han Hank",
            family = "Cheng",
